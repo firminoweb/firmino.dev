@@ -13,10 +13,10 @@ export function StackSection() {
       <div className="content-container">
         <Reveal>
           <div className="text-center mb-12">
-            <SectionLabel center>Stack Técnica</SectionLabel>
+            <SectionLabel center>Nossa Stack</SectionLabel>
             <h2 className="font-serif section-heading">
-              Domínio full-stack que gera<br />
-              <span className="text-accent-light italic">resultados consistentes</span>
+              Tecnologias que usamos para<br />
+              <span className="text-accent-light italic">entregar resultados</span>
             </h2>
           </div>
         </Reveal>

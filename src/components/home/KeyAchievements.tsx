@@ -9,10 +9,10 @@ export function KeyAchievements() {
       <div className="content-container">
         <Reveal>
           <div className="text-center mb-12">
-            <SectionLabel center>Realizações-Chave</SectionLabel>
+            <SectionLabel center>Resultados Comprovados</SectionLabel>
             <h2 className="font-serif section-heading">
               Impacto mensurável em<br />
-              <span className="text-accent-light italic">cada projeto</span>
+              <span className="text-accent-light italic">cada entrega</span>
             </h2>
           </div>
         </Reveal>

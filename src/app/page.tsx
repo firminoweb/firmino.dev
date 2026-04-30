@@ -5,8 +5,6 @@ import {
   KeyAchievements,
   Services,
   Cases,
-  StackSection,
-  Certifications,
   AiCta,
 } from "@/components/home";
 
@@ -21,8 +19,6 @@ export default function HomePage() {
         <KeyAchievements />
         <Services />
         <Cases />
-        <StackSection />
-        <Certifications />
         <AiCta />
         <Footer />
       </div>

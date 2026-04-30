@@ -9,7 +9,7 @@ export function Clients() {
       <section className="section-padding-sm">
         <div className="content-container">
           <p className="text-center text-xs text-text-dark tracking-[2px] uppercase mb-7 font-medium">
-            Empresas que confiam no meu trabalho
+            Empresas que confiam na nossa expertise
           </p>
           <div className="flex flex-wrap justify-center gap-5 sm:gap-9 items-center py-7 border-y border-border-subtle">
             {CLIENTS.map((c, i) => (

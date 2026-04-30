@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import { useScrolled } from "@/hooks/useScrolled";
 import { Button } from "@/components/ui";
@@ -20,19 +21,21 @@ export function Navbar() {
       )}
     >
       <div className="content-container flex justify-between items-center h-[72px]">
-        <div className="flex items-center gap-[3px]">
+        <Link href="/" className="flex items-center gap-[3px]">
           <span className="text-[21px] font-extrabold text-white tracking-tight">firmino</span>
           <span className="text-[21px] font-light text-accent-light">.dev</span>
-        </div>
+        </Link>
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-8">
           {NAV_ITEMS.map((n) => (
-            <a key={n} className="nav-link" href={`#${n.toLowerCase()}`}>
-              {n}
-            </a>
+            <Link key={n.href} className="nav-link" href={n.href}>
+              {n.label}
+            </Link>
           ))}
-          <Button className="!py-2.5 !px-[22px]">Agendar Reunião</Button>
+          <Link href="/contato">
+            <Button className="!py-2.5 !px-[22px]">Fale Conosco</Button>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -56,16 +59,18 @@ export function Navbar() {
       >
         <div className="flex flex-col gap-4 pt-2">
           {NAV_ITEMS.map((n) => (
-            <a
-              key={n}
+            <Link
+              key={n.href}
               className="nav-link !text-[15px]"
-              href={`#${n.toLowerCase()}`}
+              href={n.href}
               onClick={() => setMenuOpen(false)}
             >
-              {n}
-            </a>
+              {n.label}
+            </Link>
           ))}
-          <Button className="!py-2.5 !px-[22px] w-fit mt-2">Agendar Reunião</Button>
+          <Link href="/contato" onClick={() => setMenuOpen(false)}>
+            <Button className="!py-2.5 !px-[22px] w-fit mt-2">Fale Conosco</Button>
+          </Link>
         </div>
       </div>
     </nav>

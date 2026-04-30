@@ -14,20 +14,38 @@ export interface Service {
   desc: string;
 }
 
-export interface CaseMetric {
+export interface ProjectMetric {
   value: string;
   label: string;
 }
 
-export interface Case {
-  company: string;
+export interface ProjectLink {
+  href: string;
+  label: string;
+}
+
+export type ProjectType = "corporate" | "freelance" | "personal" | "oss";
+
+export interface Project {
+  slug: string;
+  title: string;
+  client: string;
+  type: ProjectType;
   role: string;
+  year: string;
   period: string;
   duration: string;
   location: string;
-  metrics: CaseMetric[];
-  bullets: string[];
-  tags: string[];
+  summary: string;
+  context: string[];
+  challenge: string[];
+  solution: string[];
+  outcome: string[];
+  highlights: string[];
+  metrics: ProjectMetric[];
+  stack: string[];
+  links?: ProjectLink[];
+  featured?: boolean;
 }
 
 export interface EarlierRole {
@@ -41,25 +59,6 @@ export interface Stat {
   value: string;
   label: string;
   detail: string;
-}
-
-export interface Certification {
-  name: string;
-  issuer: string;
-  icon: string;
-}
-
-export interface Education {
-  degree: string;
-  field: string;
-  school: string;
-  year: string;
-}
-
-export interface Language {
-  lang: string;
-  level: string;
-  pct: number;
 }
 
 export interface Stack {
