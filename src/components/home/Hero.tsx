@@ -8,14 +8,14 @@ export function Hero() {
       <div className="content-container w-full grid grid-cols-1 lg:grid-cols-[1.15fr_.85fr] gap-10 lg:gap-14 items-center">
         <Reveal>
           <div>
-            <SectionLabel>Senior Fullstack Developer | Front-End & Back-End</SectionLabel>
+            <SectionLabel>Engenharia de Software · Web · Mobile · IA</SectionLabel>
             <h1 className="hero-heading">
               <span className="font-serif">Desenvolvemos soluções</span><br />
               <span className="font-serif">que transformam </span>
               <span className="font-serif text-accent-light italic">negócios</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.75] max-w-[500px] mb-5">
-              Somos especialistas em Angular, React, React Native, Next.js e Node.js com 15+ anos de mercado. Criamos aplicações escaláveis potencializadas por Generative AI & LLM Applications para empresas que exigem excelência.
+              Construímos plataformas web, apps mobile e produtos potencializados por Generative AI & LLM Applications. Mais de 15 anos entregando software escalável para empresas que exigem excelência.
             </p>
             <div className="flex flex-wrap gap-2 mb-9">
               {HERO_TAGS.map((t) => (
@@ -47,7 +47,7 @@ export function Hero() {
               <div className="flex flex-col items-center gap-5 px-6 pt-9 pb-10">
                 <div className="hero-card-icon animate-float">⟨/⟩</div>
                 <div className="text-center">
-                  <div className="font-serif text-[30px] text-white font-medium">Full-Stack</div>
+                  <div className="font-serif text-[30px] text-white font-medium">Engenharia</div>
                   <div className="font-serif text-[30px] text-accent-light italic">AI-Driven</div>
                 </div>
                 <p className="text-[12.5px] text-text-dim text-center leading-[1.6] px-2">

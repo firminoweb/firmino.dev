@@ -6,11 +6,11 @@ import { SERVICES } from "@/data/portfolio";
 export const metadata = {
   title: "Serviços — firmino.dev",
   description:
-    "Desenvolvimento full-stack, arquitetura de micro-frontends, mobile, performance, consultoria técnica e aplicações com Generative AI.",
+    "Engenharia de software para web, micro-frontends, mobile, performance, consultoria técnica e aplicações com Generative AI.",
 };
 
 const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] }> = {
-  "Desenvolvimento Full-Stack": {
+  "Aplicações Web Completas": {
     deliverables: [
       "MVPs e produtos completos do protótipo ao deploy em produção",
       "Aplicações SPA, PWA e SSR com Next.js",
@@ -50,7 +50,7 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
     deliverables: [
       "Liderança técnica e arquitetural em squads",
       "Code review, definição de padrões e style guides",
-      "Mentoria de devs Pleno e Sênior",
+      "Mentoria e capacitação de times técnicos",
       "Definição de roadmap técnico e dívida estratégica",
     ],
     stack: ["Tech Lead", "Code Review", "Padrões", "Mentoria"],

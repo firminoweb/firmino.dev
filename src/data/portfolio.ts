@@ -3,14 +3,15 @@ import type {
   Service,
   Project,
   ProjectType,
-  EarlierRole,
+  PastClient,
   Stat,
   Stack,
+  ClientBrand,
 } from "@/types";
 
 /* ════════════════════════════════════════════
    Portfolio data — firmino.dev
-   Empresa de Desenvolvimento de Software
+   Empresa de Engenharia de Software
    ════════════════════════════════════════════ */
 
 export interface NavItem {
@@ -29,14 +30,14 @@ export const NAV_ITEMS: NavItem[] = [
 export const HERO_TAGS = ["Angular", "React", "React Native", "Next.js", "Node.js", "Generative AI", "LLM Applications", "AI-Driven"];
 
 export const KEY_ACHIEVEMENTS: KeyAchievement[] = [
-  { value: "-60%", label: "Deploy time", desc: "Migração para micro-frontends" },
+  { value: "-60%", label: "Deploy time", desc: "Modernização de plataformas corporativas" },
   { value: "+35%", label: "Conversão mobile", desc: "Arquitetura PWA" },
-  { value: "90%", label: "Cobertura testes", desc: "Jest, Cypress, Testing Library" },
+  { value: "90%", label: "Cobertura de testes", desc: "Jest, Cypress, Testing Library" },
   { value: "-40%", label: "Tempo de carga", desc: "Code splitting & lazy loading" },
 ];
 
 export const SERVICES: Service[] = [
-  { icon: "◈", title: "Desenvolvimento Full-Stack", desc: "Construímos aplicações completas com Angular, React, Next.js no frontend e Node.js no backend — do protótipo ao deploy em produção." },
+  { icon: "◈", title: "Aplicações Web Completas", desc: "Construímos plataformas web completas com Angular, React, Next.js e Node.js — do protótipo ao deploy em produção, com qualidade e performance." },
   { icon: "⬡", title: "Arquitetura & Micro-frontends", desc: "Projetamos plataformas corporativas escaláveis com Module Federation, Design Systems, Clean Architecture e princípios SOLID." },
   { icon: "◎", title: "Mobile & PWA", desc: "Desenvolvemos apps com React Native e Progressive Web Apps de alta performance para alcançar milhões de usuários em qualquer dispositivo." },
   { icon: "⬢", title: "Performance & Qualidade", desc: "Auditoria Lighthouse, Web Vitals, testes automatizados (Jest, Cypress, E2E) e conformidade WCAG 2.1 AA / ARIA em cada entrega." },
@@ -54,15 +55,16 @@ export const PROJECT_TYPE_LABELS: Record<ProjectType, string> = {
 export const PROJECTS: Project[] = [
   {
     slug: "itau-unibanco-plataformas-internas",
-    title: "Plataformas internas Full-Stack",
+    title: "Plataformas internas corporativas",
     client: "Itaú Unibanco",
     type: "corporate",
-    role: "Desenvolvimento Full-Stack",
+    role: "Engenharia de plataformas internas",
     year: "2023 – 2026",
     period: "Mar 2023 – Jan 2026",
     duration: "2 anos e 11 meses",
     location: "São Paulo, Brasil",
-    summary: "Dois projetos internos Full-Stack com foco em frontend, qualidade e segurança para o maior banco privado da América Latina.",
+    summary: "Dois projetos internos com foco em qualidade e segurança para o maior banco privado da América Latina.",
+    logo: "/images/logos/itau.webp",
     context: [
       "O Itaú Unibanco demanda altíssimo padrão de segurança, qualidade e escalabilidade em suas plataformas internas. Nossa equipe foi alocada em dois projetos críticos voltados ao público interno do banco, com requisitos rigorosos de cobertura de testes, acessibilidade e performance.",
     ],
@@ -77,7 +79,7 @@ export const PROJECTS: Project[] = [
       "Cobertura de testes saltou de ~50% para 90% nas áreas sob nossa responsabilidade, com redução de 60% no tempo de carregamento percebido pelos usuários.",
     ],
     highlights: [
-      "Entrega de 2 projetos internos Full-Stack com foco em Frontend",
+      "Entrega de 2 plataformas internas com foco em qualidade e segurança",
       "Elevação de cobertura de testes com Jest e Testing Library (50% → 90%)",
       "Otimização de performance: code splitting e lazy loading (-60% load time)",
       "Arquitetura focada em segurança, qualidade e escalabilidade",
@@ -96,12 +98,13 @@ export const PROJECTS: Project[] = [
     title: "Orquestrador de APIs em micro-frontends",
     client: "TOTVS",
     type: "corporate",
-    role: "Arquitetura Frontend & Micro-frontends",
+    role: "Arquitetura de plataforma & Micro-frontends",
     year: "2022 – 2023",
     period: "Jan 2022 – Mar 2023",
     duration: "1 ano e 3 meses",
     location: "São Paulo, Brasil",
     summary: "Plataforma orquestradora de APIs com arquitetura de micro-frontends e suite E2E cobrindo 90% dos fluxos críticos.",
+    logo: "/images/logos/totvs.jpg",
     context: [
       "A TOTVS precisava unificar diversas APIs internas em uma plataforma orquestradora com interface coesa e times independentes evoluindo módulos em paralelo.",
     ],
@@ -133,12 +136,13 @@ export const PROJECTS: Project[] = [
     title: "PWA & Mobile para Eudora e Boticário",
     client: "O Boticário",
     type: "corporate",
-    role: "Full-Stack & Mobile (Tech Lead)",
+    role: "Liderança técnica · Web & Mobile",
     year: "2020 – 2022",
     period: "Fev 2020 – Jan 2022",
     duration: "2 anos",
     location: "São Paulo",
     summary: "Liderança técnica em PWAs e apps mobile para as marcas Eudora e Boticário, com automação CI/CD e ganhos expressivos de conversão.",
+    logo: "/images/logos/oboticario.png",
     context: [
       "As marcas Eudora e Boticário precisavam acelerar a evolução dos canais digitais com foco em mobile, mantendo a operação de e-commerce em escala nacional.",
     ],
@@ -170,12 +174,13 @@ export const PROJECTS: Project[] = [
     title: "Design System multi-cliente",
     client: "NTT Data (everis)",
     type: "corporate",
-    role: "Frontend & Design System",
+    role: "Engenharia de Design System",
     year: "2018 – 2020",
     period: "Nov 2018 – Fev 2020",
     duration: "1 ano e 4 meses",
     location: "São Paulo",
     summary: "Design System compartilhado entre Santander Brasil, Santander Argentina e Vivo Brasil — 30% menos tempo de desenvolvimento.",
+    logo: "/images/logos/nttdata.png",
     context: [
       "A NTT Data atendia simultaneamente Santander Brasil, Santander Argentina e Vivo Brasil — clientes com fortes exigências de acessibilidade e identidade visual própria.",
     ],
@@ -206,7 +211,7 @@ export const PROJECTS: Project[] = [
     title: "SaaS de gestão para clínicas de estética",
     client: "Cliente Exemplo",
     type: "freelance",
-    role: "Produto Full-Stack & UX",
+    role: "Produto & Experiência do Usuário",
     year: "2025",
     period: "Jan 2025 – Mai 2025",
     duration: "5 meses",
@@ -242,16 +247,16 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const EARLIER_ROLES: EarlierRole[] = [
-  { company: "zFlow", role: "Desenvolvimento Frontend", period: "Fev 2017 – Nov 2018", detail: "Web Apps de financiamento e simulação para Banco Itaú. Cobertura de testes 0% → 80%." },
-  { company: "Cnova - GPA", role: "Desenvolvimento Frontend", period: "Jul 2016 – Fev 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
-  { company: "Reclame Aqui", role: "Desenvolvimento Frontend", period: "Out 2015 – Jul 2016", detail: "Novo portal da plataforma. MVP mobile com Ionic e Angular." },
-  { company: "ViajaNet", role: "Desenvolvimento Frontend", period: "Dez 2014 – Out 2015", detail: "Plataforma de passagens aéreas + serviço Quando Viajar." },
-  { company: "Walmart.com", role: "Desenvolvimento Frontend", period: "Jul 2014 – Dez 2014", detail: "Marketplace: gerenciamento de sellers terceiros." },
-  { company: "UOL", role: "Desenvolvimento Frontend", period: "Out 2012 – Jul 2014", detail: "TodaOferta + Painel UOL Diveo (Cloud)." },
-  { company: "Axis.Idea", role: "Desenvolvimento Frontend", period: "Jan 2012 – Out 2012", detail: "Websites e soluções mobile+desktop." },
-  { company: "Tonks Idéias Criativas", role: "Desenvolvimento Frontend", period: "Out 2010 – Jan 2012", detail: "" },
-  { company: "Arca Solutions", role: "Desenvolvimento Frontend", period: "Set 2009 – Jul 2010", detail: "" },
+export const PAST_CLIENTS: PastClient[] = [
+  { company: "zFlow", period: "Fev 2017 – Nov 2018", detail: "Aplicações de financiamento e simulação para o Banco Itaú. Cobertura de testes 0% → 80%." },
+  { company: "Cnova - GPA", period: "Jul 2016 – Fev 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
+  { company: "Reclame Aqui", period: "Out 2015 – Jul 2016", detail: "Novo portal da plataforma. MVP mobile com Ionic e Angular." },
+  { company: "ViajaNet", period: "Dez 2014 – Out 2015", detail: "Plataforma de passagens aéreas + serviço Quando Viajar." },
+  { company: "Walmart.com", period: "Jul 2014 – Dez 2014", detail: "Marketplace: gerenciamento de sellers terceiros." },
+  { company: "UOL", period: "Out 2012 – Jul 2014", detail: "TodaOferta + Painel UOL Diveo (Cloud)." },
+  { company: "Axis.Idea", period: "Jan 2012 – Out 2012", detail: "Websites e soluções mobile + desktop." },
+  { company: "Tonks Idéias Criativas", period: "Out 2010 – Jan 2012", detail: "" },
+  { company: "Arca Solutions", period: "Set 2009 – Jul 2010", detail: "" },
 ];
 
 export const STATS: Stat[] = [
@@ -262,7 +267,7 @@ export const STATS: Stat[] = [
 ];
 
 export const STACK: Stack = {
-  "Full-Stack": ["Angular (+9 anos)", "React.js (+6 anos)", "Next.js", "Node.js", "TypeScript", "JavaScript ES6+", "HTML5", "CSS3"],
+  "Web": ["Angular", "React.js", "Next.js", "Node.js", "TypeScript", "JavaScript ES6+", "HTML5", "CSS3"],
   "Mobile": ["React Native", "Ionic", "Capacitor", "PWA"],
   "Backend": ["Node.js", "NestJS", "Python", "GraphQL", "REST APIs", "WebSockets"],
   "Testes": ["Jest", "Cypress", "React Testing Library", "E2E", "Integração"],
@@ -273,7 +278,21 @@ export const STACK: Stack = {
   "Acessibilidade": ["WCAG 2.1 AA", "ARIA", "Lighthouse", "Web Vitals", "Responsive Design"],
 };
 
-export const CLIENTS = ["Itaú", "Boticário", "TOTVS", "NTT Data", "Santander", "Walmart", "UOL", "Reclame Aqui", "ViajaNet", "Cnova/GPA"];
+export const STACK_DEFAULT_TAB = "Web";
+
+export const CLIENTS: ClientBrand[] = [
+  { name: "Itaú", logo: "/images/logos/itau.webp" },
+  { name: "O Boticário", logo: "/images/logos/oboticario.png" },
+  { name: "TOTVS", logo: "/images/logos/totvs.jpg" },
+  { name: "NTT Data", logo: "/images/logos/nttdata.png" },
+  { name: "Santander" },
+  { name: "Vivo" },
+  { name: "Walmart" },
+  { name: "UOL" },
+  { name: "Reclame Aqui" },
+  { name: "ViajaNet" },
+  { name: "Cnova / GPA" },
+];
 
 export const CONTACT = {
   email: "firminoata@gmail.com",

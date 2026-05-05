@@ -46,13 +46,19 @@ export interface Project {
   stack: string[];
   links?: ProjectLink[];
   featured?: boolean;
+  logo?: string;
 }
 
-export interface EarlierRole {
+export interface ClientBrand {
+  name: string;
+  logo?: string;
+}
+
+export interface PastClient {
   company: string;
-  role: string;
   period: string;
   detail: string;
+  logo?: string;
 }
 
 export interface Stat {

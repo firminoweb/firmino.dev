@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal, Button, Tag, SectionLabel } from "@/components/ui";
 import { PROJECTS, PROJECT_TYPE_LABELS, STATS } from "@/data/portfolio";
@@ -21,7 +22,7 @@ export function Cases() {
                 <span className="text-accent-light italic">resultado</span>
               </h2>
               <p className="text-[15px] text-text-dim leading-[1.75] mb-6 max-w-[380px]">
-                Da arquitetura full-stack a apps mobile e produtos com IA Generativa — uma seleção dos projetos que construímos.
+                De plataformas corporativas a apps mobile e produtos com IA Generativa — uma seleção dos projetos que construímos.
               </p>
 
               <div className="grid grid-cols-2 gap-2.5 mb-7">
@@ -49,19 +50,26 @@ export function Cases() {
                   <div className="case-glow-line" />
                   <div className="px-5 sm:px-7 pt-6">
                     <div className="flex justify-between items-start mb-1 gap-3">
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <Tag accent className="!text-[10px]">
-                            {PROJECT_TYPE_LABELS[p.type]}
-                          </Tag>
-                          <span className="text-[11px] text-text-dark">{p.year}</span>
+                      <div className="flex items-start gap-3 min-w-0">
+                        {p.logo && (
+                          <div className="project-brand">
+                            <Image src={p.logo} alt={p.client} width={44} height={44} />
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <Tag accent className="!text-[10px]">
+                              {PROJECT_TYPE_LABELS[p.type]}
+                            </Tag>
+                            <span className="text-[11px] text-text-dark">{p.year}</span>
+                          </div>
+                          <h4 className="text-[17px] sm:text-[19px] font-bold text-white mb-1 tracking-tight">
+                            {p.title}
+                          </h4>
+                          <p className="text-[13px] text-text-dim">
+                            {p.client} · {p.role}
+                          </p>
                         </div>
-                        <h4 className="text-[17px] sm:text-[19px] font-bold text-white mb-1 tracking-tight">
-                          {p.title}
-                        </h4>
-                        <p className="text-[13px] text-text-dim">
-                          {p.client} · {p.role}
-                        </p>
                       </div>
                       <span className="case-arrow shrink-0">↗</span>
                     </div>

@@ -3,10 +3,10 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { Reveal, SectionLabel } from "@/components/ui";
-import { STACK } from "@/data/portfolio";
+import { STACK, STACK_DEFAULT_TAB } from "@/data/portfolio";
 
 export function StackSection() {
-  const [activeStack, setActiveStack] = useState("Full-Stack");
+  const [activeStack, setActiveStack] = useState(STACK_DEFAULT_TAB);
 
   return (
     <section id="stack" className="section-padding">

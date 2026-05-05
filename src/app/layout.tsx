@@ -18,13 +18,13 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "firmino.dev — Desenvolvimento Full-Stack, Mobile & Generative AI",
+  title: "firmino.dev — Engenharia de Software, Mobile & Generative AI",
   description:
-    "Empresa especializada em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI & LLM. 15+ anos entregando soluções escaláveis para empresas líderes.",
+    "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI & LLM. 15+ anos entregando soluções escaláveis para empresas líderes.",
   keywords: [
-    "Front-End",
-    "Back-End",
-    "Full-Stack Developer",
+    "Engenharia de Software",
+    "Aplicações Web",
+    "Empresa de Software",
     "React",
     "Angular",
     "React Native",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "firmino.dev" }],
   openGraph: {
-    title: "firmino.dev — Desenvolvimento Full-Stack, Mobile & Generative AI",
+    title: "firmino.dev — Engenharia de Software, Mobile & Generative AI",
     description: "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
     url: "https://firmino.dev",
     siteName: "firmino.dev",

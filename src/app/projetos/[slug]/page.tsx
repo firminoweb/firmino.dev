@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -64,7 +65,14 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                 <span className="text-[12px] text-text-dim">{project.location}</span>
               </div>
 
-              <SectionLabel>{project.client}</SectionLabel>
+              <div className="flex items-center gap-4 mb-3">
+                {project.logo && (
+                  <div className="project-brand !w-[64px] !h-[64px]">
+                    <Image src={project.logo} alt={project.client} width={64} height={64} />
+                  </div>
+                )}
+                <SectionLabel>{project.client}</SectionLabel>
+              </div>
               <h1 className="font-serif hero-heading !text-[clamp(34px,4.6vw,54px)] !leading-[1.08] mb-6">
                 {project.title}
               </h1>

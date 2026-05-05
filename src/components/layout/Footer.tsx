@@ -12,7 +12,7 @@ const COMPANY_LINKS: { label: string; href: string }[] = [
 ];
 
 const SERVICE_LINKS: { label: string; href: string }[] = [
-  { label: "Full-Stack Dev", href: "/servicos" },
+  { label: "Aplicações Web", href: "/servicos" },
   { label: "Mobile & PWA", href: "/servicos" },
   { label: "Arquitetura", href: "/servicos" },
   { label: "Consultoria", href: "/servicos" },
@@ -32,7 +32,7 @@ export function Footer() {
                 <span className="text-xl font-light text-accent-light">.dev</span>
               </Link>
               <p className="text-[13.5px] text-text-dark leading-[1.75] max-w-[260px]">
-                Empresa especializada em desenvolvimento full-stack, arquitetura web e aplicações inteligentes com Generative AI & LLM para empresas que exigem excelência técnica.
+                Empresa de engenharia de software especializada em plataformas web, apps mobile e aplicações inteligentes com Generative AI & LLM para empresas que exigem excelência técnica.
               </p>
             </div>
 
