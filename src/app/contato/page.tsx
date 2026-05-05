@@ -1,5 +1,5 @@
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel } from "@/components/ui";
+import { Reveal, SectionLabel, ObfuscatedContact } from "@/components/ui";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { CONTACT } from "@/data/portfolio";
 
@@ -9,21 +9,15 @@ export const metadata = {
     "Fale com a firmino.dev. Discuta seu projeto, peça um orçamento ou agende uma conversa.",
 };
 
-const CHANNELS = [
-  {
-    label: "E-mail",
-    value: CONTACT.email,
-    href: `mailto:${CONTACT.email}`,
-    icon: "✉",
-    desc: "Resposta em até 24h úteis",
-  },
-  {
-    label: "Telefone / WhatsApp",
-    value: CONTACT.phone,
-    href: `tel:+55${CONTACT.phone.replace(/\D/g, "")}`,
-    icon: "☎",
-    desc: "São Paulo, BRT (UTC-3)",
-  },
+interface PublicChannel {
+  label: string;
+  value: string;
+  href: string;
+  icon: string;
+  desc: string;
+}
+
+const PUBLIC_CHANNELS: PublicChannel[] = [
   {
     label: "LinkedIn",
     value: "/in/firminoweb",
@@ -37,6 +31,31 @@ const CHANNELS = [
     href: CONTACT.github,
     icon: "</>",
     desc: "Código aberto e experimentos",
+  },
+];
+
+interface ProtectedChannel {
+  label: string;
+  value: string;
+  kind: "email" | "phone";
+  icon: string;
+  desc: string;
+}
+
+const PROTECTED_CHANNELS: ProtectedChannel[] = [
+  {
+    label: "E-mail",
+    value: CONTACT.email,
+    kind: "email",
+    icon: "✉",
+    desc: "Resposta em até 24h úteis",
+  },
+  {
+    label: "Telefone / WhatsApp",
+    value: CONTACT.phone,
+    kind: "phone",
+    icon: "☎",
+    desc: "São Paulo, BRT (UTC-3)",
   },
 ];
 
@@ -74,13 +93,14 @@ export default function ContatoPage() {
               </div>
             </Reveal>
 
+            {/* Canais públicos: LinkedIn / GitHub — links abertos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {CHANNELS.map((c, i) => (
+              {PUBLIC_CHANNELS.map((c, i) => (
                 <Reveal key={c.label} delay={i * 0.06}>
                   <a
                     href={c.href}
-                    target={c.href.startsWith("http") ? "_blank" : undefined}
-                    rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    target="_blank"
+                    rel="me noopener noreferrer"
                     className="gc case-card p-7 block relative overflow-hidden"
                   >
                     <div className="case-glow-line" />
@@ -101,6 +121,35 @@ export default function ContatoPage() {
                 </Reveal>
               ))}
             </div>
+
+            {/* Canais protegidos: e-mail / telefone — ofuscados contra scrapers */}
+            <Reveal delay={0.15}>
+              <div className="gc py-7 px-7 sm:px-10 mt-4 relative overflow-hidden">
+                <div className="case-glow-line" />
+                <SectionLabel>Canais diretos</SectionLabel>
+                <p className="text-[13px] text-text-dim leading-[1.65] mb-5 max-w-[560px]">
+                  Preferimos o formulário acima — é mais rápido pra alinhar contexto. Se preferir, os canais diretos abaixo também funcionam.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                  {PROTECTED_CHANNELS.map((c) => (
+                    <div key={c.label} className="flex items-start gap-3">
+                      <div className="service-icon !mb-0 !w-10 !h-10 !text-[15px]">{c.icon}</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[11px] uppercase tracking-[1.5px] font-semibold text-text-dim mb-1">
+                          {c.label}
+                        </div>
+                        <ObfuscatedContact
+                          value={c.value}
+                          kind={c.kind}
+                          className="text-[14.5px] font-semibold text-white hover:text-accent-light transition-colors break-all"
+                        />
+                        <p className="text-[11.5px] text-text-darker leading-[1.55] mt-1">{c.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
 
             <Reveal delay={0.2}>
               <div className="gc py-9 px-7 sm:px-10 mt-6 relative overflow-hidden">

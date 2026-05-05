@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Reveal } from "@/components/ui";
+import { Reveal, ObfuscatedContact } from "@/components/ui";
 import { CONTACT } from "@/data/portfolio";
 
 const COMPANY_LINKS: { label: string; href: string }[] = [
@@ -54,12 +54,18 @@ export function Footer() {
 
             <div>
               <h4 className="sub-heading">Contato</h4>
-              <a href={`mailto:${CONTACT.email}`} className="footer-link">
-                ✉ {CONTACT.email}
-              </a>
-              <a href={`tel:+55${CONTACT.phone.replace(/\D/g, "")}`} className="footer-link">
-                ☎ {CONTACT.phone}
-              </a>
+              <ObfuscatedContact
+                value={CONTACT.email}
+                kind="email"
+                prefix="✉ "
+                className="footer-link"
+              />
+              <ObfuscatedContact
+                value={CONTACT.phone}
+                kind="phone"
+                prefix="☎ "
+                className="footer-link"
+              />
               <p className="text-[13.5px] text-text-dark mb-[22px]">📍 {CONTACT.location}</p>
               <div className="flex gap-2.5">
                 {(["LinkedIn", "GitHub"] as const).map((s) => (
