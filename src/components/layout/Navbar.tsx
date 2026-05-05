@@ -22,8 +22,8 @@ export function Navbar() {
     >
       <div className="content-container flex justify-between items-center h-[72px]">
         <Link href="/" className="flex items-center gap-[3px]">
-          <span className="text-[21px] font-extrabold text-white tracking-tight">firmino</span>
-          <span className="text-[21px] font-light text-accent-light">.dev</span>
+          <span className="text-[28px] font-extrabold text-white tracking-tight">firmino</span>
+          <span className="text-[28px] font-light text-accent-light">.dev</span>
         </Link>
 
         {/* Desktop nav */}

@@ -41,7 +41,7 @@ const TIMELINE = [
   {
     year: "2012 – 2016",
     title: "Produto e escala",
-    desc: "Carreira em produtos de alto tráfego: UOL, Walmart, ViajaNet, Reclame Aqui, Cnova/GPA. Ionic, AngularJS, Node em ambiente real.",
+    desc: "Carreira em produtos de alto tráfego: UOL, Walmart, ViajaNet, Reclame Aqui, Grupo GPA. Ionic, AngularJS, Node em ambiente real.",
   },
   {
     year: "2016 – 2020",

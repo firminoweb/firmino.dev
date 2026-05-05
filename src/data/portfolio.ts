@@ -21,10 +21,10 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "Sobre", href: "/sobre" },
   { label: "Serviços", href: "/servicos" },
   { label: "Projetos", href: "/projetos" },
   { label: "Stack", href: "/stack" },
-  { label: "Contato", href: "/contato" },
 ];
 
 export const HERO_TAGS = ["Angular", "React", "React Native", "Next.js", "Node.js", "Generative AI", "LLM Applications", "AI-Driven"];
@@ -125,7 +125,7 @@ export const PROJECTS: Project[] = [
     role: "Engenharia de plataformas internas",
     year: "2023 – 2026",
     period: "Mar 2023 – Jan 2026",
-    duration: "2 anos e 11 meses",
+    duration: "3 anos",
     location: "São Paulo, Brasil",
     summary: "Dois projetos internos com foco em qualidade e segurança para o maior banco privado da América Latina.",
     logo: "/images/logos/itau.webp",
@@ -274,7 +274,7 @@ export const PROJECTS: Project[] = [
 
 export const PAST_CLIENTS: PastClient[] = [
   { company: "zFlow", period: "Fev 2017 – Nov 2018", detail: "Aplicações de financiamento e simulação para o Banco Itaú. Cobertura de testes 0% → 80%." },
-  { company: "Cnova - GPA", period: "Jul 2016 – Fev 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
+  { company: "Grupo GPA", period: "Jul 2016 – Fev 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
   { company: "Reclame Aqui", period: "Out 2015 – Jul 2016", detail: "Novo portal da plataforma. MVP mobile com Ionic e Angular." },
   { company: "ViajaNet", period: "Dez 2014 – Out 2015", detail: "Plataforma de passagens aéreas + serviço Quando Viajar." },
   { company: "Walmart.com", period: "Jul 2014 – Dez 2014", detail: "Marketplace: gerenciamento de sellers terceiros." },
@@ -286,8 +286,8 @@ export const PAST_CLIENTS: PastClient[] = [
 
 export const STATS: Stat[] = [
   { value: "15+", label: "Anos no mercado", detail: "Desde 2009" },
-  { value: "13+", label: "Clientes atendidos", detail: "Startups a Enterprise" },
-  { value: "M+", label: "Usuários impactados", detail: "Escala nacional" },
+  { value: "20+", label: "Clientes atendidos", detail: "Startups a Enterprise" },
+  { value: "Milhões+", label: "Usuários impactados", detail: "Escala nacional" },
   { value: "50+", label: "Projetos entregues", detail: "Web, Mobile & AI" },
 ];
 
@@ -317,7 +317,7 @@ export const CLIENTS: ClientBrand[] = [
   { name: "UOL" },
   { name: "Reclame Aqui" },
   { name: "ViajaNet" },
-  { name: "Cnova / GPA" },
+  { name: "Grupo GPA" },
 ];
 
 export const CONTACT = {
