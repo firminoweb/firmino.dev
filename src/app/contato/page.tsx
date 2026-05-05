@@ -1,5 +1,6 @@
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel } from "@/components/ui";
+import { ContactForm } from "@/components/forms/ContactForm";
 import { CONTACT } from "@/data/portfolio";
 
 export const metadata = {
@@ -59,6 +60,20 @@ export default function ContatoPage() {
 
         <section className="section-padding !pt-6">
           <div className="content-container max-w-[920px]">
+            <Reveal>
+              <div className="gc py-8 px-7 sm:px-10 mb-6 relative overflow-hidden">
+                <div className="case-glow-line" />
+                <SectionLabel>Formulário</SectionLabel>
+                <h2 className="font-serif text-[24px] sm:text-[28px] !leading-[1.18] text-white mb-2">
+                  Conte sobre o seu projeto
+                </h2>
+                <p className="text-[13.5px] text-text-dim leading-[1.7] mb-6 max-w-[560px]">
+                  Quanto mais detalhes (escopo, prazo, stack atual), mais útil será nossa primeira resposta.
+                </p>
+                <ContactForm />
+              </div>
+            </Reveal>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {CHANNELS.map((c, i) => (
                 <Reveal key={c.label} delay={i * 0.06}>
