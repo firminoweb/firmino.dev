@@ -60,6 +60,28 @@
     background: #2a2d52;
     border-radius: 3px;
   }
+
+  /* Honor user's motion preference — disable looping decorations
+     and any non-essential transitions for reduced-motion users. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    .bg-blob-1,
+    .bg-blob-2,
+    .bg-blob-3,
+    .bg-grid,
+    .hero-sweep-bar,
+    .hero-card-icon {
+      animation: none !important;
+    }
+  }
 }
 
 /* ─── Keyframes ─── */
@@ -573,6 +595,17 @@
     object-fit: contain;
   }
 
+  /* Client Wordmark — fallback tipográfico para clientes sem logo */
+  .client-wordmark {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1d3e;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
   /* Client Monogram — small avatar for past-clients list */
   .client-mono {
     width: 40px;
@@ -631,5 +664,91 @@
     align-items: center;
     justify-content: center;
     padding: 140px clamp(24px, 5vw, 80px) 80px;
+  }
+
+  /* Project Cover */
+  .project-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #1e214566;
+    background: linear-gradient(155deg, #161c3a, #11142e);
+  }
+
+  .project-cover-fallback {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(20px, 4vw, 40px);
+    background:
+      radial-gradient(ellipse at 18% 12%, var(--cover-accent-soft, #4263eb33) 0%, transparent 55%),
+      radial-gradient(ellipse at 88% 90%, #5c7cfa22 0%, transparent 50%),
+      linear-gradient(155deg, #161c3a, #0d102a);
+  }
+
+  .project-cover-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, #4263eb12 1px, transparent 1px),
+      linear-gradient(to bottom, #4263eb12 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .project-cover-glow {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cover-accent, #4263eb), transparent);
+    opacity: 0.6;
+  }
+
+  .project-cover-logo {
+    position: absolute;
+    top: clamp(18px, 3vw, 28px);
+    right: clamp(18px, 3vw, 28px);
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: #f4f5fa;
+    border: 1px solid #1e2145;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  .project-cover-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
+  }
+
+  .project-cover-meta {
+    position: relative;
+    color: #9498b5;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .project-cover-title {
+    position: relative;
+    font-family: var(--font-serif);
+    font-size: clamp(20px, 3.5vw, 36px);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    max-width: 80%;
   }
 }

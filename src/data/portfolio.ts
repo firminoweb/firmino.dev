@@ -54,6 +54,70 @@ export const PROJECT_TYPE_LABELS: Record<ProjectType, string> = {
 
 export const PROJECTS: Project[] = [
   {
+    slug: "viaza-gomilhas-passagens-milhas",
+    title: "Plataforma whitelabel de passagens com milhas",
+    client: "Viaza / GoMilhas",
+    type: "freelance",
+    role: "Engenharia de plataforma · Web & PWA",
+    year: "2024 – 2026",
+    period: "Em andamento",
+    duration: "Em andamento",
+    location: "Remoto, Brasil",
+    summary:
+      "Frontend whitelabel multi-marca para busca, checkout e pós-venda de passagens aéreas com milhas ou cartão — duas marcas (Viaza e GoMilhas) em um único código.",
+    logo: "/images/logos/viaza.webp",
+    accent: "#1f7aff",
+    context: [
+      "A operação roda duas marcas comerciais — Viaza e GoMilhas — atendendo públicos distintos com a mesma stack de busca, motor de tarifas e integração de gateway. O desafio era manter um único código capaz de comutar branding, rotas, conteúdo de CMS e tema em runtime conforme o domínio acessado.",
+    ],
+    challenge: [
+      "Construir uma arquitetura whitelabel real: tema, logos, OG images, splash screens, rotas habilitadas e até copy de CMS variando por marca, sem hardcode espalhado pelo código. Tudo isso em cima de um stack moderno (Next 15 + React 19 + MUI 7) e mantendo PWA, SEO e conformidade com fluxos sensíveis de pagamento e autenticação.",
+      "No fluxo de auth coexistem três abordagens (keycloak-js no client, NextAuth e BFF custom com cookie httpOnly) — exigindo cuidado redobrado para não quebrar nenhum caminho de usuário em cada deploy.",
+    ],
+    solution: [
+      "Implementamos resolução de marca em duas camadas: server-side via NEXT_PUBLIC_BRAND alimentando getServerBranding(), e client-side via atributo data-brand no <html> + ThemeProvider Emotion. Tudo o que muda entre marcas (logos, cores, assets, rotas desabilitadas) vive em src/styles/branding.ts como fonte única da verdade.",
+      "Estruturamos o frontend com App Router, React Query para data fetching, Zustand para estado de sessão/checkout e React Hook Form + Zod para os formulários críticos. A camada api/ separa contratos (interfaces) de implementação concreta (axios + Keycloak), inspirada em Clean Architecture, facilitando testes e troca futura de backend.",
+      "Pagamento via PIX integrado com Tuna (com criptografia de campos sensíveis), checkout reativo a status em tempo real via polling, fluxo completo testado em Vitest (unit) e Playwright (E2E). PWA com next-pwa para reengajamento e atribuição customizada para tracking de conversão.",
+    ],
+    outcome: [
+      "Plataforma em produção sob duas marcas, com pipelines independentes de deploy, integração com CMS proprietário (cms.viaza.com.br) e checkout PIX/cartão funcional. Time consegue lançar uma nova marca whitelabel adicionando apenas um objeto de branding e os assets correspondentes — sem tocar em rota, componente ou serviço.",
+    ],
+    highlights: [
+      "Arquitetura whitelabel multi-marca (Viaza + GoMilhas) num único repositório",
+      "Tema MUI 7 dinâmico por marca via Emotion + data-brand no <html>",
+      "Middleware reescrevendo rotas desabilitadas por marca + UTMs em cookie",
+      "Auth Keycloak com 3 fluxos coexistindo (keycloak-js, NextAuth, BFF httpOnly)",
+      "Checkout PIX (Tuna) com criptografia de campos e polling de status em tempo real",
+      "Camada api/ inspirada em Clean Architecture com DI e interfaces tipadas",
+      "PWA com next-pwa, Service Worker e atribuição custom",
+      "Testes em Vitest (unit) e Playwright (E2E)",
+    ],
+    metrics: [
+      { value: "2", label: "Marcas em produção" },
+      { value: "1", label: "Codebase compartilhado" },
+    ],
+    stack: [
+      "Next.js 15",
+      "React 19",
+      "TypeScript",
+      "MUI 7",
+      "Emotion",
+      "React Query",
+      "Zustand",
+      "React Hook Form",
+      "Zod",
+      "NextAuth",
+      "Keycloak",
+      "Vitest",
+      "Playwright",
+    ],
+    links: [
+      { href: "https://viaza.com.br", label: "Viaza" },
+      { href: "https://gomilhas.com.br", label: "GoMilhas" },
+    ],
+    featured: true,
+  },
+  {
     slug: "itau-unibanco-plataformas-internas",
     title: "Plataformas internas corporativas",
     client: "Itaú Unibanco",
@@ -104,7 +168,7 @@ export const PROJECTS: Project[] = [
     duration: "1 ano e 3 meses",
     location: "São Paulo, Brasil",
     summary: "Plataforma orquestradora de APIs com arquitetura de micro-frontends e suite E2E cobrindo 90% dos fluxos críticos.",
-    logo: "/images/logos/totvs.jpg",
+    logo: "/images/logos/totvs.webp",
     context: [
       "A TOTVS precisava unificar diversas APIs internas em uma plataforma orquestradora com interface coesa e times independentes evoluindo módulos em paralelo.",
     ],
@@ -142,7 +206,7 @@ export const PROJECTS: Project[] = [
     duration: "2 anos",
     location: "São Paulo",
     summary: "Liderança técnica em PWAs e apps mobile para as marcas Eudora e Boticário, com automação CI/CD e ganhos expressivos de conversão.",
-    logo: "/images/logos/oboticario.png",
+    logo: "/images/logos/oboticario.webp",
     context: [
       "As marcas Eudora e Boticário precisavam acelerar a evolução dos canais digitais com foco em mobile, mantendo a operação de e-commerce em escala nacional.",
     ],
@@ -180,7 +244,7 @@ export const PROJECTS: Project[] = [
     duration: "1 ano e 4 meses",
     location: "São Paulo",
     summary: "Design System compartilhado entre Santander Brasil, Santander Argentina e Vivo Brasil — 30% menos tempo de desenvolvimento.",
-    logo: "/images/logos/nttdata.png",
+    logo: "/images/logos/nttdata.webp",
     context: [
       "A NTT Data atendia simultaneamente Santander Brasil, Santander Argentina e Vivo Brasil — clientes com fortes exigências de acessibilidade e identidade visual própria.",
     ],
@@ -205,45 +269,6 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Angular", "React", "React Native", "Node.js", "TypeScript", "Redux/NgRx"],
     featured: true,
-  },
-  {
-    slug: "exemplo-saas-gestao-clinica",
-    title: "SaaS de gestão para clínicas de estética",
-    client: "Cliente Exemplo",
-    type: "freelance",
-    role: "Produto & Experiência do Usuário",
-    year: "2025",
-    period: "Jan 2025 – Mai 2025",
-    duration: "5 meses",
-    location: "Remoto, Brasil",
-    summary: "Projeto exemplo (placeholder) — substitua com um trabalho freelance real: agenda inteligente, prontuário digital e dashboards de receita.",
-    context: [
-      "[Placeholder] Substitua este texto pelo contexto real do projeto: quem é o cliente, qual o segmento, qual problema enfrentava antes do início da parceria.",
-    ],
-    challenge: [
-      "[Placeholder] Descreva o desafio principal: ineficiências do processo, gargalos técnicos ou oportunidades de produto que motivaram o projeto.",
-    ],
-    solution: [
-      "[Placeholder] Conte como atacamos o problema: arquitetura escolhida, estratégia de produto, integrações, estratégias de qualidade e prazos.",
-      "[Placeholder] Inclua decisões importantes — por que Next.js, por que serverless, por que tal banco — para mostrar critério técnico.",
-    ],
-    outcome: [
-      "[Placeholder] Resultados mensuráveis: redução de tempo, aumento de receita, NPS, retenção, depoimento do cliente.",
-    ],
-    highlights: [
-      "Agenda inteligente com sugestão de horários por aprendizado de uso",
-      "Prontuário digital com versionamento e assinatura eletrônica",
-      "Dashboards financeiros com previsão de receita assistida por IA",
-      "App mobile do cliente final em React Native",
-    ],
-    metrics: [
-      { value: "+45%", label: "Receita mensal" },
-      { value: "-70%", label: "Tempo agendamento" },
-    ],
-    stack: ["Next.js", "React Native", "Node.js", "PostgreSQL", "Prisma", "OpenAI"],
-    links: [
-      { href: "https://example.com", label: "Site do projeto" },
-    ],
   },
 ];
 
@@ -282,9 +307,10 @@ export const STACK_DEFAULT_TAB = "Web";
 
 export const CLIENTS: ClientBrand[] = [
   { name: "Itaú", logo: "/images/logos/itau.webp" },
-  { name: "O Boticário", logo: "/images/logos/oboticario.png" },
-  { name: "TOTVS", logo: "/images/logos/totvs.jpg" },
-  { name: "NTT Data", logo: "/images/logos/nttdata.png" },
+  { name: "O Boticário", logo: "/images/logos/oboticario.webp" },
+  { name: "TOTVS", logo: "/images/logos/totvs.webp" },
+  { name: "NTT Data", logo: "/images/logos/nttdata.webp" },
+  { name: "Viaza / GoMilhas", logo: "/images/logos/viaza.webp" },
   { name: "Santander" },
   { name: "Vivo" },
   { name: "Walmart" },

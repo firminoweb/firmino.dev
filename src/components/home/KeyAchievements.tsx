@@ -1,5 +1,3 @@
-"use client";
-
 import { Reveal, SectionLabel } from "@/components/ui";
 import { KEY_ACHIEVEMENTS } from "@/data/portfolio";
 

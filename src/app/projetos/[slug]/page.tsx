@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Tag, SectionLabel, Button } from "@/components/ui";
+import { ProjectCover } from "@/components/projects/ProjectCover";
 import {
   PROJECTS,
   PROJECT_TYPE_LABELS,
@@ -95,6 +96,13 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                   ))}
                 </div>
               )}
+            </div>
+          </section>
+
+          {/* Cover */}
+          <section className="section-padding-sm !pt-0">
+            <div className="content-container max-w-[920px]">
+              <ProjectCover project={project} />
             </div>
           </section>
 

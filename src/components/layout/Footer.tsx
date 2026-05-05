@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Reveal } from "@/components/ui";
 import { CONTACT } from "@/data/portfolio";

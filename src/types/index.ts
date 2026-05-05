@@ -47,6 +47,9 @@ export interface Project {
   links?: ProjectLink[];
   featured?: boolean;
   logo?: string;
+  cover?: string;
+  /** Hex color used to seed the gradient cover when `cover` is absent. */
+  accent?: string;
 }
 
 export interface ClientBrand {
