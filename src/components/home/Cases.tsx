@@ -59,7 +59,7 @@ export function Cases() {
                             <Tag accent className="!text-[10px]">
                               {PROJECT_TYPE_LABELS[p.type]}
                             </Tag>
-                            <span className="text-[11px] text-text-dark">{p.year}</span>
+                            <span className="text-[11px] text-text-muted">{p.year}</span>
                           </div>
                           <h4 className="text-[17px] sm:text-[19px] font-bold text-white mb-1 tracking-tight">
                             {p.title}

@@ -21,7 +21,7 @@ export function KeyAchievements() {
                 <div className="glow-line-top" />
                 <div className="font-serif text-4xl lg:text-5xl font-normal text-white tracking-tight leading-none">{a.value}</div>
                 <div className="text-sm text-accent-light font-semibold mt-2">{a.label}</div>
-                <div className="text-xs text-text-dark mt-1">{a.desc}</div>
+                <div className="text-xs text-text-muted mt-1">{a.desc}</div>
               </div>
             </Reveal>
           ))}

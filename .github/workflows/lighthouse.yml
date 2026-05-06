@@ -33,11 +33,23 @@ jobs:
         env:
           LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.head_ref || github.ref_name }}
 
+      - name: Debug — list reports
+        if: always()
+        run: |
+          echo "=== pwd ==="
+          pwd
+          echo "=== ls -la .lighthouseci/ ==="
+          ls -la .lighthouseci/ || echo "directory missing"
+          echo "=== find ==="
+          find .lighthouseci -type f 2>/dev/null || true
+
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v5
         with:
           name: lighthouse-reports
-          path: .lighthouseci/
+          path: |
+            .lighthouseci/**/*.html
+            .lighthouseci/**/*.json
           retention-days: 14
           if-no-files-found: warn

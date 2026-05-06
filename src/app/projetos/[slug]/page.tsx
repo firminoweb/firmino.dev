@@ -108,16 +108,16 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
             <div className="content-container w-full max-w-[920px]">
               <Link
                 href="/projetos"
-                className="text-[12.5px] text-text-dim hover:text-text-nav transition-colors mb-8 inline-block"
+                className="text-[12.5px] text-text-muted hover:text-text-nav transition-colors mb-8 inline-block"
               >
                 ← Voltar para projetos
               </Link>
 
               <div className="flex flex-wrap items-center gap-2 mb-5">
                 <Tag accent>{PROJECT_TYPE_LABELS[project.type]}</Tag>
-                <span className="text-[12px] text-text-dim">{project.year}</span>
-                <span className="text-text-darker">·</span>
-                <span className="text-[12px] text-text-dim">{project.location}</span>
+                <span className="text-[12px] text-text-muted">{project.year}</span>
+                <span className="text-text-dim" aria-hidden="true">·</span>
+                <span className="text-[12px] text-text-muted">{project.location}</span>
               </div>
 
               <div className="flex items-center gap-4 mb-3">
@@ -170,14 +170,14 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                       <div className="font-serif text-[26px] sm:text-[30px] font-medium text-white tracking-tight">
                         {m.value}
                       </div>
-                      <div className="text-[11px] text-text-dim mt-0.5">{m.label}</div>
+                      <div className="text-[11px] text-text-muted mt-0.5">{m.label}</div>
                     </div>
                   ))}
                   <div className="metric-box !text-left !px-5 !py-4">
                     <div className="font-serif text-[26px] sm:text-[30px] font-medium text-white tracking-tight">
                       {project.duration}
                     </div>
-                    <div className="text-[11px] text-text-dim mt-0.5">Duração</div>
+                    <div className="text-[11px] text-text-muted mt-0.5">Duração</div>
                   </div>
                 </div>
               </div>
@@ -231,12 +231,12 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                         <Tag accent className="!text-[10px]">
                           {PROJECT_TYPE_LABELS[r.type]}
                         </Tag>
-                        <span className="text-[11px] text-text-dark">{r.year}</span>
+                        <span className="text-[11px] text-text-muted">{r.year}</span>
                       </div>
                       <h3 className="text-[16px] font-bold text-white mb-1 tracking-tight">
                         {r.title}
                       </h3>
-                      <p className="text-[12.5px] text-text-dim mb-3">{r.client}</p>
+                      <p className="text-[12.5px] text-text-muted mb-3">{r.client}</p>
                       <p className="text-[13px] text-text-subtle leading-[1.6]">{r.summary}</p>
                     </Link>
                   ))}
