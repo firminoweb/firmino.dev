@@ -1,12 +1,25 @@
+import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, ObfuscatedContact } from "@/components/ui";
+import { Reveal, SectionLabel, ObfuscatedContact, JsonLd } from "@/components/ui";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { CONTACT } from "@/data/portfolio";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata = {
-  title: "Contato — firmino.dev",
-  description:
-    "Fale com a firmino.dev. Discuta seu projeto, peça um orçamento ou agende uma conversa.",
+const TITLE = "Contato — firmino.dev";
+const DESCRIPTION =
+  "Fale com a firmino.dev. Discuta seu projeto, peça um orçamento ou agende uma conversa.";
+
+export const metadata: Metadata = {
+  title: "Contato",
+  description: DESCRIPTION,
+  alternates: { canonical: "/contato" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/contato",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 interface PublicChannel {
@@ -62,6 +75,12 @@ const PROTECTED_CHANNELS: ProtectedChannel[] = [
 export default function ContatoPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contato", path: "/contato" },
+        ])}
+      />
       <Background />
       <Navbar />
       <div className="relative z-[1]">

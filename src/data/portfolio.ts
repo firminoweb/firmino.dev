@@ -273,15 +273,15 @@ export const PROJECTS: Project[] = [
 ];
 
 export const PAST_CLIENTS: PastClient[] = [
-  { company: "zFlow", period: "Fev 2017 – Nov 2018", detail: "Aplicações de financiamento e simulação para o Banco Itaú. Cobertura de testes 0% → 80%." },
-  { company: "Grupo GPA", period: "Jul 2016 – Fev 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
-  { company: "Reclame Aqui", period: "Out 2015 – Jul 2016", detail: "Novo portal da plataforma. MVP mobile com Ionic e Angular." },
-  { company: "ViajaNet", period: "Dez 2014 – Out 2015", detail: "Plataforma de passagens aéreas + serviço Quando Viajar." },
-  { company: "Walmart.com", period: "Jul 2014 – Dez 2014", detail: "Marketplace: gerenciamento de sellers terceiros." },
-  { company: "UOL", period: "Out 2012 – Jul 2014", detail: "TodaOferta + Painel UOL Diveo (Cloud)." },
-  { company: "Axis.Idea", period: "Jan 2012 – Out 2012", detail: "Websites e soluções mobile + desktop." },
-  { company: "Tonks Idéias Criativas", period: "Out 2010 – Jan 2012", detail: "" },
-  { company: "Arca Solutions", period: "Set 2009 – Jul 2010", detail: "" },
+  { company: "zFlow", period: "2017 – 2018", detail: "Aplicações de financiamento e simulação para o Banco Itaú. Cobertura de testes 0% → 80%." },
+  { company: "Grupo Pão de Açucar", period: "2016 – 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
+  { company: "Reclame Aqui", period: "2015 – 2016", detail: "Novo portal da plataforma. MVP mobile com Ionic e Angular." },
+  { company: "ViajaNet", period: "2014 – 2015", detail: "Plataforma de passagens aéreas + serviço Quando Viajar." },
+  { company: "Walmart.com", period: "2014 – 2014", detail: "Marketplace: gerenciamento de sellers terceiros." },
+  { company: "UOL", period: "2012 – 2014", detail: "TodaOferta + Painel UOL Diveo (Cloud)." },
+  { company: "Axis.Idea", period: "2012 – 2013", detail: "Websites e soluções mobile + desktop." },
+  { company: "Tonks Idéias Criativas", period: "2010 – 2012", detail: "" },
+  { company: "Arca Solutions", period: "2009 – 2010", detail: "" },
 ];
 
 export const STATS: Stat[] = [
@@ -311,13 +311,13 @@ export const CLIENTS: ClientBrand[] = [
   { name: "TOTVS", logo: "/images/logos/totvs.webp" },
   { name: "NTT Data", logo: "/images/logos/nttdata.webp" },
   { name: "Viaza / GoMilhas", logo: "/images/logos/viaza.webp" },
-  { name: "Santander" },
-  { name: "Vivo" },
-  { name: "Walmart" },
-  { name: "UOL" },
-  { name: "Reclame Aqui" },
-  { name: "ViajaNet" },
-  { name: "Grupo GPA" },
+  { name: "Santander", logo: "/images/logos/santander.webp" },
+  { name: "Vivo", logo: "/images/logos/vivo.webp" },
+  { name: "Walmart", logo: "/images/logos/walmart.webp" },
+  { name: "UOL", logo: "/images/logos/uol.webp" },
+  { name: "Reclame Aqui", logo: "/images/logos/reclameaqui.webp" },
+  { name: "ViajaNet", logo: "/images/logos/viajanet.webp" },
+  { name: "Grupo Pão de Açucar", logo: "/images/logos/gpa.webp" },
 ];
 
 export const CONTACT = {

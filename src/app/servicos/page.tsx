@@ -1,12 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, Button, Tag } from "@/components/ui";
+import { Reveal, SectionLabel, Button, Tag, JsonLd } from "@/components/ui";
 import { SERVICES } from "@/data/portfolio";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata = {
-  title: "Serviços — firmino.dev",
-  description:
-    "Engenharia de software para web, micro-frontends, mobile, performance, consultoria técnica e aplicações com Generative AI.",
+const TITLE = "Serviços — firmino.dev";
+const DESCRIPTION =
+  "Engenharia de software para web, micro-frontends, mobile, performance, consultoria técnica e aplicações com Generative AI.";
+
+export const metadata: Metadata = {
+  title: "Serviços",
+  description: DESCRIPTION,
+  alternates: { canonical: "/servicos" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/servicos",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] }> = {
@@ -69,6 +82,12 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
 export default function ServicosPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Serviços", path: "/servicos" },
+        ])}
+      />
       <Background />
       <Navbar />
       <div className="relative z-[1]">

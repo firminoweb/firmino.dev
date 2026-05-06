@@ -1,12 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, Button } from "@/components/ui";
+import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
 import { STACK } from "@/data/portfolio";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata = {
-  title: "Stack — firmino.dev",
-  description:
-    "Tecnologias que usamos para entregar resultado: web, mobile, backend, testes, arquitetura, DevOps e Generative AI.",
+const TITLE = "Stack — firmino.dev";
+const DESCRIPTION =
+  "Tecnologias que usamos para entregar resultado: web, mobile, backend, testes, arquitetura, DevOps e Generative AI.";
+
+export const metadata: Metadata = {
+  title: "Stack",
+  description: DESCRIPTION,
+  alternates: { canonical: "/stack" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/stack",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default function StackPage() {
@@ -14,6 +27,12 @@ export default function StackPage() {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Stack", path: "/stack" },
+        ])}
+      />
       <Background />
       <Navbar />
       <div className="relative z-[1]">

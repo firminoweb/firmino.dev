@@ -1,12 +1,56 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, Button } from "@/components/ui";
-import { STATS } from "@/data/portfolio";
+import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
+import { STATS, CONTACT } from "@/data/portfolio";
+import { breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
-export const metadata = {
-  title: "Sobre — firmino.dev",
+const TITLE = "Sobre — firmino.dev";
+const DESCRIPTION =
+  "Conheça a firmino.dev — empresa de engenharia de software com 15+ anos de mercado, especializada em web, mobile, micro-frontends e Generative AI.";
+
+export const metadata: Metadata = {
+  title: "Sobre",
+  description: DESCRIPTION,
+  alternates: { canonical: "/sobre" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/sobre",
+    type: "profile",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+};
+
+const PERSON_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "João Firmino",
+  url: `${SITE_URL}/sobre`,
+  jobTitle: "Engenheiro de Software · Tech Lead",
   description:
-    "Conheça a firmino.dev — empresa de engenharia de software com 15+ anos de mercado, especializada em web, mobile, micro-frontends e Generative AI.",
+    "Engenheiro de software com 15+ anos de experiência em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI.",
+  knowsAbout: [
+    "Angular",
+    "React",
+    "React Native",
+    "Next.js",
+    "Node.js",
+    "TypeScript",
+    "Micro-frontends",
+    "Module Federation",
+    "Clean Architecture",
+    "Generative AI",
+    "LLM Applications",
+    "AI-Driven Development",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "São Paulo",
+    addressCountry: "BR",
+  },
+  worksFor: { "@type": "Organization", name: "firmino.dev", url: SITE_URL },
+  sameAs: [CONTACT.linkedin, CONTACT.github],
 };
 
 const PRINCIPLES = [
@@ -41,7 +85,7 @@ const TIMELINE = [
   {
     year: "2012 – 2016",
     title: "Produto e escala",
-    desc: "Carreira em produtos de alto tráfego: UOL, Walmart, ViajaNet, Reclame Aqui, Grupo GPA. Ionic, AngularJS, Node em ambiente real.",
+    desc: "Carreira em produtos de alto tráfego: UOL, Walmart, ViajaNet, Reclame Aqui, Grupo Pão de Açucar. Ionic, AngularJS, Node em ambiente real.",
   },
   {
     year: "2016 – 2020",
@@ -63,6 +107,13 @@ const TIMELINE = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={PERSON_JSON_LD} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Sobre", path: "/sobre" },
+        ])}
+      />
       <Background />
       <Navbar />
       <div className="relative z-[1]">

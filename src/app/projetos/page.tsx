@@ -1,16 +1,35 @@
+import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { SectionLabel } from "@/components/ui";
+import { SectionLabel, JsonLd } from "@/components/ui";
 import { ProjectsExplorer } from "@/components/projects/ProjectsExplorer";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata = {
-  title: "Projetos — firmino.dev",
-  description:
-    "Projetos entregues pela firmino.dev — corporativos, freelance, pessoais e open source.",
+const TITLE = "Projetos — firmino.dev";
+const DESCRIPTION =
+  "Projetos entregues pela firmino.dev — corporativos, freelance, pessoais e open source.";
+
+export const metadata: Metadata = {
+  title: "Projetos",
+  description: DESCRIPTION,
+  alternates: { canonical: "/projetos" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/projetos",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default function ProjetosPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Projetos", path: "/projetos" },
+        ])}
+      />
       <Background />
       <Navbar />
       <div className="relative z-[1]">

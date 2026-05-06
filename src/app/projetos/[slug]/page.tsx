@@ -3,13 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Tag, SectionLabel, Button } from "@/components/ui";
+import { Tag, SectionLabel, Button, JsonLd } from "@/components/ui";
 import { ProjectCover } from "@/components/projects/ProjectCover";
 import {
   PROJECTS,
   PROJECT_TYPE_LABELS,
   getProjectBySlug,
 } from "@/data/portfolio";
+import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
 interface CaseDetailProps {
   params: Promise<{ slug: string }>;
@@ -24,12 +25,34 @@ export async function generateMetadata({ params }: CaseDetailProps): Promise<Met
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return { title: "Projeto não encontrado — firmino.dev" };
+    return {
+      title: "Projeto não encontrado",
+      robots: { index: false, follow: false },
+    };
   }
 
+  const title = `${project.title} — ${project.client}`;
+  const ogTitle = `${title} · firmino.dev`;
+  const path = `/projetos/${project.slug}`;
+  const ogImage = project.logo ? [absoluteUrl(project.logo)] : undefined;
+
   return {
-    title: `${project.title} — ${project.client} · firmino.dev`,
+    title,
     description: project.summary,
+    alternates: { canonical: path },
+    openGraph: {
+      title: ogTitle,
+      description: project.summary,
+      url: path,
+      type: "article",
+      ...(ogImage && { images: ogImage }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: project.summary,
+      ...(ogImage && { images: ogImage }),
+    },
   };
 }
 
@@ -43,8 +66,39 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
     (p) => p.slug !== project.slug && (p.type === project.type || p.featured),
   ).slice(0, 2);
 
+  const projectUrl = absoluteUrl(`/projetos/${project.slug}`);
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    headline: project.title,
+    description: project.summary,
+    url: projectUrl,
+    inLanguage: "pt-BR",
+    ...(project.logo && { image: absoluteUrl(project.logo) }),
+    keywords: project.stack.join(", "),
+    author: {
+      "@type": "Organization",
+      name: "firmino.dev",
+      url: SITE_URL,
+    },
+    about: {
+      "@type": "Organization",
+      name: project.client,
+    },
+    ...(project.year && { dateCreated: project.year.toString() }),
+  };
+
   return (
     <>
+      <JsonLd data={projectJsonLd} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Projetos", path: "/projetos" },
+          { name: project.title, path: `/projetos/${project.slug}` },
+        ])}
+      />
       <Background />
       <Navbar />
       <div className="relative z-[1]">

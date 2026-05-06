@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
 
 interface BlogPostProps {
   params: Promise<{ slug: string }>;
 }
+
+export const metadata: Metadata = {
+  title: "Em breve",
+  description: "Artigo em produção.",
+  robots: { index: false, follow: true },
+};
 
 export default async function BlogPostPage({ params }: BlogPostProps) {
   const { slug } = await params;
