@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ════════════════════════════════════════════
    firmino.dev — Design System
@@ -127,6 +128,17 @@
   from {
     opacity: 0;
     transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawerItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -751,4 +763,94 @@
     letter-spacing: -1px;
     max-width: 80%;
   }
+}
+
+
+/* ─── Blog prose (Tailwind Typography overrides + rehype-pretty-code) ─── */
+.prose-firmino {
+  --tw-prose-body: var(--color-text-muted);
+  --tw-prose-headings: var(--color-text-light);
+  --tw-prose-lead: var(--color-text-muted);
+  --tw-prose-links: var(--color-accent-light);
+  --tw-prose-bold: var(--color-text-light);
+  --tw-prose-counters: var(--color-text-dim);
+  --tw-prose-bullets: rgba(92, 124, 250, 0.55);
+  --tw-prose-hr: rgba(255, 255, 255, 0.1);
+  --tw-prose-quotes: var(--color-text-dim);
+  --tw-prose-quote-borders: rgba(92, 124, 250, 0.55);
+  --tw-prose-captions: var(--color-text-dim);
+  --tw-prose-code: var(--color-accent-light);
+  --tw-prose-pre-code: var(--color-text-muted);
+  --tw-prose-pre-bg: rgba(0, 0, 0, 0.4);
+  --tw-prose-th-borders: rgba(255, 255, 255, 0.12);
+  --tw-prose-td-borders: rgba(255, 255, 255, 0.08);
+}
+
+.prose-firmino :where(h1, h2):not(:where([class~="not-prose"] *)) {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.prose-firmino :where(a):not(:where([class~="not-prose"] *)) {
+  text-decoration-color: rgba(92, 124, 250, 0.4);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease;
+}
+.prose-firmino :where(a):not(:where([class~="not-prose"] *)):hover {
+  text-decoration-color: var(--color-accent-light);
+}
+
+/* Inline code */
+.prose-firmino :where(:not(pre) > code):not(:where([class~="not-prose"] *)) {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-weight: 400;
+  font-size: 0.85em;
+}
+.prose-firmino :where(:not(pre) > code):not(:where([class~="not-prose"] *))::before,
+.prose-firmino :where(:not(pre) > code):not(:where([class~="not-prose"] *))::after {
+  content: none;
+}
+
+/* Code blocks (rehype-pretty-code) */
+.prose-firmino :where(pre):not(:where([class~="not-prose"] *)) {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 0;
+}
+.prose-firmino :where(pre code):not(:where([class~="not-prose"] *)) {
+  display: grid;
+  font-size: 0.85em;
+  line-height: 1.7;
+}
+.prose-firmino :where(pre [data-line]):not(:where([class~="not-prose"] *)) {
+  padding: 0 1.25rem;
+}
+
+/* rehype-pretty-code: language label */
+.prose-firmino :where(figure[data-rehype-pretty-code-figure]):not(:where([class~="not-prose"] *)) {
+  margin-block: 1.6em;
+}
+.prose-firmino :where([data-rehype-pretty-code-title]):not(:where([class~="not-prose"] *)) {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 0;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.78em;
+  color: var(--color-text-dim);
+  font-family: var(--font-sans);
+}
+.prose-firmino :where([data-rehype-pretty-code-title] + pre):not(:where([class~="not-prose"] *)) {
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin-top: 0;
+}
+
+/* Highlighted lines */
+.prose-firmino :where([data-highlighted-line]):not(:where([class~="not-prose"] *)) {
+  background: rgba(92, 124, 250, 0.08);
+  border-left: 2px solid var(--color-accent-light);
+  padding-left: calc(1.25rem - 2px) !important;
 }

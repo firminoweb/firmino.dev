@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { JsonLd } from "@/components/ui";
+import { JsonLd, SectionLabel } from "@/components/ui";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { getAllPosts } from "@/lib/blog";
 
 const TITLE = "Blog — firmino.dev";
 const DESCRIPTION =
@@ -20,7 +22,20 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
+const DATE_FORMATTER = new Intl.DateTimeFormat("pt-BR", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+});
+
+function formatDate(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return DATE_FORMATTER.format(new Date(y, (m ?? 1) - 1, d ?? 1));
+}
+
 export default function BlogPage() {
+  const posts = getAllPosts();
+
   return (
     <>
       <JsonLd
@@ -32,16 +47,51 @@ export default function BlogPage() {
       <Background />
       <Navbar />
       <div className="relative z-[1]">
-        <section className="page-hero">
-          <div className="content-container max-w-[800px] text-center">
-            <h1 className="font-serif section-heading mb-6">
-              <span className="text-accent-light italic">Blog</span>
+        <section className="page-hero !min-h-[40vh] !pb-10">
+          <div className="content-container w-full max-w-[920px]">
+            <SectionLabel>Blog</SectionLabel>
+            <h1 className="font-serif hero-heading !text-[clamp(40px,5vw,58px)] !leading-[1.06] mb-5">
+              Notas <span className="text-accent-light italic">técnicas</span>
             </h1>
-            <p className="text-base text-text-muted leading-[1.8]">
-              Em breve, artigos sobre desenvolvimento, arquitetura e AI.
+            <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
+              Aprendizados de quem constrói software em produção — sem hype, sem framework do mês.
             </p>
           </div>
         </section>
+
+        <section className="section-padding !pt-2">
+          <div className="content-container max-w-[920px]">
+            {posts.length === 0 ? (
+              <p className="text-text-dim text-[14.5px]">Nada publicado ainda. Em breve.</p>
+            ) : (
+              <ul className="flex flex-col gap-3">
+                {posts.map((post) => (
+                  <li key={post.slug}>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="gc block py-7 px-7 sm:py-8 sm:px-9 hover:border-accent-light/30 transition-colors group"
+                    >
+                      <div className="flex items-center gap-3 mb-3 text-[12px] text-text-dim uppercase tracking-[1.5px]">
+                        <time dateTime={post.date}>{formatDate(post.date)}</time>
+                        <span className="text-text-dim/40">·</span>
+                        <span>{post.readingTime}</span>
+                      </div>
+                      <h2 className="font-serif text-[22px] sm:text-[26px] leading-[1.25] text-text-light mb-2 group-hover:text-accent-light transition-colors">
+                        {post.title}
+                      </h2>
+                      {post.description && (
+                        <p className="text-[14.5px] text-text-muted leading-[1.7]">
+                          {post.description}
+                        </p>
+                      )}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+
         <Footer />
       </div>
     </>

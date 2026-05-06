@@ -25,6 +25,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Serviços", href: "/servicos" },
   { label: "Projetos", href: "/projetos" },
   { label: "Stack", href: "/stack" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const HERO_TAGS = ["Angular", "React", "React Native", "Next.js", "Node.js", "Generative AI", "LLM Applications", "AI-Driven"];

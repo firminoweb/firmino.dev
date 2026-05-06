@@ -11,12 +11,18 @@
     "audit:lh": "lhci autorun --collect.startServerCommand='next start' --collect.startServerReadyPattern='ready'"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
+    "gray-matter": "^4.0.3",
     "next": "16.2.0",
+    "next-mdx-remote": "^6.0.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "reading-time": "^1.5.0",
+    "rehype-pretty-code": "^0.14.3",
     "resend": "^6.12.2",
+    "shiki": "^4.0.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {

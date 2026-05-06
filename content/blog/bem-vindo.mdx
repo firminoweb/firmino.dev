@@ -1,0 +1,168 @@
+---
+title: Bem-vindo ao blog da firmino.dev
+description: Por que esse espaço existe, o que você vai encontrar aqui — e uma amostra dos formatos técnicos que vamos usar.
+date: 2026-05-06
+tags: [meta, anúncio, engenharia]
+author: João Firmino
+cover: /images/blog/default-cover.svg
+---
+
+A firmino.dev é uma empresa de engenharia de software com **15+ anos**
+construindo plataformas para grandes operações — bancos, varejo, mobilidade, e-commerce.
+Esse blog tem dois objetivos claros:
+
+1. **Corporativo** — registrar publicamente como pensamos arquitetura, qualidade e
+   entrega. Quem está avaliando contratar a firmino.dev deve conseguir ler aqui e
+   entender exatamente o que esperamos de software bem feito.
+2. **Educacional** — compartilhar o que aprendemos em produção. Cada post nasce
+   de um problema real que enfrentamos com algum cliente, ou de uma decisão técnica
+   que valeu a pena documentar para o time.
+
+Sem hype, sem framework do mês, sem "10 dicas que vão revolucionar". Só o que
+sobreviveu ao contato com produção e melhorou alguma métrica de negócio.
+
+## Sobre o que vamos escrever
+
+Os temas vão girar em torno do que dominamos no dia a dia:
+
+- **Frontend em escala** — Angular, React, Next.js, Module Federation
+- **Mobile** — React Native, PWA, distribuição em stores
+- **Performance & Web Vitals** — LCP, CLS, INP em casos reais
+- **Generative AI & LLMOps** — integração de LLMs em produtos, AI-Driven Development
+- **Arquitetura** — Clean Architecture, SOLID, Design Systems multi-cliente
+- **Qualidade** — testes, acessibilidade WCAG, code review
+
+## Como esse blog é construído
+
+Para evitar overhead operacional (servidor, banco, login), o blog roda em
+**MDX versionado no Git**. Cada post é um `.mdx` com frontmatter — build-time,
+tipado, sem CMS. Stack:
+
+```ts title="src/lib/blog.ts"
+import fs from "node:fs";
+import path from "node:path";
+import matter from "gray-matter";
+import readingTime from "reading-time";
+
+const BLOG_DIR = path.join(process.cwd(), "content/blog");
+
+export function getAllPosts(): BlogPostMeta[] {
+  return fs
+    .readdirSync(BLOG_DIR)
+    .filter((f) => f.endsWith(".mdx"))
+    .map(parseFile)
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
+```
+
+Renderização via `next-mdx-remote/rsc` (Server Components, zero JS no client),
+syntax highlighting com `rehype-pretty-code` + `shiki` (também em build-time)
+e estilos via `@tailwindcss/typography`.
+
+## Amostra dos formatos que vamos usar
+
+Posts técnicos vão precisar de bastante código. Aqui um aperitivo dos recursos
+que estarão disponíveis em todos os posts.
+
+### TypeScript com nome de arquivo
+
+```ts title="api/handler.ts"
+import { z } from "zod";
+
+const Schema = z.object({
+  name: z.string().min(2),
+  email: z.email(),
+});
+
+export async function POST(req: Request) {
+  const body = Schema.safeParse(await req.json());
+  if (!body.success) return Response.json({ error: body.error }, { status: 400 });
+  return Response.json({ ok: true });
+}
+```
+
+### Linhas destacadas
+
+Útil quando o ponto importante do snippet é uma linha específica:
+
+```ts title="next.config.ts" {4-7}
+import type { NextConfig } from "next";
+
+const config: NextConfig = {
+  experimental: {
+    reactCompiler: true,
+    optimizePackageImports: ["lucide-react"],
+  },
+};
+
+export default config;
+```
+
+### Bash / Shell
+
+```bash
+yarn add next-mdx-remote gray-matter reading-time
+yarn add -D @tailwindcss/typography
+```
+
+### JSON / config
+
+```json title="package.json"
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "audit:lh": "lhci autorun"
+  }
+}
+```
+
+### Diff (antes/depois)
+
+```diff title="src/app/sitemap.ts"
+  import type { MetadataRoute } from "next";
+  import { PROJECTS } from "@/data/portfolio";
++ import { getAllPosts } from "@/lib/blog";
+
+  export default function sitemap(): MetadataRoute.Sitemap {
+-   return [...staticRoutes, ...projectRoutes];
++   const blogRoutes = getAllPosts().map((p) => ({
++     url: `${SITE_URL}/blog/${p.slug}`,
++     lastModified: new Date(p.date),
++   }));
++   return [...staticRoutes, ...projectRoutes, ...blogRoutes];
+  }
+```
+
+### Inline `code` no meio do texto
+
+Quando o post mencionar uma flag específica como `--no-verify`, um path como
+`src/lib/blog.ts`, ou um pacote como `next-mdx-remote`, o estilo inline mantém
+contraste sem virar bloco gigante.
+
+### Listas ordenadas e blockquotes
+
+> "If you only do what works, you'll only ever know what works."
+> — princípio que guia muito do que tentamos por aqui.
+
+1. Primeiro item de uma lista numerada
+2. Segundo item — útil para descrever passos de migração
+3. Terceiro item
+
+### Links
+
+Internos viram navegação SPA do Next: visite os [projetos](/projetos) ou veja a
+[nossa stack](/stack). Externos abrem em nova aba — por exemplo, o
+[shiki](https://shiki.style/) que move o syntax highlighting.
+
+## O que vem por aí
+
+Já temos rascunho de alguns posts:
+
+- **Module Federation sem dor** — como estruturamos micro-frontends sem cair
+  nas armadilhas comuns (singleton-hell, version mismatch, bundle bloat)
+- **LLMs locais no fluxo de dev** — quando usar ollama vs API paga
+- **Whitelabel real em Next 15** — caso da plataforma Viaza/GoMilhas
+
+Se você tem interesse em algum tema específico — ou quer discutir um problema
+parecido com algo que vamos publicar — [fala com a gente](/contato).

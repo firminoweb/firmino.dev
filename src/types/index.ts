@@ -74,27 +74,3 @@ export interface Stack {
   [category: string]: string[];
 }
 
-/* ─── CMS types (Strapi-ready) ─── */
-
-export interface CMSArticle {
-  id: number;
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  coverImage?: string;
-  publishedAt: string;
-  tags?: string[];
-}
-
-export interface CMSProject {
-  id: number;
-  slug: string;
-  title: string;
-  description: string;
-  content: string;
-  coverImage?: string;
-  tags?: string[];
-  liveUrl?: string;
-  repoUrl?: string;
-}
