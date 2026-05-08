@@ -5,9 +5,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { JsonLd, SectionLabel } from "@/components/ui";
 import { mdxComponents } from "@/components/blog/MdxComponents";
+import { PostNav } from "@/components/blog/PostNav";
 import { mdxOptions } from "@/lib/mdx-options";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
-import { getAllSlugs, getPostBySlug } from "@/lib/blog";
+import { getAdjacentPosts, getAllSlugs, getPostBySlug } from "@/lib/blog";
 
 interface BlogPostProps {
   params: Promise<{ slug: string }>;
@@ -72,6 +73,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
 
   if (!post) notFound();
 
+  const { prev, next } = getAdjacentPosts(post.slug);
   const url = absoluteUrl(`/blog/${post.slug}`);
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -148,6 +150,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   options={mdxOptions}
                 />
               </div>
+              <PostNav prev={prev} next={next} />
             </div>
           </section>
         </article>

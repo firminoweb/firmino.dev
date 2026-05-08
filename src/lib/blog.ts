@@ -60,3 +60,16 @@ export function getPostBySlug(slug: string): BlogPost | null {
 export function getAllSlugs(): string[] {
   return listFiles().map((f) => f.replace(/\.mdx$/, ""));
 }
+
+export function getAdjacentPosts(slug: string): {
+  prev: BlogPostMeta | null;
+  next: BlogPostMeta | null;
+} {
+  const posts = getAllPosts();
+  const i = posts.findIndex((p) => p.slug === slug);
+  if (i === -1) return { prev: null, next: null };
+  return {
+    next: i > 0 ? posts[i - 1] : null,
+    prev: i < posts.length - 1 ? posts[i + 1] : null,
+  };
+}

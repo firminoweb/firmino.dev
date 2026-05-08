@@ -1,0 +1,212 @@
+---
+title: Module Federation sem dor
+description: Como estruturamos micro-frontends em produção sem cair em singleton-hell, version mismatch e bundle bloat — com checklist concreto e snippets de webpack/Next.
+date: 2026-05-08
+tags: [arquitetura, frontend, micro-frontends, webpack, next-js]
+author: João Firmino
+cover: /images/blog/default-cover.svg
+---
+
+Module Federation é uma das primitivas mais poderosas de frontend moderno —
+e também das mais perigosas. A promessa é simples: cada time entrega o seu
+pedaço da aplicação independentemente, sem rebuild monolítico. A realidade,
+quando alguém ignora os detalhes, é singleton duplicado em runtime, telas
+brancas em produção e bundle 40% maior do que precisa.
+
+Esse post compila o que aprendemos integrando MF em plataformas reais —
+varejo, mobilidade, plataforma whitelabel — e o checklist que aplicamos
+**antes** de deixar o primeiro remote subir.
+
+## O modelo mental certo
+
+A maioria dos problemas que vejo em código alheio vem de tratar o remote
+como se fosse um pacote npm. Não é. Um pacote npm é resolvido em build-time:
+versão travada, tree-shaking aplicado, conflitos detectados pelo lockfile.
+Um **remote federado é resolvido em runtime**, dentro do navegador do
+usuário, com base no que o host pediu e no que o remote expôs naquele
+deploy específico.
+
+Tudo de ruim que acontece em MF decorre de ignorar essa fronteira:
+
+1. **Singletons** — React, design system, store global
+2. **Versões** — host na 18, remote na 17, runtime explode
+3. **Estilos** — CSS global do remote vazando no host
+4. **Tipos** — host não sabe a interface do remote em build-time
+
+Os quatro pontos abaixo são o que efetivamente quebra. Resolva-os e MF
+deixa de ser dor.
+
+## 1. Singleton-hell
+
+O sintoma clássico: dois Reacts em runtime. Hooks param de funcionar com
+mensagens crípticas tipo `Invalid hook call` ou contexto que vira `null`
+sem motivo aparente. Quase sempre é porque o host e o remote bundlaram
+cada um o seu React.
+
+A regra é: **toda lib stateful precisa ser singleton compartilhado**.
+Não é só React — qualquer coisa que mantenha estado em closures globais
+ou em context entra na lista: `react-router`, `@tanstack/react-query`,
+`styled-components`, design system com Provider, etc.
+
+```ts title="webpack.config.ts (host e remote)" {6-15}
+import { ModuleFederationPlugin } from "@module-federation/enhanced/webpack";
+import deps from "./package.json";
+
+new ModuleFederationPlugin({
+  name: "host",
+  shared: {
+    react: {
+      singleton: true,
+      requiredVersion: deps.dependencies.react,
+      eager: true,
+    },
+    "react-dom": { singleton: true, requiredVersion: deps.dependencies["react-dom"] },
+    "@tanstack/react-query": { singleton: true, requiredVersion: deps.dependencies["@tanstack/react-query"] },
+    "@firmino/design-system": { singleton: true, requiredVersion: deps.dependencies["@firmino/design-system"] },
+  },
+});
+```
+
+Três flags importam:
+
+- `singleton: true` — garante uma única instância em runtime. Se versão
+  do host e do remote divergirem, MF emite warning e usa a do host.
+- `requiredVersion` — derivado do `package.json`, não hardcoded. Hardcode
+  envelhece e some do radar do `yarn upgrade-interactive`.
+- `eager: true` no host — carrega a dep no chunk inicial, evita o erro
+  *"Shared module is not available for eager consumption"* no boot do
+  remote.
+
+> Heurística: se a lib expõe um Provider, é singleton. Se expõe só funções
+> puras (`date-fns`, `lodash`, `zod`), pode ficar como dep normal.
+
+## 2. Version mismatch silencioso
+
+`singleton: true` força uma única instância — mas a versão escolhida é a
+do host. Se o remote foi compilado contra React 19 e o host está em 18,
+o remote roda em 18, e funcionalidades novas explodem em runtime sem
+nenhum aviso em build-time.
+
+A defesa é dupla: `strictVersion` para falhar cedo, e contrato explícito
+de versão entre times.
+
+```ts title="webpack.config.ts (host)" {3-7}
+shared: {
+  react: {
+    singleton: true,
+    strictVersion: true,
+    requiredVersion: "^19.0.0",
+    eager: true,
+  },
+}
+```
+
+Com `strictVersion`, o MF se recusa a carregar um remote com versão
+incompatível e loga erro claro no console em vez de tela branca às 3h
+da manhã. Combine isso com um job de CI que falha PR de remote se o
+`react` no `package.json` divergir do contrato:
+
+```bash title="ci/check-shared-versions.sh"
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONTRACT_REACT="^19.0.0"
+ACTUAL=$(node -p "require('./package.json').dependencies.react")
+
+if [[ "$ACTUAL" != "$CONTRACT_REACT" ]]; then
+  echo "::error::react version $ACTUAL diverge do contrato $CONTRACT_REACT"
+  exit 1
+fi
+```
+
+## 3. Bundle bloat — o problema que ninguém mede
+
+MF não dá tree-shaking entre fronteiras. Se você expõe um `./Components`
+inteiro como entrada, o host puxa tudo mesmo importando uma única peça.
+O sintoma: bundle do host cresce a cada remote novo, mesmo sem ninguém
+usar nada.
+
+**Exponha por componente, nunca por barrel**. E se você está em Next, o
+`exposes` precisa apontar para o componente final, não um `index.ts`
+que reexporta o módulo todo.
+
+```diff title="webpack.config.ts (remote)"
+  new ModuleFederationPlugin({
+    name: "checkout",
+    filename: "remoteEntry.js",
+    exposes: {
+-     "./Components": "./src/components/index.ts",
++     "./CartButton": "./src/components/CartButton",
++     "./PaymentForm": "./src/components/PaymentForm",
++     "./OrderSummary": "./src/components/OrderSummary",
+    },
+  });
+```
+
+Mensure. Se você não tem `webpack-bundle-analyzer` rodando no remote e
+no host **separadamente**, está voando às cegas:
+
+```bash
+yarn add -D webpack-bundle-analyzer
+ANALYZE=true yarn build
+```
+
+E configure budgets no CI. Um remote que cresce 30% sem feature nova é
+sinal de que alguém importou um pacote pesado fora do `shared`.
+
+## 4. CSS, tipos e o que vaza por baixo do tapete
+
+**CSS global é radioativo em MF**. Um `* { box-sizing: border-box }` no
+remote pisa no host. Reset CSS conflitante leva uma tarde para debugar.
+Use CSS Modules, Tailwind com prefix, ou Shadow DOM se o isolamento
+precisa ser cirúrgico. Nada de `styled-components` com `createGlobalStyle`
+no remote.
+
+**Tipos** — o host importa de uma URL em runtime, mas o TS quer tipo em
+build-time. Resolução: `@module-federation/typescript` baixa os `.d.ts`
+do remote durante o `dev`/`build` do host, mantendo a DX próxima de um
+import normal. Sem isso, você acaba com `any` em volta de toda fronteira
+federada, e aí MF deixa de te ajudar e passa a te atrapalhar.
+
+```ts title="webpack.config.ts (host)" {4-9}
+import { FederatedTypesPlugin } from "@module-federation/typescript";
+
+new FederatedTypesPlugin({
+  federationConfig: {
+    name: "host",
+    remotes: {
+      checkout: "checkout@https://cdn.firmino.dev/checkout/remoteEntry.js",
+    },
+  },
+});
+```
+
+## Checklist antes de subir o primeiro remote
+
+Esse é o checklist que rodamos em revisão de PR. Se algum item está
+vermelho, não merge.
+
+1. [ ] Toda lib stateful está em `shared` com `singleton: true`?
+2. [ ] `requiredVersion` é derivado do `package.json`, não hardcoded?
+3. [ ] `strictVersion: true` no host para libs críticas (React, router)?
+4. [ ] Cada componente é `exposes` próprio — nenhum barrel?
+5. [ ] Bundle analyzer rodou e o tamanho está dentro do budget?
+6. [ ] CSS está isolado (Modules, Tailwind com prefix, ou Shadow DOM)?
+7. [ ] Tipos do remote estão sendo gerados/baixados em build-time?
+8. [ ] Existe fallback no host se o remote falhar (ErrorBoundary + skeleton)?
+9. [ ] CI valida contrato de versão das `shared` deps entre repos?
+10. [ ] Logs do `ModuleFederationPlugin` em dev estão em `info` (não silenciados)?
+
+O item 8 merece um post próprio — é o que separa "MF funciona" de
+"MF funciona quando a CDN do remote cai". Fica para a próxima.
+
+## Fechamento
+
+Module Federation não é caro de operar — é **caro de operar errado**.
+A diferença entre os dois cenários é uma checklist de 10 itens e
+disciplina de bundle. Se a sua plataforma tem 3+ times tocando o mesmo
+frontend, MF paga o investimento; abaixo disso, monorepo + build
+incremental costuma ser melhor custo-benefício.
+
+Se está avaliando MF para um produto seu e quer um par de olhos antes
+de cravar a arquitetura, [fala com a gente](/contato).
