@@ -11,6 +11,7 @@
     "audit:lh": "lhci autorun --collect.startServerCommand='next start' --collect.startServerReadyPattern='ready'"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.6",
     "@tailwindcss/typography": "^0.5.19",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
