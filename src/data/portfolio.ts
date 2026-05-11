@@ -31,19 +31,20 @@ export const NAV_ITEMS: NavItem[] = [
 export const HERO_TAGS = ["Angular", "React", "React Native", "Next.js", "Node.js", "Generative AI", "LLM Applications", "AI-Driven"];
 
 export const KEY_ACHIEVEMENTS: KeyAchievement[] = [
-  { value: "-60%", label: "Deploy time", desc: "Modernização de plataformas corporativas" },
-  { value: "+35%", label: "Conversão mobile", desc: "Arquitetura PWA" },
-  { value: "90%", label: "Cobertura de testes", desc: "Jest, Cypress, Testing Library" },
-  { value: "-40%", label: "Tempo de carga", desc: "Code splitting & lazy loading" },
+  { value: "+80%", label: "Venda mobile", desc: "Mais conversão no celular — Eudora e Boticário" },
+  { value: "-60%", label: "Site mais rápido", desc: "Tempo de carga nas plataformas do Itaú" },
+  { value: "90%", label: "Sistema confiável", desc: "Bugs barrados antes do usuário, no Itaú" },
+  { value: "-50%", label: "Tempo pra lançar", desc: "Releases em metade do tempo, no Boticário" },
 ];
 
 export const SERVICES: Service[] = [
-  { icon: "◈", title: "Aplicações Web Completas", desc: "Construímos plataformas web completas com Angular, React, Next.js e Node.js — do protótipo ao deploy em produção, com qualidade e performance." },
-  { icon: "⬡", title: "Arquitetura & Micro-frontends", desc: "Projetamos plataformas corporativas escaláveis com Module Federation, Design Systems, Clean Architecture e princípios SOLID." },
-  { icon: "◎", title: "Mobile & PWA", desc: "Desenvolvemos apps com React Native e Progressive Web Apps de alta performance para alcançar milhões de usuários em qualquer dispositivo." },
-  { icon: "⬢", title: "Performance & Qualidade", desc: "Auditoria Lighthouse, Web Vitals, testes automatizados (Jest, Cypress, E2E) e conformidade WCAG 2.1 AA / ARIA em cada entrega." },
-  { icon: "◇", title: "Consultoria & Mentoria Técnica", desc: "Oferecemos liderança técnica, code review, definição de padrões e capacitação de times para elevar a maturidade da sua operação de engenharia." },
-  { icon: "⏣", title: "Generative AI & LLM Applications", desc: "Integramos LLMOps, modelos locais e ferramentas de IA Generativa ao ciclo de desenvolvimento para criar aplicações inteligentes e acelerar resultados." },
+  { icon: "◈", title: "Squad para empresa digitalizando", desc: "Squad sênior dedicado em sprints. Para empresas tirando a operação do Excel, de uma ferramenta pronta que não atende mais ou de um sistema antigo que parou de evoluir. Você ganha time de produto sem montar time." },
+  { icon: "⬡", title: "Reforço técnico para agência", desc: "Sênior ou squad alocado no seu PM, no seu Jira, no seu cliente. Sem fricção comercial — você fatura, a gente entrega. Para agências que ganharam projeto maior que a banda do time." },
+  { icon: "⏣", title: "Aplicações e automações com IA", desc: "Chatbot que atende cliente, agente que processa documento, automação que tira tarefa chata do seu time. Conectado ao que você já usa — WhatsApp, planilha, sistema interno, CRM. Sem precisar virar empresa de tecnologia pra colher o resultado." },
+  { icon: "◎", title: "App mobile sob medida pra sua empresa", desc: "App nativo iOS e Android construído do zero pra sua operação — catálogo, pedido, pagamento, fidelidade ou qualquer fluxo que faça sentido. Publicado nas lojas, mantido por nós e integrado ao que você já tem rodando." },
+  { icon: "◆", title: "Aplicações web sob medida pra sua empresa", desc: "Sistemas, sites e plataformas web construídos do zero pra sua operação. Painel administrativo, sistema interno, e-commerce, plataforma de cliente — rodando rápido, estável e fácil de evoluir." },
+  { icon: "⬢", title: "Arquitetura, performance & qualidade", desc: "Micro-frontends com Module Federation, Design Systems, Clean Architecture, Lighthouse 90+, cobertura de testes acima de 80% e conformidade WCAG 2.1 AA." },
+  { icon: "◇", title: "Tech leadership & code review", desc: "Liderança técnica fracionada, padronização de squad, code review estratégico e definição de roadmap técnico. Para CTOs que precisam de sênior por trás sem contratar full-time." },
 ];
 
 export const PROJECT_TYPE_LABELS: Record<ProjectType, string> = {
@@ -56,7 +57,7 @@ export const PROJECT_TYPE_LABELS: Record<ProjectType, string> = {
 export const PROJECTS: Project[] = [
   {
     slug: "viaza-gomilhas-passagens-milhas",
-    title: "Plataforma whitelabel de passagens com milhas",
+    title: "Lançar a próxima marca sem refazer nada: Viaza e GoMilhas em um código só",
     client: "Viaza / GoMilhas",
     type: "freelance",
     role: "Engenharia de plataforma · Web & PWA",
@@ -65,7 +66,7 @@ export const PROJECTS: Project[] = [
     duration: "Em andamento",
     location: "Remoto, Brasil",
     summary:
-      "Frontend whitelabel multi-marca para busca, checkout e pós-venda de passagens aéreas com milhas ou cartão — duas marcas (Viaza e GoMilhas) em um único código.",
+      "Plataforma whitelabel completa para venda de passagens com milhas — busca, checkout PIX e pós-venda. Viaza e GoMilhas rodam no mesmo repositório, com tema, conteúdo e regras de marca trocando em tempo real. A próxima marca entra adicionando um arquivo de configuração — sem time novo, sem retrabalho.",
     logo: "/images/logos/viaza.webp",
     accent: "#1f7aff",
     context: [
@@ -120,7 +121,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "itau-unibanco-plataformas-internas",
-    title: "Plataformas internas corporativas",
+    title: "Plataformas internas do Itaú 60% mais rápidas e mais estáveis em 3 anos",
     client: "Itaú Unibanco",
     type: "corporate",
     role: "Engenharia de plataformas internas",
@@ -128,7 +129,7 @@ export const PROJECTS: Project[] = [
     period: "Mar 2023 – Jan 2026",
     duration: "3 anos",
     location: "São Paulo, Brasil",
-    summary: "Dois projetos internos com foco em qualidade e segurança para o maior banco privado da América Latina.",
+    summary: "Dois projetos internos críticos do maior banco privado do país, com requisitos rigorosos de segurança e acessibilidade. Modernizamos arquitetura e processos para o time entregar com mais velocidade e menos bugs em produção — o tempo de carregamento caiu 60% e a base ficou três vezes mais protegida contra erros que chegariam ao usuário.",
     logo: "/images/logos/itau.webp",
     context: [
       "O Itaú Unibanco demanda altíssimo padrão de segurança, qualidade e escalabilidade em suas plataformas internas. Nossa equipe foi alocada em dois projetos críticos voltados ao público interno do banco, com requisitos rigorosos de cobertura de testes, acessibilidade e performance.",
@@ -160,7 +161,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "totvs-orquestrador-apis",
-    title: "Orquestrador de APIs em micro-frontends",
+    title: "Plataforma corporativa da TOTVS 30% mais rápida, com vários times entregando em paralelo",
     client: "TOTVS",
     type: "corporate",
     role: "Arquitetura de plataforma & Micro-frontends",
@@ -168,7 +169,7 @@ export const PROJECTS: Project[] = [
     period: "Jan 2022 – Mar 2023",
     duration: "1 ano e 3 meses",
     location: "São Paulo, Brasil",
-    summary: "Plataforma orquestradora de APIs com arquitetura de micro-frontends e suite E2E cobrindo 90% dos fluxos críticos.",
+    summary: "Plataforma orquestradora unindo vários sistemas internos em uma interface única. Quebramos a aplicação em pedaços que cada time pôde evoluir sem atrapalhar os outros e cobrimos os fluxos críticos com testes automáticos antes de cada subida — resposta 30% mais rápida e zero regressão chegando em produção.",
     logo: "/images/logos/totvs.webp",
     context: [
       "A TOTVS precisava unificar diversas APIs internas em uma plataforma orquestradora com interface coesa e times independentes evoluindo módulos em paralelo.",
@@ -198,7 +199,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "boticario-pwa-mobile",
-    title: "PWA & Mobile para Eudora e Boticário",
+    title: "Eudora e Boticário: +80% de venda mobile e metade do tempo pra lançar",
     client: "O Boticário",
     type: "corporate",
     role: "Liderança técnica · Web & Mobile",
@@ -206,7 +207,7 @@ export const PROJECTS: Project[] = [
     period: "Fev 2020 – Jan 2022",
     duration: "2 anos",
     location: "São Paulo",
-    summary: "Liderança técnica em PWAs e apps mobile para as marcas Eudora e Boticário, com automação CI/CD e ganhos expressivos de conversão.",
+    summary: "Liderança técnica nos canais digitais de Eudora e Boticário, com foco em mobile. Padronizamos o jeito do time trabalhar e automatizamos o ciclo de publicação — venda mobile cresceu 80%, fuga do site caiu 40% e o time passou a lançar releases em metade do tempo.",
     logo: "/images/logos/oboticario.webp",
     context: [
       "As marcas Eudora e Boticário precisavam acelerar a evolução dos canais digitais com foco em mobile, mantendo a operação de e-commerce em escala nacional.",
@@ -236,7 +237,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "ntt-data-design-system",
-    title: "Design System multi-cliente",
+    title: "30% menos tempo de desenvolvimento em projetos para Santander e Vivo",
     client: "NTT Data (everis)",
     type: "corporate",
     role: "Engenharia de Design System",
@@ -244,7 +245,7 @@ export const PROJECTS: Project[] = [
     period: "Nov 2018 – Fev 2020",
     duration: "1 ano e 4 meses",
     location: "São Paulo",
-    summary: "Design System compartilhado entre Santander Brasil, Santander Argentina e Vivo Brasil — 30% menos tempo de desenvolvimento.",
+    summary: "Atendimento simultâneo a Santander Brasil, Santander Argentina e Vivo, com forte exigência de identidade visual própria por cliente. Construímos uma biblioteca de componentes compartilhada entre os times — cada projeto manteve sua marca, mas o ritmo de entrega ficou 30% mais rápido.",
     logo: "/images/logos/nttdata.webp",
     context: [
       "A NTT Data atendia simultaneamente Santander Brasil, Santander Argentina e Vivo Brasil — clientes com fortes exigências de acessibilidade e identidade visual própria.",
@@ -322,7 +323,7 @@ export const CLIENTS: ClientBrand[] = [
 ];
 
 export const CONTACT = {
-  email: "firminoata@gmail.com",
+  email: "falecom@firmino.dev",
   phone: "(11) 97083-6907",
   location: "São Paulo, Brasil",
   linkedin: "https://linkedin.com/in/firminoweb",

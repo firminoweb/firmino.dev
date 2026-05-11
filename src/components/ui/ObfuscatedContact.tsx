@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { ObfuscatedContactClient } from "./ObfuscatedContactClient";
 
 interface ObfuscatedContactProps {
-  /** Plain value: e.g. "firminoata@gmail.com" or "(11) 97083-6907". */
+  /** Plain value: e.g. "falecom@firmino.dev" or "(11) 97083-6907". */
   value: string;
   kind: "email" | "phone";
   className?: string;

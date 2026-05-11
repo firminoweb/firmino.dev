@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Reveal, SectionLabel, Button } from "@/components/ui";
 import { SERVICES } from "@/data/portfolio";
 
-const TEASER_COUNT = 3;
+const TEASER_COUNT = 4;
 
 export function Services() {
   const teaser = SERVICES.slice(0, TEASER_COUNT);
@@ -14,11 +14,11 @@ export function Services() {
           <div className="text-center mb-12">
             <SectionLabel center>Serviços</SectionLabel>
             <h2 className="font-serif section-heading">
-              Soluções que <span className="text-accent-light italic">construímos</span>
+              Como trabalhamos com <span className="text-accent-light italic">você</span>
             </h2>
           </div>
         </Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-[18px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-[18px]">
           {teaser.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.07}>
               <div className="gc py-8 px-7 relative overflow-hidden cursor-default h-full">

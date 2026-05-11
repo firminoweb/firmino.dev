@@ -7,7 +7,7 @@ import { breadcrumbJsonLd } from "@/lib/seo";
 
 const TITLE = "Serviços — firmino.dev";
 const DESCRIPTION =
-  "Engenharia de software para web, micro-frontends, mobile, performance, consultoria técnica e aplicações com Generative AI.";
+  "Squad sênior plug-and-play para empresas digitalizando operação e agências precisando de reforço técnico. 15+ anos em stack de produção web, mobile e Generative AI.";
 
 export const metadata: Metadata = {
   title: "Serviços",
@@ -23,59 +23,67 @@ export const metadata: Metadata = {
 };
 
 const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] }> = {
-  "Aplicações Web Completas": {
+  "Squad para empresa digitalizando": {
     deliverables: [
-      "MVPs e produtos completos do protótipo ao deploy em produção",
-      "Aplicações SPA, PWA e SSR com Next.js",
-      "APIs REST e GraphQL com Node.js / NestJS",
-      "Integração com bancos relacionais e NoSQL",
+      "Squad sênior dedicado em sprints quinzenais",
+      "Roadmap de saída do sistema antigo ou da ferramenta pronta para plataforma própria",
+      "Entrega contínua com qualidade automatizada e CI/CD",
+    ],
+    stack: ["Squad dedicado", "Sprints quinzenais", "CI/CD"],
+  },
+  "Reforço técnico para agência": {
+    deliverables: [
+      "Sênior ou squad alocado no seu time de delivery",
+      "Encaixe no seu PM, no seu Jira e na sua relação com o cliente",
+      "White-label total — sem contato com seu cliente final se você preferir",
+      "Faturamento PJ limpo: você emite a NF, a gente entrega o código",
+    ],
+    stack: ["Alocação sênior", "White-label", "PM-friendly", "PJ"],
+  },
+  "Aplicações e automações com IA": {
+    deliverables: [
+      "Chatbot que atende cliente em texto ou voz, conectado ao seu sistema",
+      "Agente que lê documento, extrai informação e devolve resultado pronto",
+      "Automação de tarefa repetitiva — atendimento, triagem, geração de conteúdo",
+      "Integração com IA dentro do que você já usa (WhatsApp, planilha, CRM, ERP)",
+    ],
+    stack: ["IA Generativa", "LLM", "Agentes", "Automação", "Integrações"],
+  },
+  "App mobile sob medida pra sua empresa": {
+    deliverables: [
+      "App nativo iOS e Android construído do zero",
+      "Catálogo, pedido, pagamento, fidelidade — qualquer fluxo da sua operação",
+      "Publicação nas lojas (App Store e Google Play) e atualizações contínuas",
+      "Integração com seu sistema atual (ERP, CRM, e-commerce)",
+    ],
+    stack: ["React Native", "iOS", "Android", "App Store", "Google Play"],
+  },
+  "Aplicações web sob medida pra sua empresa": {
+    deliverables: [
+      "Sistemas, sites e plataformas web sob medida — do protótipo até no ar",
+      "Painéis administrativos, e-commerce, plataformas de cliente, sistemas internos",
+      "APIs e integrações com bancos de dados e serviços que você já usa",
+      "Hospedagem, manutenção e evolução contínua",
     ],
     stack: ["Angular", "React", "Next.js", "Node.js", "TypeScript", "GraphQL"],
   },
-  "Arquitetura & Micro-frontends": {
+  "Arquitetura, performance & qualidade": {
     deliverables: [
-      "Plataformas corporativas com Module Federation",
+      "Plataformas corporativas com Module Federation e micro-frontends",
       "Design Systems compartilhados entre times",
-      "Padrões Clean Architecture e SOLID",
-      "Estratégia de deploy independente por domínio",
+      "Auditoria Lighthouse, Web Vitals e otimização de bundle",
+      "Cobertura de testes acima de 80% e conformidade WCAG 2.1 AA / ARIA",
     ],
-    stack: ["Module Federation", "Design Systems", "Clean Architecture", "SOLID"],
+    stack: ["Module Federation", "Design Systems", "Clean Architecture", "Lighthouse", "WCAG"],
   },
-  "Mobile & PWA": {
+  "Tech leadership & code review": {
     deliverables: [
-      "Apps React Native iOS / Android",
-      "Progressive Web Apps com instalação e offline-first",
-      "Apps híbridos com Ionic / Capacitor",
-      "Pipeline de publicação nas stores",
+      "Liderança técnica fracionada (CTO-as-a-service)",
+      "Code review estratégico e definição de padrões",
+      "Mentoria e capacitação do squad interno",
+      "Roadmap técnico e gestão de dívida estratégica",
     ],
-    stack: ["React Native", "Ionic", "Capacitor", "PWA"],
-  },
-  "Performance & Qualidade": {
-    deliverables: [
-      "Auditoria Lighthouse e Web Vitals",
-      "Cobertura de testes Jest, Cypress, Testing Library",
-      "Code splitting, lazy loading e otimização de bundle",
-      "Conformidade WCAG 2.1 AA / ARIA",
-    ],
-    stack: ["Lighthouse", "Web Vitals", "Jest", "Cypress", "WCAG 2.1 AA"],
-  },
-  "Consultoria & Mentoria Técnica": {
-    deliverables: [
-      "Liderança técnica e arquitetural em squads",
-      "Code review, definição de padrões e style guides",
-      "Mentoria e capacitação de times técnicos",
-      "Definição de roadmap técnico e dívida estratégica",
-    ],
-    stack: ["Tech Lead", "Code Review", "Padrões", "Mentoria"],
-  },
-  "Generative AI & LLM Applications": {
-    deliverables: [
-      "Integração de LLMs em produtos existentes",
-      "Pipelines com modelos locais e LLMOps",
-      "Agentes e copilots customizados",
-      "Aceleração do ciclo dev com AI-Driven Development",
-    ],
-    stack: ["LLM", "LLMOps", "Local LLMs", "AI-Driven", "Generative AI"],
+    stack: ["Tech Lead fracionado", "Code Review", "Padrões", "Mentoria"],
   },
 };
 
@@ -95,10 +103,10 @@ export default function ServicosPage() {
           <div className="content-container w-full max-w-[920px]">
             <SectionLabel>Serviços</SectionLabel>
             <h1 className="font-serif hero-heading !text-[clamp(40px,5vw,58px)] !leading-[1.06] mb-5">
-              O que <span className="text-accent-light italic">construímos</span>
+              Como <span className="text-accent-light italic">atendemos</span> sua empresa ou agência
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Da arquitetura de plataformas corporativas a apps mobile e produtos com IA Generativa — entregamos software que gera resultado mensurável.
+              Trabalhamos em dois formatos comerciais: squad dedicado para empresas digitalizando ou alocação sênior dentro do seu time de agência. Sustentado por 15+ anos de stack de produção em Angular, React, Next.js, React Native e Generative AI.
             </p>
           </div>
         </section>
@@ -162,7 +170,7 @@ export default function ServicosPage() {
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
                     <Link href="/contato">
-                      <Button>Fale com a gente →</Button>
+                      <Button>Quero uma proposta →</Button>
                     </Link>
                     <Link href="/projetos">
                       <Button variant="ghost">Ver projetos</Button>

@@ -259,7 +259,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                     Conte para gente o que você está construindo. Respondemos em até 24h úteis.
                   </p>
                   <Link href="/contato">
-                    <Button>Fale com a gente →</Button>
+                    <Button>Quero uma proposta →</Button>
                   </Link>
                 </div>
               </div>

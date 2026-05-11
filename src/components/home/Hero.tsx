@@ -22,27 +22,34 @@ export function Hero() {
       <div className="content-container w-full grid grid-cols-1 lg:grid-cols-[1.15fr_.85fr] gap-10 lg:gap-14 items-center">
         <Reveal>
           <div>
-            <SectionLabel>Engenharia de Software · Web · Mobile · IA</SectionLabel>
+            <SectionLabel>Engenharia de software · Web · Mobile · IA</SectionLabel>
             <h1 className="hero-heading">
-              <span className="font-serif">Desenvolvemos soluções</span><br />
-              <span className="font-serif">que transformam </span>
-              <span className="font-serif text-accent-light italic">negócios</span>
+              <span className="font-serif">Construímos o </span>
+              <span className="font-serif text-accent-light italic">sistema digital</span>
+              <span className="font-serif"> da sua empresa.</span><br />
+              <span className="font-serif">Reforçamos o </span>
+              <span className="font-serif text-accent-light italic">time da sua agência.</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.75] max-w-[500px] mb-5">
-              Construímos plataformas web, apps mobile e produtos potencializados por Generative AI & LLM Applications. Mais de 15 anos entregando software escalável para empresas que exigem excelência.
+              Squad sênior plug-and-play para empresas digitalizando operação e agências precisando de reforço técnico. 15+ anos entregando software escalável para Itaú, Boticário, TOTVS e NTT Data.
             </p>
             <div className="flex flex-wrap gap-2 mb-9">
               {HERO_TAGS.map((t) => (
                 <Tag key={t} accent>{t}</Tag>
               ))}
             </div>
-            <div className="flex flex-wrap gap-3.5">
-              <Link href="/contato">
-                <Button>Fale com a gente →</Button>
-              </Link>
-              <Link href="/projetos">
-                <Button variant="ghost">Ver projetos</Button>
-              </Link>
+            <div>
+              <div className="flex flex-wrap gap-3.5">
+                <Link href="/contato">
+                  <Button>Quero uma proposta →</Button>
+                </Link>
+                <Link href="/projetos">
+                  <Button variant="ghost">Ver casos</Button>
+                </Link>
+              </div>
+              <p className="text-[11.5px] text-text-dim mt-3">
+                Resposta em 24h · sem compromisso
+              </p>
             </div>
           </div>
         </Reveal>

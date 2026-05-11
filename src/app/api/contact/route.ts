@@ -14,7 +14,7 @@ const ContactSchema = z.object({
 const MIN_FILL_TIME_MS = 2_000;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 3;
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "firminoata@gmail.com";
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "falecom@firmino.dev";
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || "firmino.dev <onboarding@resend.dev>";
 
 const rateLimitBucket = new Map<string, number[]>();
