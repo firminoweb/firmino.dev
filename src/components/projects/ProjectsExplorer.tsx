@@ -75,7 +75,7 @@ export function ProjectsExplorer() {
                     </Tag>
                     <span className="text-[11px] text-text-dark">{p.year}</span>
                   </div>
-                  <h2 className="text-[18px] font-bold text-white mb-1 tracking-tight">
+                  <h2 className="text-[18px] font-bold text-brand mb-1 tracking-tight">
                     {p.title}
                   </h2>
                   <p className="text-[13px] text-text-dim">

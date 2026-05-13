@@ -26,7 +26,7 @@ export function Cases() {
               <div className="grid grid-cols-2 gap-2.5 mb-7">
                 {STATS.map((s, i) => (
                   <div key={i} className="stat-box">
-                    <div className="font-serif text-2xl text-white">{s.value}</div>
+                    <div className="font-serif text-2xl text-brand">{s.value}</div>
                     <div className="text-[11px] text-text-dim">{s.label}</div>
                   </div>
                 ))}
@@ -61,7 +61,7 @@ export function Cases() {
                             </Tag>
                             <span className="text-[11px] text-text-muted">{p.year}</span>
                           </div>
-                          <h4 className="text-[17px] sm:text-[19px] font-bold text-white mb-1 tracking-tight">
+                          <h4 className="text-[17px] sm:text-[19px] font-bold text-brand mb-1 tracking-tight">
                             {p.title}
                           </h4>
                           <p className="text-[13px] text-text-dim">
@@ -79,7 +79,7 @@ export function Cases() {
                   <div className="px-5 sm:px-7 pb-4 flex flex-wrap gap-3">
                     {p.metrics.map((m, j) => (
                       <div key={j} className="metric-box flex-1 min-w-[100px]">
-                        <div className="font-serif text-[22px] sm:text-[26px] font-medium text-white tracking-tight">
+                        <div className="font-serif text-[22px] sm:text-[26px] font-medium text-brand tracking-tight">
                           {m.value}
                         </div>
                         <div className="text-[11px] text-text-dim mt-0.5">{m.label}</div>

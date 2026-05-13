@@ -5,8 +5,6 @@ interface ProjectCoverProps {
   project: Project;
 }
 
-const ACCENT_DEFAULT = "#4263eb";
-
 function hashAccent(slug: string): string {
   // Deterministic accent: rotate hue based on slug, keep it on-brand (blue-violet range).
   let hash = 0;
@@ -61,10 +59,7 @@ export function ProjectCover({ project }: ProjectCoverProps) {
         <span>·</span>
         <span>{project.year}</span>
       </div>
-      <div
-        className="project-cover-title"
-        style={{ color: ACCENT_DEFAULT === accent ? "#fff" : "#fff" }}
-      >
+      <div className="project-cover-title">
         {project.title}
       </div>
     </div>

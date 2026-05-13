@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useScrolled } from "@/hooks/useScrolled";
-import { Button } from "@/components/ui";
+import { Button, ThemeToggle } from "@/components/ui";
 import { NAV_ITEMS, CONTACT } from "@/data/portfolio";
 
 export function Navbar() {
@@ -55,7 +55,7 @@ export function Navbar() {
       >
         <div className="content-container flex justify-between items-center h-[72px]">
           <Link href="/" className="flex items-center gap-[3px] relative z-10">
-            <span className="text-[28px] font-extrabold text-white tracking-tight">firmino</span>
+            <span className="text-[28px] font-extrabold text-brand tracking-tight">firmino</span>
             <span className="text-[28px] font-light text-accent-light">.dev</span>
           </Link>
 
@@ -66,39 +66,43 @@ export function Navbar() {
                 {n.label}
               </Link>
             ))}
+            <ThemeToggle />
             <Link href="/contato">
               <Button className="!py-2.5 !px-[22px]">Fale Conosco</Button>
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            className="lg:hidden flex flex-col gap-[5px] p-2 relative z-10"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-drawer"
-          >
-            <span
-              className={clsx(
-                "block w-5 h-[2px] bg-text-light transition-all duration-300",
-                menuOpen && "rotate-45 translate-y-[7px]",
-              )}
-            />
-            <span
-              className={clsx(
-                "block w-5 h-[2px] bg-text-light transition-all duration-300",
-                menuOpen && "opacity-0",
-              )}
-            />
-            <span
-              className={clsx(
-                "block w-5 h-[2px] bg-text-light transition-all duration-300",
-                menuOpen && "-rotate-45 -translate-y-[7px]",
-              )}
-            />
-          </button>
+          {/* Mobile actions */}
+          <div className="lg:hidden flex items-center gap-2 relative z-10">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="flex flex-col gap-[5px] p-2"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-drawer"
+            >
+              <span
+                className={clsx(
+                  "block w-5 h-[2px] bg-text-light transition-all duration-300",
+                  menuOpen && "rotate-45 translate-y-[7px]",
+                )}
+              />
+              <span
+                className={clsx(
+                  "block w-5 h-[2px] bg-text-light transition-all duration-300",
+                  menuOpen && "opacity-0",
+                )}
+              />
+              <span
+                className={clsx(
+                  "block w-5 h-[2px] bg-text-light transition-all duration-300",
+                  menuOpen && "-rotate-45 -translate-y-[7px]",
+                )}
+              />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -140,7 +144,7 @@ export function Navbar() {
               return (
                 <li
                   key={n.href}
-                  className="border-b border-white/5"
+                  className="border-b border-divider"
                   style={{
                     animation: menuOpen
                       ? `drawerItemIn 0.4s ease ${0.08 + i * 0.05}s both`
@@ -195,7 +199,7 @@ export function Navbar() {
           <div className="flex-1" />
 
           <div
-            className="pb-[max(env(safe-area-inset-bottom),32px)] pt-6 border-t border-white/5"
+            className="pb-[max(env(safe-area-inset-bottom),32px)] pt-6 border-t border-divider"
             style={{
               animation: menuOpen
                 ? `drawerItemIn 0.4s ease ${0.08 + (NAV_ITEMS.length + 1) * 0.05}s both`

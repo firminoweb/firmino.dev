@@ -167,14 +167,14 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {project.metrics.map((m, i) => (
                     <div key={i} className="metric-box !text-left !px-5 !py-4">
-                      <div className="font-serif text-[26px] sm:text-[30px] font-medium text-white tracking-tight">
+                      <div className="font-serif text-[26px] sm:text-[30px] font-medium text-brand tracking-tight">
                         {m.value}
                       </div>
                       <div className="text-[11px] text-text-muted mt-0.5">{m.label}</div>
                     </div>
                   ))}
                   <div className="metric-box !text-left !px-5 !py-4">
-                    <div className="font-serif text-[26px] sm:text-[30px] font-medium text-white tracking-tight">
+                    <div className="font-serif text-[26px] sm:text-[30px] font-medium text-brand tracking-tight">
                       {project.duration}
                     </div>
                     <div className="text-[11px] text-text-muted mt-0.5">Duração</div>
@@ -233,7 +233,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                         </Tag>
                         <span className="text-[11px] text-text-muted">{r.year}</span>
                       </div>
-                      <h3 className="text-[16px] font-bold text-white mb-1 tracking-tight">
+                      <h3 className="text-[16px] font-bold text-brand mb-1 tracking-tight">
                         {r.title}
                       </h3>
                       <p className="text-[12.5px] text-text-muted mb-3">{r.client}</p>

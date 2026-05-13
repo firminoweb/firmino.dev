@@ -185,8 +185,8 @@ function FormFeedback({
       className={clsx(
         "rounded-[10px] px-4 py-3 text-[13.5px] leading-[1.6] border",
         variant === "success"
-          ? "bg-success/10 border-success/30 text-[#7be8a3]"
-          : "bg-red-500/10 border-red-500/30 text-red-300",
+          ? "bg-success/10 border-success/30 text-success"
+          : "bg-red-500/10 border-red-500/30 text-red-500",
       )}
     >
       {children}

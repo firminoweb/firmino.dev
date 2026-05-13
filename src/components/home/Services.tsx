@@ -18,9 +18,9 @@ export function Services() {
             </h2>
           </div>
         </Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-[18px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-[18px] items-stretch">
           {teaser.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.07}>
+            <Reveal key={s.title} delay={i * 0.07} className="h-full">
               <div className="gc py-8 px-7 relative overflow-hidden cursor-default h-full">
                 <div className="service-icon">{s.icon}</div>
                 <h3 className="text-[16.5px] font-bold text-text-light mb-2.5 tracking-tight">

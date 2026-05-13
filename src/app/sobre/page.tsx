@@ -137,7 +137,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {STATS.map((s, i) => (
                   <div key={i} className="metric-box !text-left !px-5 !py-4">
-                    <div className="font-serif text-[26px] sm:text-[30px] font-medium text-white tracking-tight">
+                    <div className="font-serif text-[26px] sm:text-[30px] font-medium text-brand tracking-tight">
                       {s.value}
                     </div>
                     <div className="text-[11px] text-text-dim mt-0.5">{s.label}</div>

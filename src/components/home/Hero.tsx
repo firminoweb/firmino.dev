@@ -76,7 +76,7 @@ function LatestPostCard({ post }: { post: BlogPostMeta }) {
           <div className="hero-card-dot" />
           <span className="text-[13px] text-text-subtle font-medium">firmino.dev/blog</span>
         </div>
-        <span className="text-lg text-[#4a4d6e] group-hover:text-accent-light transition-colors">↗</span>
+        <span className="text-lg text-text-darker group-hover:text-accent-light transition-colors">↗</span>
       </div>
       <div className="flex flex-col gap-4 px-6 pt-7 pb-8">
         <span className="text-[10.5px] text-accent-light font-semibold tracking-[2.5px] uppercase">
@@ -112,12 +112,12 @@ function FallbackCard() {
           <div className="hero-card-dot" />
           <span className="text-[13px] text-text-subtle font-medium">firmino.dev</span>
         </div>
-        <span className="text-lg text-[#4a4d6e]">↗</span>
+        <span className="text-lg text-text-darker">↗</span>
       </div>
       <div className="flex flex-col items-center gap-5 px-6 pt-9 pb-10">
         <div className="hero-card-icon animate-float">⟨/⟩</div>
         <div className="text-center">
-          <div className="font-serif text-[30px] text-white font-medium">Engenharia</div>
+          <div className="font-serif text-[30px] text-brand font-medium">Engenharia</div>
           <div className="font-serif text-[30px] text-accent-light italic">AI-Driven</div>
         </div>
         <p className="text-[12.5px] text-text-dim text-center leading-[1.6] px-2">

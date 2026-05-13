@@ -102,7 +102,7 @@ export default function ContatoPage() {
               <div className="gc py-8 px-7 sm:px-10 mb-6 relative overflow-hidden">
                 <div className="case-glow-line" />
                 <SectionLabel>Formulário</SectionLabel>
-                <h2 className="font-serif text-[24px] sm:text-[28px] !leading-[1.18] text-white mb-2">
+                <h2 className="font-serif text-[24px] sm:text-[28px] !leading-[1.18] text-brand mb-2">
                   Conte sobre o seu projeto
                 </h2>
                 <p className="text-[13.5px] text-text-dim leading-[1.7] mb-6 max-w-[560px]">
@@ -129,7 +129,7 @@ export default function ContatoPage() {
                         <h2 className="text-[12px] uppercase tracking-[2px] font-semibold text-text-dim mb-2">
                           {c.label}
                         </h2>
-                        <p className="text-[16px] font-bold text-white tracking-tight mb-1 break-all">
+                        <p className="text-[16px] font-bold text-brand tracking-tight mb-1 break-all">
                           {c.value}
                         </p>
                         <p className="text-[12.5px] text-text-dark leading-[1.6]">{c.desc}</p>
@@ -160,7 +160,7 @@ export default function ContatoPage() {
                         <ObfuscatedContact
                           value={c.value}
                           kind={c.kind}
-                          className="text-[14.5px] font-semibold text-white hover:text-accent-light transition-colors break-all"
+                          className="text-[14.5px] font-semibold text-brand hover:text-accent-light transition-colors break-all"
                         />
                         <p className="text-[11.5px] text-text-darker leading-[1.55] mt-1">{c.desc}</p>
                       </div>
@@ -173,7 +173,7 @@ export default function ContatoPage() {
             <Reveal delay={0.2}>
               <div className="gc py-9 px-7 sm:px-10 mt-6 relative overflow-hidden">
                 <SectionLabel>Onde estamos</SectionLabel>
-                <h2 className="font-serif text-[24px] sm:text-[28px] !leading-[1.18] text-white mb-3">
+                <h2 className="font-serif text-[24px] sm:text-[28px] !leading-[1.18] text-brand mb-3">
                   São Paulo, Brasil
                 </h2>
                 <p className="text-[14px] text-text-dim leading-[1.75] max-w-[560px]">

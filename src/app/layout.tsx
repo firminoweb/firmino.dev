@@ -24,10 +24,15 @@ const playfair = Playfair_Display({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0b0e2d",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0b0e2d" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
+
+const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('firmino-theme');if(t==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -111,7 +116,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${dmSans.variable} ${playfair.variable}`}>
+    <html lang="pt-BR" className={`${dmSans.variable} ${playfair.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body suppressHydrationWarning className="bg-bg text-text-main min-h-screen font-sans overflow-x-hidden">
         {children}
         <SpeedInsights />
