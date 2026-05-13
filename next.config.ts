@@ -24,6 +24,17 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     remotePatterns,
   },
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: [
+      "@/components/ui",
+      "@/components/home",
+      "@/components/layout",
+      "@/components/blog",
+      "@/components/projects",
+      "@/components/forms",
+    ],
+  },
 };
 
 export default nextConfig;

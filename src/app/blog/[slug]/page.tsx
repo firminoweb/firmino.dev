@@ -9,6 +9,7 @@ import { PostNav } from "@/components/blog/PostNav";
 import { mdxOptions } from "@/lib/mdx-options";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { getAdjacentPosts, getAllSlugs, getPostBySlug } from "@/lib/blog";
+import "./prose.css";
 
 interface BlogPostProps {
   params: Promise<{ slug: string }>;
