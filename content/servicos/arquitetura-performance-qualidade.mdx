@@ -1,0 +1,62 @@
+---
+title: Arquitetura, performance & qualidade
+description: Plataformas corporativas com Module Federation, Design Systems compartilhados, Lighthouse 90+, cobertura de testes acima de 80% e conformidade WCAG 2.1 AA. Pra empresa cujo produto já roda — mas a engenharia parou de escalar.
+headline: Seu produto cresceu. A engenharia parou de acompanhar. A gente conserta.
+icon: ⬢
+tags: [Module Federation, Design Systems, Lighthouse, WCAG, Clean Architecture]
+---
+
+Empresa que já tem produto rodando, com time, com cliente pagando, em algum ponto bate num teto que não é mais de feature — é de engenharia. Releases que travam dois dias porque três times pisaram no pé um do outro. Frontend lento o suficiente pra afetar conversão. Bug recorrente que ninguém localiza. Time novo entrando e levando seis semanas pra fazer o primeiro PR útil.
+
+Esse serviço é pra essa empresa. Não é refazer do zero — é entrar em código que existe, identificar o que está segurando a operação, e consertar com método.
+
+## Pra quem é
+
+- **Frontend monolítico** que precisa virar micro-frontend porque o time multiplicou e ninguém consegue mais entregar sem conflito.
+- **Lighthouse / Web Vitals baixo** afetando SEO, conversão de e-commerce ou retenção em produto digital.
+- **Bug crônico em produção** que volta a cada release, sinal de cobertura de teste insuficiente ou arquitetura frágil.
+- **Múltiplos times pisando no pé** uns dos outros — Design System inexistente ou desatualizado, padrão de código divergindo, PR review demorando.
+- **Não-conformidade com acessibilidade** (WCAG) virando risco regulatório, especialmente em setor financeiro, governo ou grande varejo.
+
+## Pra quem NÃO é
+
+- Quem **ainda não lançou v1**. Otimizar antes de ter usuário é desperdício caro — primeiro valida.
+- Quem precisa de **redesign de UI/UX**. Esse é serviço de produto/design, não de engenharia. A gente foca no que está por trás da tela.
+- Quem busca **consultoria de slide**: relatório bonito, lista de recomendação, e a empresa que toque sozinha. A gente entrega plano **e** implementação.
+
+## O que você recebe
+
+- **Auditoria técnica documentada** do estado atual: arquitetura, performance (Lighthouse, Web Vitals), qualidade (cobertura, bug rate), acessibilidade (WCAG 2.1 AA), Design System.
+- **Plano de execução priorizado por ROI**: o que dá mais retorno em menos tempo vai primeiro. Sem "refazer tudo".
+- **Implementação direta no seu código**: Module Federation pra dividir frontend grande em pedaços de time, Design System compartilhado, otimização de bundle, suite de testes, conformidade WCAG.
+- **Métricas de antes e depois**: Lighthouse, INP, LCP, CLS, bundle size, cobertura, tempo de build, tempo de release. Você mede o resultado, não acredita pela palavra.
+- **Mentoria do time interno**: a gente trabalha junto com seus desenvolvedores, não em paralelo. Quando saímos, o time domina o que foi feito.
+
+## Como funciona
+
+**1. Auditoria técnica (1 a 2 semanas).** Análise do código, do processo de build, da pipeline, das métricas de produção. Saída: relatório com diagnóstico priorizado e estimativa de ganho por frente.
+
+**2. Plano priorizado.** A gente coloca os ganhos em ordem de ROI: o que melhora mais em menos tempo, e o que tem dependência. Você decide o que entra primeiro.
+
+**3. Implementação.** Geralmente 3 a 6 meses, em sprints. Algumas frentes rodam em paralelo, outras dependem entre si. A gente entra no repositório, abre PR, faz code review junto com o time, sobe pra produção.
+
+**4. Mentoria do time interno.** Pair programming, revisão de PR do time, workshops curtos pra explicar decisões. O time aprende o método, não só o resultado.
+
+**5. Handoff.** Saímos quando o time consegue manter e evoluir sem a gente. Pode ser em 4 meses, pode ser em 12 — depende do tamanho do produto e do time.
+
+## Perguntas comuns
+
+**Vocês refazem do zero?**
+Quase nunca. Refazer do zero parece atalho, mas costuma ser caminho mais longo, com risco maior e perda de conhecimento embutido no código. A gente prefere entrar no que existe, refatorar com método, e migrar parte por parte.
+
+**Em quanto tempo a gente vê resultado?**
+As primeiras melhorias mensuráveis costumam aparecer em 4 a 8 semanas: Lighthouse subindo, bundle menor, tempo de build caindo. Mudança estrutural (Module Federation, Design System completo) leva mais tempo — 3 a 6 meses — mas a empresa sente em produção antes de tudo estar pronto.
+
+**Funciona em Angular? React? Vue?**
+Stack mais forte: Angular e React (incluindo Next.js). Em React Native também. Vue a gente atende mas não é foco principal — se for esse o caso, conversamos pra ver se faz sentido.
+
+**Como vocês medem o resultado?**
+Métricas concretas, públicas dentro do time: Lighthouse score, INP / LCP / CLS de Web Vitals, bundle size, cobertura de teste, tempo de build, tempo de release, número de bugs em produção. A gente coloca um dashboard no início e acompanha junto.
+
+**Vocês treinam o time interno enquanto trabalham?**
+Sim, faz parte. Se a gente sair e o time não souber manter, o trabalho perde valor em 6 meses. Pair programming, code review didático, workshops curtos sobre cada decisão. O time absorve o método.

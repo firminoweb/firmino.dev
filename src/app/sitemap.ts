@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { PROJECTS } from "@/data/portfolio";
 import { getAllPosts } from "@/lib/blog";
+import { getAllServicoSlugs } from "@/lib/servicos";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://firmino.dev";
 
@@ -31,5 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...projectRoutes, ...blogRoutes];
+  const servicoRoutes: MetadataRoute.Sitemap = getAllServicoSlugs().map((slug) => ({
+    url: `${SITE_URL}/servicos/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes, ...servicoRoutes];
 }

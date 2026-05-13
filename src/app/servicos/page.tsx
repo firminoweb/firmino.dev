@@ -4,6 +4,7 @@ import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, Button, Tag, JsonLd } from "@/components/ui";
 import { SERVICES } from "@/data/portfolio";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { hasServicoContent } from "@/lib/servicos";
 
 const TITLE = "Serviços — firmino.dev";
 const DESCRIPTION =
@@ -115,6 +116,7 @@ export default function ServicosPage() {
           <div className="content-container max-w-[920px] flex flex-col gap-5">
             {SERVICES.map((s, i) => {
               const extra = SERVICE_DETAILS[s.title];
+              const hasDetail = hasServicoContent(s.slug);
               return (
                 <Reveal key={s.title} delay={i * 0.05}>
                   <div className="gc py-8 px-7 sm:py-10 sm:px-10 relative overflow-hidden">
@@ -122,7 +124,16 @@ export default function ServicosPage() {
                       <div className="service-icon !mb-0">{s.icon}</div>
                       <div>
                         <h2 className="text-[20px] sm:text-[22px] font-bold text-text-light mb-3 tracking-tight">
-                          {s.title}
+                          {hasDetail ? (
+                            <Link
+                              href={`/servicos/${s.slug}`}
+                              className="hover:text-accent-light transition-colors"
+                            >
+                              {s.title}
+                            </Link>
+                          ) : (
+                            s.title
+                          )}
                         </h2>
                         <p className="text-[14.5px] text-text-dim leading-[1.75] mb-5">
                           {s.desc}
@@ -139,12 +150,20 @@ export default function ServicosPage() {
                                 </li>
                               ))}
                             </ul>
-                            <div className="flex flex-wrap gap-1.5">
+                            <div className="flex flex-wrap gap-1.5 mb-5">
                               {extra.stack.map((t) => (
                                 <Tag key={t}>{t}</Tag>
                               ))}
                             </div>
                           </>
+                        )}
+                        {hasDetail && (
+                          <Link
+                            href={`/servicos/${s.slug}`}
+                            className="text-[13px] text-accent-light hover:text-accent transition-colors inline-flex items-center gap-1.5 font-medium"
+                          >
+                            Saber mais sobre esse serviço →
+                          </Link>
                         )}
                       </div>
                     </div>

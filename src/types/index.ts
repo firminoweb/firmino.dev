@@ -9,6 +9,7 @@ export interface KeyAchievement {
 }
 
 export interface Service {
+  slug: string;
   icon: string;
   title: string;
   desc: string;
