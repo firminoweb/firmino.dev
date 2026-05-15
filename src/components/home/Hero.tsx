@@ -32,7 +32,7 @@ export function Hero() {
               <span className="font-serif">.</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.75] max-w-[500px] mb-5">
-              Software construído pra durar, com time que responde. 15+ anos entregando para Itaú, Boticário, TOTVS e NTT Data.
+              Aplicações web, apps mobile e automações com IA sob medida pra sua empresa. 15+ anos construindo produto que rende, do pequeno negócio à grande operação.
             </p>
             <div className="flex flex-wrap gap-2 mb-9">
               {HERO_TAGS.map((t) => (
