@@ -516,6 +516,16 @@
     height: 1px;
     background: var(--label-line);
   }
+  .label-prominent {
+    font-size: 14px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+  .label-prominent::before {
+    width: 44px;
+    height: 2px;
+  }
 
   /* Glass Card */
   .gc {

@@ -22,16 +22,17 @@ export function Hero() {
       <div className="content-container w-full grid grid-cols-1 lg:grid-cols-[1.15fr_.85fr] gap-10 lg:gap-14 items-center">
         <Reveal>
           <div>
-            <SectionLabel>Engenharia de software · Web · Mobile · IA</SectionLabel>
+            <SectionLabel prominent>Engenharia de software · Web · Mobile · IA</SectionLabel>
             <h1 className="hero-heading">
-              <span className="font-serif">Construímos o </span>
-              <span className="font-serif text-accent-light italic">sistema digital</span>
-              <span className="font-serif"> da sua empresa.</span><br />
-              <span className="font-serif">Reforçamos o </span>
-              <span className="font-serif text-accent-light italic">time da sua agência.</span>
+              <span className="font-serif">Construímos </span>
+              <span className="font-serif text-accent-light italic">software</span>
+              <span className="font-serif">.</span><br />
+              <span className="font-serif">Reforçamos </span>
+              <span className="font-serif text-accent-light italic">times</span>
+              <span className="font-serif">.</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.75] max-w-[500px] mb-5">
-              Squad sênior plug-and-play para empresas digitalizando operação e agências precisando de reforço técnico. 15+ anos entregando software escalável para Itaú, Boticário, TOTVS e NTT Data.
+              Software construído pra durar, com time que responde. 15+ anos entregando para Itaú, Boticário, TOTVS e NTT Data.
             </p>
             <div className="flex flex-wrap gap-2 mb-9">
               {HERO_TAGS.map((t) => (
