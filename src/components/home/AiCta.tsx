@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Reveal, Button, SectionLabel } from "@/components/ui";
+import { Reveal, Button, SectionLabel, TrackedLink } from "@/components/ui";
 
 export function AiCta() {
   return (
@@ -16,11 +15,11 @@ export function AiCta() {
                 <span className="text-accent-light italic">aplicações inteligentes</span>
               </h2>
               <p className="text-[14px] sm:text-[15px] text-text-dim leading-[1.75] max-w-[560px] mx-auto mb-9">
-                Da ideação ao deploy. Integramos LLMOps, modelos locais e ferramentas de Generative AI ao seu produto para acelerar o time-to-market com segurança, performance e inovação.
+                Coloque a inteligência artificial pra trabalhar no seu dia a dia: chatbot que atende cliente, agente que lê documento e automação que tira a tarefa repetitiva do time. Conectado ao que você já usa — WhatsApp, planilha, CRM — e entregue funcionando, sem precisar virar uma empresa de tecnologia.
               </p>
-              <Link href="/contato">
+              <TrackedLink href="/contato" event="cta_click" eventParams={{ location: "ai_cta" }}>
                 <Button>Fale com a gente →</Button>
-              </Link>
+              </TrackedLink>
             </div>
           </div>
         </Reveal>

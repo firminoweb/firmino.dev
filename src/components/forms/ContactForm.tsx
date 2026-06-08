@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import clsx from "clsx";
 import { Button } from "@/components/ui";
+import { trackEvent } from "@/lib/analytics";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -16,7 +17,13 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState<string | null>(null);
-  const formOpenedAt = useRef<number>(Date.now());
+  const formOpenedAt = useRef<number>(0);
+
+  // Stamp the open time after mount — keeps render pure (no Date.now in render)
+  // and still feeds the server-side "filled too fast" bot trap.
+  useEffect(() => {
+    formOpenedAt.current = Date.now();
+  }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -58,6 +65,7 @@ export function ContactForm() {
       }
 
       setStatus("sent");
+      trackEvent("generate_lead", { method: "form" });
       form.reset();
       formOpenedAt.current = Date.now();
     } catch {

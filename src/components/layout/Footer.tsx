@@ -10,12 +10,12 @@ const COMPANY_LINKS: { label: string; href: string }[] = [
 ];
 
 const SERVICE_LINKS: { label: string; href: string }[] = [
-  { label: "Aplicações Web", href: "/servicos" },
-  { label: "Mobile & PWA", href: "/servicos" },
-  { label: "Arquitetura", href: "/servicos" },
-  { label: "Consultoria", href: "/servicos" },
-  { label: "AI & LLM", href: "/servicos" },
-  { label: "Performance", href: "/servicos" },
+  { label: "Aplicações web sob medida", href: "/servicos/aplicacoes-web-sob-medida" },
+  { label: "App mobile sob medida", href: "/servicos/app-mobile-sob-medida" },
+  { label: "Automações com IA", href: "/servicos/automacoes-com-ia" },
+  { label: "Squad para empresa", href: "/servicos/squad-empresa-digitalizando" },
+  { label: "Reforço técnico para agência", href: "/servicos/reforco-tecnico-agencia" },
+  { label: "Arquitetura & performance", href: "/servicos/arquitetura-performance-qualidade" },
 ];
 
 export function Footer() {
@@ -26,8 +26,8 @@ export function Footer() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.5fr] gap-10 lg:gap-12 mb-14">
             <div>
               <Link href="/" className="flex items-center gap-[3px] mb-4">
-                <span className="text-xl font-extrabold text-brand">firmino</span>
-                <span className="text-xl font-light text-accent-light">.dev</span>
+                <span className="text-xl font-bold text-brand">firmino</span>
+                <span className="text-xl font-normal text-accent-light">.dev</span>
               </Link>
               <p className="text-[13.5px] text-text-dark leading-[1.75] max-w-[260px]">
                 Empresa de engenharia de software especializada em plataformas web, apps mobile e aplicações inteligentes com Generative AI & LLM para empresas que exigem excelência técnica.

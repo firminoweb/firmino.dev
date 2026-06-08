@@ -48,7 +48,8 @@ export function getAllPosts(): BlogPostMeta[] {
   return listFiles()
     .map(parseFile)
     .sort((a, b) => b.date.localeCompare(a.date))
-    .map(({ content: _content, ...meta }) => meta);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(({ content, ...meta }) => meta);
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {

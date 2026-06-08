@@ -7,7 +7,8 @@ export function useScrolled(offset = 50) {
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > offset);
-    window.addEventListener("scroll", handler);
+    handler();
+    window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, [offset]);
 

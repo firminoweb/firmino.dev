@@ -33,11 +33,6 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", handler);
   }, [menuOpen]);
 
-  // Close drawer when route changes
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
@@ -55,8 +50,8 @@ export function Navbar() {
       >
         <div className="content-container flex justify-between items-center h-[72px]">
           <Link href="/" className="flex items-center gap-[3px] relative z-10">
-            <span className="text-[28px] font-extrabold text-brand tracking-tight">firmino</span>
-            <span className="text-[28px] font-light text-accent-light">.dev</span>
+            <span className="text-[28px] font-bold text-brand tracking-tight">firmino</span>
+            <span className="text-[28px] font-normal text-accent-light">.dev</span>
           </Link>
 
           {/* Desktop nav */}
@@ -153,6 +148,7 @@ export function Navbar() {
                 >
                   <Link
                     href={n.href}
+                    onClick={() => setMenuOpen(false)}
                     className="flex items-center justify-between py-5 group"
                     aria-current={active ? "page" : undefined}
                   >
@@ -190,7 +186,7 @@ export function Navbar() {
                 : undefined,
             }}
           >
-            <Link href="/contato" className="block">
+            <Link href="/contato" onClick={() => setMenuOpen(false)} className="block">
               <Button className="w-full !py-3.5 !text-[14px]">Fale Conosco →</Button>
             </Link>
           </div>

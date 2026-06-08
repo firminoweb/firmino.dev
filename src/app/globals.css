@@ -20,9 +20,10 @@
   --color-text-main: #e4e6f2;
   --color-text-light: #eef0f8;
   --color-text-muted: #8e92b0;
-  --color-text-dim: #737699;
-  --color-text-dark: #5c5f7e;
-  --color-text-darker: #454868;
+  /* dim/dark/darker bumped to clear WCAG AA (>=4.5:1) on #0b0e2d — see audit */
+  --color-text-dim: #7e81a2;
+  --color-text-dark: #7a7d96;
+  --color-text-darker: #797c93;
   --color-text-subtle: #9498b5;
   --color-text-nav: #b0b3cc;
 
@@ -105,7 +106,7 @@
   --stat-border: rgba(66, 99, 235, 0.08);
 
   /* Stack */
-  --stack-tab-inactive-color: #737699;
+  --stack-tab-inactive-color: #7e81a2;
   --stack-tab-inactive-border: #252850;
   --stack-tab-active-shadow: 0 4px 20px #4263eb33;
 
@@ -120,15 +121,15 @@
   --cta-radial: #4263eb08;
 
   /* Footer link */
-  --footer-link-color: #5c5f7e;
+  --footer-link-color: #7a7d96;
   --footer-link-hover: #b0b3cc;
-  --social-link-color: #5c5f7e;
+  --social-link-color: #7a7d96;
   --social-link-border: #252850;
   --social-link-hover-color: #b0b3cc;
   --social-link-hover-border: #4263eb55;
 
   /* Client */
-  --client-name-color: #454868;
+  --client-name-color: #797c93;
   --client-name-hover: #9498b5;
   --client-chip-bg: #f4f5fa;
   --client-chip-border: #1e214566;
@@ -206,8 +207,9 @@
   --color-text-light: #353e9d;
   --color-text-muted: #5c5f7e;
   --color-text-dim: #6f7494;
-  --color-text-dark: #7f83a0;
-  --color-text-darker: #9498b5;
+  /* dark/darker darkened to clear WCAG AA (>=4.5:1) on #ffffff — see audit */
+  --color-text-dark: #70738d;
+  --color-text-darker: #71758a;
   --color-text-subtle: #5c5f7e;
   --color-text-nav: #5c5f7e;
 
@@ -276,7 +278,7 @@
 
   --cta-radial: rgba(66, 99, 235, 0.05);
 
-  --footer-link-color: #7f83a0;
+  --footer-link-color: #70738d;
   --footer-link-hover: #353e9d;
   --social-link-color: #5c5f7e;
   --social-link-border: rgba(53, 62, 157, 0.18);
@@ -442,6 +444,17 @@
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Transform-only rise — keeps opacity:1 so the element stays a valid
+   LCP candidate (no opacity gate) while still animating into place. */
+@keyframes heroRise {
+  from {
+    transform: translateY(16px);
+  }
+  to {
     transform: translateY(0);
   }
 }
@@ -975,6 +988,28 @@
   /* Reveal */
   .reveal-base {
     transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Above-the-fold entrance — pure CSS, so it never waits on JS/hydration
+     and stays visible even without JS. `hero-rise` is transform-only to
+     protect the LCP heading; `reveal-immediate` fades for non-LCP content. */
+  .hero-rise {
+    animation: heroRise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .reveal-immediate {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* FAQ accordion — native <details>, no JS required */
+  .faq-item > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
   }
 
   /* Internal Pages */

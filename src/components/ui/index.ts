@@ -6,3 +6,7 @@ export { ClientWordmark } from "./ClientWordmark";
 export { ObfuscatedContact } from "./ObfuscatedContact";
 export { JsonLd } from "./JsonLd";
 export { ThemeToggle } from "./ThemeToggle";
+export { WhatsAppButton } from "./WhatsAppButton";
+export { WhatsAppGlyph } from "./WhatsAppGlyph";
+export { WhatsAppFab } from "./WhatsAppFab";
+export { TrackedLink } from "./TrackedLink";

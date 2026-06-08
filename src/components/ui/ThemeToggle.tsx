@@ -35,7 +35,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
+  // Hydration gate: the theme is applied to <html> by an inline script before
+  // paint; here we sync component state post-mount to avoid an icon mismatch.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(readStoredTheme());
     setMounted(true);
   }, []);

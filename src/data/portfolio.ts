@@ -325,10 +325,19 @@ export const CLIENTS: ClientBrand[] = [
 export const CONTACT = {
   email: "falecom@firmino.dev",
   phone: "(11) 97083-6907",
+  /** E.164 digits only (country + area + number) for wa.me links. */
+  whatsapp: "5511970836907",
   location: "São Paulo, Brasil",
   linkedin: "https://linkedin.com/in/firminoweb",
   github: "https://github.com/firminoweb",
 };
+
+/** Pre-filled WhatsApp deep link with a tracked-friendly default message. */
+export function whatsappLink(
+  message = "Olá! Vim pelo site da firmino.dev e quero conversar sobre um projeto.",
+): string {
+  return `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
+}
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return PROJECTS.find((p) => p.slug === slug);

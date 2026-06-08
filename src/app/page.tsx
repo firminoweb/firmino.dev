@@ -5,6 +5,7 @@ import {
   KeyAchievements,
   Services,
   Cases,
+  Faq,
   AiCta,
 } from "@/components/home";
 
@@ -19,6 +20,7 @@ export default function HomePage() {
         <KeyAchievements />
         <Services />
         <Cases />
+        <Faq />
         <AiCta />
         <Footer />
       </div>

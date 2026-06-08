@@ -23,7 +23,11 @@ export function ObfuscatedContactClient({
   const value = decode(encoded);
   const [revealed, setRevealed] = useState(false);
 
+  // Intentional hydration gate: SSR renders the scrambled span (keeps the
+  // raw mailto:/tel: out of static HTML for scrapers); only after mount do
+  // we swap in the real link. setState-in-effect is the correct pattern here.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRevealed(true);
   }, []);
 
