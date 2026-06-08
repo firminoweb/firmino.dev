@@ -15,13 +15,15 @@ export default function HomePage() {
       <Background />
       <Navbar />
       <div className="relative z-[1]">
-        <Hero />
-        <Clients />
-        <KeyAchievements />
-        <Services />
-        <Cases />
-        <Faq />
-        <AiCta />
+        <main>
+          <Hero />
+          <Clients />
+          <KeyAchievements />
+          <Services />
+          <Cases />
+          <Faq />
+          <AiCta />
+        </main>
         <Footer />
       </div>
     </>

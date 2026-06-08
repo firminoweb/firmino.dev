@@ -1,4 +1,4 @@
-import { Reveal, Button, SectionLabel, TrackedLink } from "@/components/ui";
+import { Reveal, SectionLabel, TrackedLink } from "@/components/ui";
 
 export function AiCta() {
   return (
@@ -17,8 +17,13 @@ export function AiCta() {
               <p className="text-[14px] sm:text-[15px] text-text-dim leading-[1.75] max-w-[560px] mx-auto mb-9">
                 Coloque a inteligência artificial pra trabalhar no seu dia a dia: chatbot que atende cliente, agente que lê documento e automação que tira a tarefa repetitiva do time. Conectado ao que você já usa — WhatsApp, planilha, CRM — e entregue funcionando, sem precisar virar uma empresa de tecnologia.
               </p>
-              <TrackedLink href="/contato" event="cta_click" eventParams={{ location: "ai_cta" }}>
-                <Button>Fale com a gente →</Button>
+              <TrackedLink
+                href="/contato"
+                event="cta_click"
+                eventParams={{ location: "ai_cta" }}
+                className="btn-primary inline-flex items-center justify-center"
+              >
+                Fale com a gente →
               </TrackedLink>
             </div>
           </div>

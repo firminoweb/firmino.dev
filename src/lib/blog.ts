@@ -14,6 +14,8 @@ export interface BlogPostMeta {
   tags?: string[];
   cover?: string;
   readingTime: string;
+  /** When true, the post is excluded from listing, sitemap and routing. */
+  draft?: boolean;
 }
 
 export interface BlogPost extends BlogPostMeta {
@@ -40,6 +42,7 @@ function parseFile(file: string): BlogPost {
     tags: Array.isArray(data.tags) ? data.tags.map(String) : undefined,
     cover: data.cover ? String(data.cover) : undefined,
     readingTime: readingTime(content).text,
+    draft: data.draft === true,
     content,
   };
 }
@@ -47,6 +50,7 @@ function parseFile(file: string): BlogPost {
 export function getAllPosts(): BlogPostMeta[] {
   return listFiles()
     .map(parseFile)
+    .filter((post) => !post.draft)
     .sort((a, b) => b.date.localeCompare(a.date))
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .map(({ content, ...meta }) => meta);
@@ -55,11 +59,15 @@ export function getAllPosts(): BlogPostMeta[] {
 export function getPostBySlug(slug: string): BlogPost | null {
   const file = `${slug}.mdx`;
   if (!listFiles().includes(file)) return null;
-  return parseFile(file);
+  const post = parseFile(file);
+  return post.draft ? null : post;
 }
 
 export function getAllSlugs(): string[] {
-  return listFiles().map((f) => f.replace(/\.mdx$/, ""));
+  return listFiles()
+    .map(parseFile)
+    .filter((post) => !post.draft)
+    .map((post) => post.slug);
 }
 
 export function getAdjacentPosts(slug: string): {

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import {
   Button,
   Tag,
@@ -47,12 +46,15 @@ export function Hero() {
           </div>
           <div>
             <div className="flex flex-wrap gap-3.5">
-              <TrackedLink href="/contato" event="cta_click" eventParams={{ location: "hero", label: "proposta" }}>
-                <Button>Quero uma proposta →</Button>
+              <TrackedLink
+                href="/contato"
+                event="cta_click"
+                eventParams={{ location: "hero", label: "proposta" }}
+                className="btn-primary inline-flex items-center justify-center"
+              >
+                Quero uma proposta →
               </TrackedLink>
-              <Link href="/projetos">
-                <Button variant="ghost">Ver casos</Button>
-              </Link>
+              <Button href="/projetos" variant="ghost">Ver casos</Button>
             </div>
             <p className="text-[11.5px] text-text-dim mt-3">
               Resposta em 24h · sem compromisso
@@ -124,7 +126,7 @@ function ProofCard() {
         <div>
           <WhatsAppButton
             source="hero"
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-[10px] bg-[#25D366] text-white font-semibold text-[14px] hover:bg-[#20bd5a] transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-3 rounded-[10px] bg-[#15803d] text-white font-semibold text-[14px] hover:bg-[#166534] transition-colors"
           >
             <WhatsAppGlyph className="w-[18px] h-[18px]" />
             Falar agora no WhatsApp

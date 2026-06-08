@@ -32,9 +32,7 @@ export function Cases() {
                 ))}
               </div>
 
-              <Link href="/projetos">
-                <Button variant="ghost">Ver todos os projetos →</Button>
-              </Link>
+              <Button href="/projetos" variant="ghost">Ver todos os projetos →</Button>
             </div>
           </Reveal>
 
@@ -61,9 +59,9 @@ export function Cases() {
                             </Tag>
                             <span className="text-[11px] text-text-muted">{p.year}</span>
                           </div>
-                          <h4 className="text-[17px] sm:text-[19px] font-bold text-brand mb-1 tracking-tight">
+                          <h3 className="text-[17px] sm:text-[19px] font-bold text-brand mb-1 tracking-tight">
                             {p.title}
-                          </h4>
+                          </h3>
                           <p className="text-[13px] text-text-dim">
                             {p.client} · {p.role}
                           </p>

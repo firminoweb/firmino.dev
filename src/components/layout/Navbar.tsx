@@ -62,9 +62,7 @@ export function Navbar() {
               </Link>
             ))}
             <ThemeToggle />
-            <Link href="/contato">
-              <Button className="!py-2.5 !px-[22px]">Fale Conosco</Button>
-            </Link>
+            <Button href="/contato" className="!py-2.5 !px-[22px]">Fale Conosco</Button>
           </div>
 
           {/* Mobile actions */}
@@ -186,9 +184,13 @@ export function Navbar() {
                 : undefined,
             }}
           >
-            <Link href="/contato" onClick={() => setMenuOpen(false)} className="block">
-              <Button className="w-full !py-3.5 !text-[14px]">Fale Conosco →</Button>
-            </Link>
+            <Button
+              href="/contato"
+              onClick={() => setMenuOpen(false)}
+              className="w-full !py-3.5 !text-[14px]"
+            >
+              Fale Conosco →
+            </Button>
           </div>
 
           {/* Spacer + footer */}

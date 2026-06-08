@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Reveal, SectionLabel, Button } from "@/components/ui";
 import { SERVICES } from "@/data/portfolio";
 
@@ -32,9 +31,7 @@ export function Services() {
           ))}
         </div>
         <div className="flex justify-center mt-10">
-          <Link href="/servicos">
-            <Button variant="ghost">Ver todos os serviços →</Button>
-          </Link>
+          <Button href="/servicos" variant="ghost">Ver todos os serviços →</Button>
         </div>
       </div>
     </section>

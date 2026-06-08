@@ -35,7 +35,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="sub-heading">Empresa</h4>
+              <h3 className="sub-heading">Empresa</h3>
               {COMPANY_LINKS.map((l) => (
                 <Link key={l.label} href={l.href} className="footer-link">
                   {l.label}
@@ -44,7 +44,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="sub-heading">Serviços</h4>
+              <h3 className="sub-heading">Serviços</h3>
               {SERVICE_LINKS.map((l, i) => (
                 <Link key={`${l.label}-${i}`} href={l.href} className="footer-link">
                   {l.label}
@@ -53,7 +53,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="sub-heading">Contato</h4>
+              <h3 className="sub-heading">Contato</h3>
               <ObfuscatedContact
                 value={CONTACT.email}
                 kind="email"
