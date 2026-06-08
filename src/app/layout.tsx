@@ -126,6 +126,16 @@ const ORG_JSON_LD = {
   sameAs: ["https://linkedin.com/in/firminoweb", "https://github.com/firminoweb"],
 };
 
+const WEBSITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "firmino.dev",
+  alternateName: "firmino.dev — Engenharia de Software",
+  url: SITE_URL,
+  inLanguage: "pt-BR",
+  publisher: { "@type": "Organization", name: "firmino.dev", url: SITE_URL },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -143,6 +153,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSON_LD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
         />
         {GA_ID && (
           <>
