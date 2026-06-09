@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "optimize:logos": "node scripts/optimize-logos.mjs",
+    "export:social": "node scripts/export-social.mjs",
     "audit:lh": "lhci autorun --collect.startServerCommand='next start' --collect.startServerReadyPattern='ready'"
   },
   "dependencies": {

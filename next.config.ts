@@ -25,7 +25,9 @@ const nextConfig: NextConfig = {
     remotePatterns,
   },
   experimental: {
-    optimizeCss: true,
+    // Inline route CSS into <style> tags instead of a render-blocking
+    // <link>. Removes the HTML→CSS critical-chain hop that was delaying LCP.
+    inlineCss: true,
     optimizePackageImports: [
       "@/components/ui",
       "@/components/home",

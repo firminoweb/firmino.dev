@@ -417,12 +417,14 @@
   }
 }
 
+/* Drift via transform (GPU-composited) instead of background-position,
+   which forces main-thread paints. One tile = 80px, so the loop is seamless. */
 @keyframes gridDrift {
   0% {
-    background-position: 0 0;
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    background-position: 80px 80px;
+    transform: translate3d(80px, 80px, 0);
   }
 }
 
@@ -724,9 +726,12 @@
 
   .bg-grid {
     position: absolute;
-    inset: 0;
+    /* Extend one tile past every edge so the translate animation keeps the
+       viewport fully covered as it drifts. */
+    inset: -80px;
     background-image: radial-gradient(var(--grid-dot-color) 1px, transparent 1px);
     background-size: 80px 80px;
+    will-change: transform;
   }
 
   /* Service Icon */
@@ -987,7 +992,9 @@
 
   /* Reveal */
   .reveal-base {
-    transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Above-the-fold entrance — pure CSS, so it never waits on JS/hydration
