@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type FormEvent } from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import { Button } from "@/components/ui";
 import { trackEvent } from "@/lib/analytics";
@@ -135,7 +136,15 @@ export function ContactForm() {
           {sending ? "Enviando..." : "Enviar mensagem →"}
         </Button>
         <p className="text-[12px] text-text-dark leading-[1.6]">
-          Respondemos em até 24h úteis. Seus dados não são compartilhados.
+          Respondemos em até 24h úteis. Seus dados são usados só para responder ao seu
+          contato —{" "}
+          <Link
+            href="/politica-de-privacidade"
+            className="underline underline-offset-2 hover:text-text-muted transition-colors"
+          >
+            Política de Privacidade
+          </Link>
+          .
         </p>
       </div>
 

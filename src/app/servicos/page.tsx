@@ -68,6 +68,15 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
     ],
     stack: ["Angular", "React", "Next.js", "Node.js", "TypeScript", "GraphQL"],
   },
+  "Manutenção de sistemas web e aplicativos": {
+    deliverables: [
+      "Monitoramento contínuo — a gente fica sabendo do problema antes do seu cliente",
+      "Atualizações de segurança, backups e correções incluídas todo mês",
+      "Apps em dia com as exigências da App Store e do Google Play",
+      "Relatório mensal em linguagem de dono: o que foi feito e como o sistema está",
+    ],
+    stack: ["Plano mensal", "Monitoramento", "Backups", "Segurança", "Android & iOS"],
+  },
   "Arquitetura, performance & qualidade": {
     deliverables: [
       "Plataformas corporativas com Module Federation e micro-frontends",

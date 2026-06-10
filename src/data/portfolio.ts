@@ -43,6 +43,7 @@ export const SERVICES: Service[] = [
   { slug: "automacoes-com-ia", icon: "⏣", title: "Aplicações e automações com IA", desc: "Chatbot que atende cliente, agente que processa documento, automação que tira tarefa chata do seu time. Conectado ao que você já usa — WhatsApp, planilha, sistema interno, CRM. Sem precisar virar empresa de tecnologia pra colher o resultado." },
   { slug: "app-mobile-sob-medida", icon: "◎", title: "App mobile sob medida pra sua empresa", desc: "App iOS e Android pra sua operação — do app simples pra pequena empresa até aplicação completa com integração ao seu sistema. Catálogo, pedido, fidelidade, campo, atendimento — o que fizer sentido pro seu caso. Publicado nas lojas e mantido por nós." },
   { slug: "aplicacoes-web-sob-medida", icon: "◆", title: "Aplicações web sob medida pra sua empresa", desc: "Sites, sistemas e plataformas web pra sua empresa — desde site institucional pra pequeno negócio até plataforma completa com painel, sistema interno e integração. Rápido, estável, bonito e fácil de evoluir." },
+  { slug: "manutencao-de-sistemas-web-e-aplicativos", icon: "⟳", title: "Manutenção de sistemas web e aplicativos", desc: "Tutela, monitoramento e manutenção mensal do seu site, sistema, SaaS ou app (Android e iOS). A gente vigia, atualiza e corrige antes de virar problema — mesmo que não tenha sido a gente que construiu. Você cuida do negócio; do sistema, cuidamos nós." },
   { slug: "arquitetura-performance-qualidade", icon: "⬢", title: "Arquitetura, performance & qualidade", desc: "Micro-frontends com Module Federation, Design Systems, Clean Architecture, Lighthouse 90+, cobertura de testes acima de 80% e conformidade WCAG 2.1 AA." },
   { slug: "tech-leadership-code-review", icon: "◇", title: "Tech leadership & code review", desc: "Liderança técnica fracionada, padronização de squad, code review estratégico e definição de roadmap técnico. Para CTOs que precisam de sênior por trás sem contratar full-time." },
 ];
@@ -328,8 +329,15 @@ export const CONTACT = {
   /** E.164 digits only (country + area + number) for wa.me links. */
   whatsapp: "5511970836907",
   location: "São Paulo, Brasil",
-  linkedin: "https://linkedin.com/in/firminoweb",
+  linkedin: "https://linkedin.com/company/firminodev",
   github: "https://github.com/firminoweb",
+  twitter: "https://x.com/firminodev",
+};
+
+/** Dados legais da empresa — exibidos no rodapé, contato e JSON-LD (idoneidade). */
+export const COMPANY = {
+  legalName: "J. H. FIRMINO & CIA LTDA",
+  cnpj: "43.699.300/0001-13",
 };
 
 /** Pre-filled WhatsApp deep link with a tracked-friendly default message. */

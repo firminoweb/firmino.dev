@@ -97,8 +97,17 @@ export default async function ServicoDetailPage({ params }: ServicoPageProps) {
               <SectionLabel>Serviço</SectionLabel>
               <div className="flex items-start gap-5 mb-6">
                 <div className="service-icon !mb-0 shrink-0">{servico.icon}</div>
-                <h1 className="font-serif hero-heading !text-[clamp(32px,4.2vw,50px)] !leading-[1.08]">
-                  {servico.headline ?? servico.title}
+                {/* H1 = título da listagem + headline de venda — o nome do serviço
+                    precisa aparecer no H1 igual ao <title> e ao anchor da listagem (SEO). */}
+                <h1 className="font-serif hero-heading !text-[clamp(28px,3.6vw,42px)] !leading-[1.15]">
+                  {servico.headline ? (
+                    <>
+                      {servico.title}:{" "}
+                      <span className="text-accent-light italic">{servico.headline}</span>
+                    </>
+                  ) : (
+                    servico.title
+                  )}
                 </h1>
               </div>
               {servico.description && (

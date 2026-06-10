@@ -1,4 +1,5 @@
 import { Reveal, SectionLabel, JsonLd } from "@/components/ui";
+import { COMPANY } from "@/data/portfolio";
 
 interface FaqItem {
   q: string;
@@ -16,7 +17,7 @@ const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Vocês trabalham com contrato e nota fiscal?",
-    a: "Sim. Somos uma empresa estabelecida (J. H. Firmino & CIA LTDA), com contrato e nota fiscal — do pequeno negócio à grande operação.",
+    a: `Sim. Somos uma empresa registrada no Brasil — ${COMPANY.legalName}, CNPJ ${COMPANY.cnpj} — com contrato e nota fiscal em todos os projetos, do pequeno negócio à grande operação.`,
   },
   {
     q: "Atendem empresas fora de São Paulo?",

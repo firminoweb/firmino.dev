@@ -1,44 +1,107 @@
 ---
 title: "Quanto custa desenvolver um app? O que realmente pesa no orçamento"
 description: "Por que dois apps podem custar 10x diferente, o que faz o preço subir e como pensar o investimento de um app sob medida sem cair em armadilha. Guia direto pra empresa."
-date: 2026-06-08
+date: 2026-06-10
 tags: [negócio, mobile, app sob medida]
 author: João Firmino
 cover: /images/blog/default-cover.svg
-draft: true
 ---
 
 "Quanto custa fazer um app?" é como perguntar quanto custa uma casa: depende do
-tamanho, do acabamento e de quem vai morar. Mas dá pra entender o que move o
-ponteiro do orçamento — e é isso que separa um investimento que se paga de um
-dinheiro jogado fora.
+tamanho, do acabamento e de quem vai morar. Tem app que cabe no orçamento de uma
+pequena empresa e tem app que custa mais que um carro de luxo — e os dois podem
+estar com o preço certo pro que entregam.
 
-> RASCUNHO — esqueleto pronto pra desenvolver. Estrutura e pontos-chave abaixo.
+A boa notícia: dá pra entender o que move o ponteiro do orçamento. E é esse
+entendimento que separa um investimento que se paga de um dinheiro jogado fora.
 
 ## O que faz o preço de um app subir
 
-- **Quantidade de telas e fluxos** — um catálogo simples ≠ app com pedido, pagamento e fidelidade.
-- **Integrações** — falar com seu ERP, CRM, gateway de pagamento e estoque dá trabalho.
-- **iOS + Android** — duas lojas, duas aprovações (e como a gente economiza com base única).
-- **Login, dados sensíveis e segurança** — quanto mais crítico, mais cuidado.
-- **Manutenção** — app não é "entrega e acabou": loja atualiza, celular muda, precisa de quem cuide.
+**Quantidade de telas e fluxos.** Um app de catálogo — o cliente abre, vê
+produtos, chama no WhatsApp — é um projeto pequeno. Um app onde o cliente faz
+pedido, paga dentro do app, acompanha entrega e acumula pontos de fidelidade é
+outro animal: cada fluxo desses tem regras, telas, erros possíveis e casos
+especiais que precisam funcionar bem. Não é o número de telas que custa — é o
+que acontece por trás de cada uma.
+
+**Integrações.** Se o app precisa conversar com o que sua empresa já usa —
+sistema de gestão, controle de estoque, meio de pagamento, CRM — cada conexão
+dessas é trabalho de verdade. Às vezes o sistema antigo não foi feito pra
+conversar com ninguém, e aí é preciso construir essa ponte. Integração é
+frequentemente a parte mais subestimada do orçamento: parece detalhe, mas pode
+custar mais que as telas.
+
+**iOS e Android.** São duas lojas, duas revisões de aprovação, dois mundos de
+aparelhos diferentes. A forma antiga de fazer — um app pra cada — praticamente
+dobrava o custo. Hoje a gente constrói com uma base de código única que roda nos
+dois, e a diferença de preço entre "só Android" e "Android + iPhone" caiu muito.
+Mesmo assim, publicar e manter nas duas lojas tem um custo que precisa estar na
+conta.
+
+**Login, dados sensíveis e segurança.** Se o app guarda dado de cliente,
+processa pagamento ou lida com informação sensível, o nível de cuidado sobe — e
+deve subir. Senha, criptografia, proteção contra fraude, LGPD. É invisível pro
+usuário quando bem feito, e caríssimo pra empresa quando mal feito.
+
+**Manutenção.** App não é "entregou, acabou". A Apple e o Google atualizam as
+regras das lojas todo ano, celulares novos chegam, sistemas operacionais mudam —
+e o app que ninguém cuida vai quebrando aos poucos até sumir da loja. O custo
+mensal de manter o app vivo precisa entrar no plano desde o início. É
+exatamente pra isso que existe nosso serviço de
+[manutenção de sistemas e aplicativos](/servicos/manutencao-de-sistemas-web-e-aplicativos):
+alguém de olho, atualizações em dia, e você sem sustos.
 
 ## O erro mais caro: começar grande demais
 
-A armadilha clássica é tentar lançar com tudo. Explicar a lógica de começar pelo
-que prova valor rápido, colocar na mão de cliente de verdade e crescer com base
-em uso — gasta menos e erra menos. (Desenvolver com exemplo de fluxo mínimo.)
+A armadilha clássica não é pagar caro — é construir demais. A empresa imagina o
+app completo, com todas as funcionalidades que um dia pode precisar, e tenta
+lançar tudo de uma vez. Resultado: orçamento três vezes maior, um ano de espera,
+e na hora que chega na mão do cliente, descobre-se que metade das funcionalidades
+ninguém usa — e a funcionalidade que o cliente mais queria ficou de fora.
+
+O caminho mais barato e mais seguro é o contrário: lançar primeiro o miolo que
+prova o valor. Um app de pedidos começa com... pedidos. Catálogo, carrinho,
+pagamento, pronto. Fidelidade, cupom, notificação esperta, chat — tudo isso entra
+depois, quando o app já está rodando e os dados de uso mostram o que realmente
+faz diferença. Você gasta menos pra descobrir se acertou, e cada real seguinte é
+investido no que os clientes provaram que querem.
 
 ## Onde dá pra economizar sem perder qualidade
 
-- Base de código única pra iOS e Android (React Native) em vez de dois apps separados.
-- Reaproveitar o que você já tem (sistema, site, dados).
-- Priorizar: o que precisa estar no lançamento x o que entra depois.
+- **Base única pra iOS e Android.** Em vez de dois times e dois códigos, uma
+  base só (a gente usa React Native, a mesma tecnologia de apps como Instagram e
+  Shopee). Na prática: quase metade do custo de fazer dois apps separados.
+- **Aproveitar o que você já tem.** Se sua empresa já tem site, sistema ou banco
+  de dados, o app pode usar essa fundação em vez de reconstruir tudo. Muitas
+  vezes o "app" é uma nova porta de entrada pra uma casa que já existe.
+- **Priorizar de verdade.** A pergunta não é "o que o app poderia ter?" — é "sem
+  o quê esse app não faz sentido no lançamento?". Tudo que sobreviver a essa
+  pergunta entra na primeira versão. O resto entra depois, se merecer.
+
+## Onde NÃO economizar
+
+Sendo honesto, porque alguém precisa ser: tem três coisas que ficam caras
+justamente quando você tenta baratear.
+
+- **Segurança e pagamento.** Refazer um fluxo de pagamento mal feito custa mais
+  caro que fazê-lo direito — sem contar o estrago de um vazamento.
+- **A base do código.** App construído às pressas e sem critério funciona na
+  demo e vira um pesadelo seis meses depois, quando cada mudança pequena quebra
+  outra coisa. A economia do início vira juro composto.
+- **Publicação nas lojas.** Conta de developer no nome certo (o seu, não o do
+  fornecedor), processo de aprovação bem feito, app no SEU controle. Já vimos
+  empresa "refém" do app no CNPJ de terceiro — não vale o atalho.
 
 ## Como pensamos o orçamento
 
-Em vez de um número solto, a gente quebra em fases: o que entrega valor primeiro,
-quanto custa cada parte e o que dá pra adiar. Você decide o ritmo pelo retorno.
+Em vez de jogar um número solto, a gente quebra o projeto em fases: o que entra
+na primeira versão (e quanto custa), o que fica pra segunda, o que talvez nunca
+precise existir. Você enxerga o custo de cada parte e decide o ritmo pelo
+retorno — dá pra começar menor, validar, e crescer com o app já trabalhando.
+
+Na primeira conversa (gratuita, sem compromisso) a gente entende seu caso e
+devolve uma estimativa honesta de faixa de investimento e prazo. Se o seu caso
+não precisar de um app sob medida, a gente fala — já economizou aí.
 
 ---
 

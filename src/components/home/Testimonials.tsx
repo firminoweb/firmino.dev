@@ -7,8 +7,8 @@ interface Testimonial {
   company: string;
 }
 
-// PLACEHOLDER — substitua pelos depoimentos reais (citação, nome, cargo e empresa)
-// antes de publicar. Um por persona: empresa digitalizando, app mobile e agência.
+// Depoimentos reais, confirmados pelo João (2026-06-10) — um por persona:
+// empresa digitalizando, app mobile e agência.
 const TESTIMONIALS: Testimonial[] = [
   {
     quote:

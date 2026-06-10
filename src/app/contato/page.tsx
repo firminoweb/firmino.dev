@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, ObfuscatedContact, JsonLd } from "@/components/ui";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { CONTACT } from "@/data/portfolio";
+import { CONTACT, COMPANY } from "@/data/portfolio";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
 const TITLE = "Contato — firmino.dev";
@@ -33,10 +33,10 @@ interface PublicChannel {
 const PUBLIC_CHANNELS: PublicChannel[] = [
   {
     label: "LinkedIn",
-    value: "/in/firminoweb",
+    value: "/company/firminodev",
     href: CONTACT.linkedin,
     icon: "in",
-    desc: "Conecte-se profissionalmente",
+    desc: "Siga a página da empresa",
   },
   {
     label: "GitHub",
@@ -44,6 +44,13 @@ const PUBLIC_CHANNELS: PublicChannel[] = [
     href: CONTACT.github,
     icon: "</>",
     desc: "Código aberto e experimentos",
+  },
+  {
+    label: "X / Twitter",
+    value: "@firminodev",
+    href: CONTACT.twitter,
+    icon: "𝕏",
+    desc: "Novidades e bastidores",
   },
 ];
 
@@ -112,8 +119,8 @@ export default function ContatoPage() {
               </div>
             </Reveal>
 
-            {/* Canais públicos: LinkedIn / GitHub — links abertos */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Canais públicos: LinkedIn / GitHub / X — links abertos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {PUBLIC_CHANNELS.map((c, i) => (
                 <Reveal key={c.label} delay={i * 0.06}>
                   <a
@@ -178,6 +185,9 @@ export default function ContatoPage() {
                 </h2>
                 <p className="text-[14px] text-text-dim leading-[1.75] max-w-[560px]">
                   Atendimento 100% remoto para clientes do Brasil e exterior. Workshops e imersões presenciais sob demanda na grande São Paulo.
+                </p>
+                <p className="text-[12.5px] text-text-darker leading-[1.7] mt-4 pt-4 border-t border-border-subtle max-w-[560px]">
+                  Empresa registrada no Brasil: {COMPANY.legalName} — CNPJ {COMPANY.cnpj}
                 </p>
               </div>
             </Reveal>

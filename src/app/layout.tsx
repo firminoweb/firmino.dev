@@ -3,6 +3,7 @@ import { DM_Sans, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { WhatsAppFab } from "@/components/ui";
+import { CONTACT, COMPANY } from "@/data/portfolio";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -95,6 +96,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@firminodev",
+    creator: "@firminodev",
     title: "firmino.dev — Engenharia de Software, Mobile & Generative AI",
     description:
       "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
@@ -105,6 +108,8 @@ const ORG_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "firmino.dev",
+  legalName: COMPANY.legalName,
+  taxID: COMPANY.cnpj,
   url: SITE_URL,
   // /apple-icon (180×180) — o Google exige logo ≥112px; /icon tem só 32px e /icon.png não existe
   logo: `${SITE_URL}/apple-icon`,
@@ -130,7 +135,7 @@ const ORG_JSON_LD = {
     availableLanguage: ["Portuguese", "English"],
     url: `${SITE_URL}/contato`,
   },
-  sameAs: ["https://linkedin.com/in/firminoweb", "https://github.com/firminoweb"],
+  sameAs: [CONTACT.linkedin, CONTACT.github, CONTACT.twitter],
 };
 
 const WEBSITE_JSON_LD = {

@@ -50,7 +50,9 @@ const PERSON_JSON_LD = {
     addressCountry: "BR",
   },
   worksFor: { "@type": "Organization", name: "firmino.dev", url: SITE_URL },
-  sameAs: [CONTACT.linkedin, CONTACT.github],
+  // sameAs de Person identifica a pessoa — a página /company/firminodev
+  // fica no sameAs da Organization (layout.tsx).
+  sameAs: ["https://linkedin.com/in/firminoweb", CONTACT.github],
 };
 
 const PRINCIPLES = [
