@@ -2,10 +2,21 @@ import { z } from "zod";
 import { Resend } from "resend";
 import { jsonResponse, errorResponse } from "@/lib/api";
 
+const PROJECT_TYPE_LABELS: Record<string, string> = {
+  web: "Site ou sistema web",
+  mobile: "App mobile (iOS/Android)",
+  ia: "IA e automação",
+  reforco: "Reforço para time ou agência",
+  outro: "Outro / ainda não sei",
+};
+
 const ContactSchema = z.object({
   name: z.string().min(2, "Nome muito curto").max(120, "Nome muito longo"),
   email: z.email("E-mail inválido").max(180),
   company: z.string().max(160).optional().default(""),
+  projectType: z.enum(["web", "mobile", "ia", "reforco", "outro"], {
+    message: "Selecione uma opção",
+  }),
   message: z.string().min(10, "Mensagem muito curta (mín. 10 caracteres)").max(4000, "Mensagem muito longa"),
   website: z.string().max(0).optional().default(""), // honeypot — must be empty
   elapsedMs: z.number().int().nonnegative().optional().default(0),
@@ -86,13 +97,15 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(apiKey);
-  const subject = `[firmino.dev] Novo contato — ${data.name}`;
+  const projectTypeLabel = PROJECT_TYPE_LABELS[data.projectType] ?? data.projectType;
+  const subject = `[firmino.dev] Novo contato — ${data.name} · ${projectTypeLabel}`;
   const html = `
     <div style="font-family: -apple-system, system-ui, sans-serif; line-height: 1.6; color: #111;">
       <h2 style="margin: 0 0 16px; font-size: 18px;">Novo contato pelo site</h2>
       <p><strong>Nome:</strong> ${escapeHtml(data.name)}</p>
       <p><strong>E-mail:</strong> <a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></p>
       ${data.company ? `<p><strong>Empresa:</strong> ${escapeHtml(data.company)}</p>` : ""}
+      <p><strong>Tipo de projeto:</strong> ${escapeHtml(projectTypeLabel)}</p>
       <p style="margin-top: 16px;"><strong>Mensagem:</strong></p>
       <p style="white-space: pre-wrap; background: #f6f7fb; padding: 12px 14px; border-radius: 8px; border: 1px solid #e5e7eb;">${escapeHtml(data.message)}</p>
     </div>
@@ -101,6 +114,7 @@ export async function POST(request: Request) {
     `Nome: ${data.name}`,
     `E-mail: ${data.email}`,
     data.company ? `Empresa: ${data.company}` : null,
+    `Tipo de projeto: ${projectTypeLabel}`,
     "",
     "Mensagem:",
     data.message,

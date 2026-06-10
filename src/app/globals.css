@@ -59,6 +59,10 @@
   --scrollbar-track: #0b0e2d;
   --scrollbar-thumb: #2a2d52;
 
+  /* Form select — native dropdown list needs solid colors (no alpha) */
+  --select-option-bg: #10142a;
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%237e81a2' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
   /* Glass card */
   --gc-bg: linear-gradient(155deg, rgba(22, 28, 58, 0.9), rgba(18, 22, 50, 0.95));
   --gc-border: #2a2d5544;
@@ -227,6 +231,9 @@
 
   --scrollbar-track: #f4f5fa;
   --scrollbar-thumb: #c5c9dc;
+
+  --select-option-bg: #ffffff;
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%236f7494' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
   --gc-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.85), rgba(248, 249, 252, 0.95));
   --gc-border: rgba(53, 62, 157, 0.10);
@@ -494,6 +501,23 @@
   .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 40px var(--glow-line-mid);
+  }
+
+  /* Form select — custom chevron on the closed control; the open dropdown
+     list only accepts solid background/color, so it uses dedicated tokens */
+  .form-select {
+    background-image: var(--select-chevron);
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px;
+    padding-right: 40px;
+  }
+  .form-select option {
+    background-color: var(--select-option-bg);
+    color: var(--color-text-main);
+  }
+  .form-select option:disabled {
+    color: var(--color-text-darker);
   }
 
   .btn-ghost {

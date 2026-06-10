@@ -5,6 +5,7 @@ import {
   KeyAchievements,
   Services,
   Cases,
+  Testimonials,
   Faq,
   AiCta,
 } from "@/components/home";
@@ -21,6 +22,7 @@ export default function HomePage() {
           <KeyAchievements />
           <Services />
           <Cases />
+          <Testimonials />
           <Faq />
           <AiCta />
         </main>

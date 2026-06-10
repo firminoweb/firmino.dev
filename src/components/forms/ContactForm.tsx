@@ -10,8 +10,18 @@ type Status = "idle" | "sending" | "sent" | "error";
 interface FieldErrors {
   name?: string;
   email?: string;
+  projectType?: string;
   message?: string;
 }
+
+// Valores precisam bater com o enum validado em /api/contact
+const PROJECT_TYPES = [
+  { value: "web", label: "Site ou sistema web" },
+  { value: "mobile", label: "App mobile (iOS/Android)" },
+  { value: "ia", label: "IA e automação" },
+  { value: "reforco", label: "Reforço para meu time ou agência" },
+  { value: "outro", label: "Outro / ainda não sei" },
+];
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -37,6 +47,7 @@ export function ContactForm() {
       name: String(formData.get("name") ?? "").trim(),
       email: String(formData.get("email") ?? "").trim(),
       company: String(formData.get("company") ?? "").trim(),
+      projectType: String(formData.get("projectType") ?? ""),
       message: String(formData.get("message") ?? "").trim(),
       website: String(formData.get("website") ?? ""),
       elapsedMs: Date.now() - formOpenedAt.current,
@@ -65,7 +76,7 @@ export function ContactForm() {
       }
 
       setStatus("sent");
-      trackEvent("generate_lead", { method: "form" });
+      trackEvent("generate_lead", { method: "form", project_type: payload.projectType });
       form.reset();
       formOpenedAt.current = Date.now();
     } catch {
@@ -98,7 +109,17 @@ export function ContactForm() {
         />
       </div>
 
-      <Field label="Empresa (opcional)" name="company" disabled={sending} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Field label="Empresa (opcional)" name="company" disabled={sending} />
+        <Field
+          label="O que você precisa"
+          name="projectType"
+          options={PROJECT_TYPES}
+          required
+          error={errors.projectType}
+          disabled={sending}
+        />
+      </div>
 
       <Field
         label="Mensagem"
@@ -137,11 +158,12 @@ interface FieldProps {
   type?: string;
   required?: boolean;
   textarea?: boolean;
+  options?: { value: string; label: string }[];
   error?: string;
   disabled?: boolean;
 }
 
-function Field({ label, name, type = "text", required, textarea, error, disabled }: FieldProps) {
+function Field({ label, name, type = "text", required, textarea, options, error, disabled }: FieldProps) {
   const baseClass = clsx(
     "w-full rounded-[10px] bg-surface-dim border border-border-input px-4 py-3",
     "text-[14px] text-text-light placeholder:text-text-darker",
@@ -157,7 +179,24 @@ function Field({ label, name, type = "text", required, textarea, error, disabled
         {label}
         {required && <span className="text-accent-light"> *</span>}
       </span>
-      {textarea ? (
+      {options ? (
+        <select
+          name={name}
+          required={required}
+          disabled={disabled}
+          defaultValue=""
+          className={clsx(baseClass, "form-select appearance-none cursor-pointer")}
+        >
+          <option value="" disabled>
+            Selecione...
+          </option>
+          {options.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
+      ) : textarea ? (
         <textarea
           name={name}
           required={required}
