@@ -8,10 +8,12 @@ export const runtime = "nodejs";
  * Bold-typographic hero banner, rendered at the right dimensions per network.
  *   GET /social/banner?format=linkedin | twitter | instagram | cover
  *
- * `footer` formats (square/2:1) have room for the credibility strip; the short
- * wide banners (linkedin/twitter) drop it and keep the wordmark + headline as a
- * vertically-centred group, clearing the profile photo that those platforms
- * overlay on the bottom-left.
+ * `footer` formats (square/2:1) have room for the credibility strip and keep
+ * the content left-aligned. The short wide banners (linkedin/twitter) drop the
+ * strip and the subline (redundant with the eyebrow) and anchor everything to
+ * the RIGHT: both platforms overlay the profile photo on the left of the
+ * cover, so the whole left region is unsafe for text — the decorative
+ * watermark moves there instead.
  */
 
 type Format = {
@@ -37,6 +39,8 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const key = searchParams.get("format") || "cover";
   const f = FORMATS[key] ?? FORMATS.cover;
+  // Wide banners (no footer): profile avatar overlays the left → content goes right
+  const wide = !f.footer;
   const fonts = await getFonts();
 
   const Wordmark = (
@@ -78,15 +82,29 @@ export async function GET(req: Request) {
         </div>
       </div>
 
-      <span style={{ fontFamily: "DM Sans", fontWeight: 500, fontSize: f.sb, color: C.muted, letterSpacing: f.sb * 0.04, marginTop: f.hl * 0.34 }}>
-        {COPY.subline}
-      </span>
+      {/* Subline only on footer formats — on the wide banners it just repeated the eyebrow */}
+      {!wide && (
+        <span style={{ fontFamily: "DM Sans", fontWeight: 500, fontSize: f.sb, color: C.muted, letterSpacing: f.sb * 0.04, marginTop: f.hl * 0.34 }}>
+          {COPY.subline}
+        </span>
+      )}
     </div>
   );
 
   const Watermark = (
-    <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-      <span style={{ fontFamily: "Playfair Display", fontStyle: "italic", fontWeight: 600, fontSize: f.wmark, lineHeight: 1, color: C.accentDeep, opacity: 0.07, marginRight: -f.wmark * 0.16 }}>
+    <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: wide ? "flex-start" : "flex-end" }}>
+      <span
+        style={{
+          fontFamily: "Playfair Display",
+          fontStyle: "italic",
+          fontWeight: 600,
+          fontSize: f.wmark,
+          lineHeight: 1,
+          color: C.accentDeep,
+          opacity: 0.07,
+          ...(wide ? { marginLeft: -f.wmark * 0.1 } : { marginRight: -f.wmark * 0.16 }),
+        }}
+      >
         f.
       </span>
     </div>
@@ -116,7 +134,9 @@ export async function GET(req: Request) {
   );
 
   // Footer formats: wordmark pinned top, footer pinned bottom, headline centred.
-  // No-footer formats: wordmark + headline as one centred group.
+  // Wide formats: wordmark + headline as one left-aligned column, with the
+  // column itself anchored to the right — the left of the cover sits under the
+  // profile avatar on LinkedIn/X.
   const root = f.footer ? (
     <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: f.pad, background: bannerBackground }}>
       {Watermark}
@@ -125,10 +145,12 @@ export async function GET(req: Request) {
       {Footer}
     </div>
   ) : (
-    <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: f.h * 0.06, padding: f.pad, background: bannerBackground }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-end", padding: f.pad, background: bannerBackground }}>
       {Watermark}
-      {Wordmark}
-      {Main}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: f.h * 0.06 }}>
+        {Wordmark}
+        {Main}
+      </div>
     </div>
   );
 

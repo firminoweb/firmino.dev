@@ -36,6 +36,12 @@ export const viewport: Viewport = {
 
 const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('firmino-theme');if(t==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`;
 
+// Stub síncrono do gtag: precisa existir antes de qualquer clique para que
+// trackEvent() enfileire no dataLayer enquanto o gtag.js (lazyOnload) não chega.
+const GA_STUB_SCRIPT = GA_ID
+  ? `window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:true});`
+  : null;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -100,7 +106,8 @@ const ORG_JSON_LD = {
   "@type": "Organization",
   name: "firmino.dev",
   url: SITE_URL,
-  logo: `${SITE_URL}/icon.png`,
+  // /apple-icon (180×180) — o Google exige logo ≥112px; /icon tem só 32px e /icon.png não existe
+  logo: `${SITE_URL}/apple-icon`,
   description:
     "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
   slogan: "Construímos software. Reforçamos times.",
@@ -145,6 +152,9 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${dmSans.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {GA_STUB_SCRIPT && (
+          <script dangerouslySetInnerHTML={{ __html: GA_STUB_SCRIPT }} />
+        )}
       </head>
       <body suppressHydrationWarning className="bg-bg text-text-main min-h-screen font-sans overflow-x-hidden">
         {children}
@@ -159,18 +169,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
         />
         {GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="lazyOnload"
-            />
-            <Script id="ga-init" strategy="lazyOnload">
-              {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GA_ID}', { send_page_view: true });`}
-            </Script>
-          </>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="lazyOnload"
+          />
         )}
       </body>
     </html>

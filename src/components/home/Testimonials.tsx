@@ -22,7 +22,7 @@ const TESTIMONIALS: Testimonial[] = [
       "O app foi publicado nas lojas sem dor de cabeça e virou nosso principal canal de pedido. O cliente abre, pede e volta, e a gente acompanha tudo pelo painel.",
     name: "André Teixeira",
     role: "Gerente de Projetos",
-    company: "Pão de Açucar · App Mobile",
+    company: "Pão de Açúcar · App Mobile",
   },
   {
     quote:

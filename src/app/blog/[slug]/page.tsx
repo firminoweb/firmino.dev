@@ -32,8 +32,9 @@ export async function generateMetadata({ params }: BlogPostProps): Promise<Metad
 
   const ogTitle = `${post.title} · firmino.dev`;
   const path = `/blog/${post.slug}`;
-  const ogImage = post.cover ? [absoluteUrl(post.cover)] : undefined;
 
+  // og:image vem do opengraph-image.tsx do segmento (PNG dinâmico por post).
+  // O cover SVG não entra aqui: LinkedIn/WhatsApp não renderizam SVG em preview.
   return {
     title: post.title,
     description: post.description,
@@ -46,13 +47,11 @@ export async function generateMetadata({ params }: BlogPostProps): Promise<Metad
       publishedTime: post.date,
       authors: post.author ? [post.author] : undefined,
       tags: post.tags,
-      ...(ogImage && { images: ogImage }),
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description: post.description,
-      ...(ogImage && { images: ogImage }),
     },
   };
 }
@@ -95,9 +94,9 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
       "@type": "Organization",
       name: "firmino.dev",
       url: SITE_URL,
-      logo: { "@type": "ImageObject", url: absoluteUrl("/icon.png") },
+      logo: { "@type": "ImageObject", url: absoluteUrl("/apple-icon") },
     },
-    ...(post.cover && { image: absoluteUrl(post.cover) }),
+    image: absoluteUrl(`/blog/${post.slug}/opengraph-image`),
     ...(post.tags && { keywords: post.tags.join(", ") }),
   };
 

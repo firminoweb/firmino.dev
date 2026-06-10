@@ -276,7 +276,7 @@ export const PROJECTS: Project[] = [
 
 export const PAST_CLIENTS: PastClient[] = [
   { company: "zFlow", period: "2017 – 2018", detail: "Aplicações de financiamento e simulação para o Banco Itaú. Cobertura de testes 0% → 80%." },
-  { company: "Grupo Pão de Açucar", period: "2016 – 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
+  { company: "Grupo Pão de Açúcar", period: "2016 – 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
   { company: "Reclame Aqui", period: "2015 – 2016", detail: "Novo portal da plataforma. MVP mobile com Ionic e Angular." },
   { company: "ViajaNet", period: "2014 – 2015", detail: "Plataforma de passagens aéreas + serviço Quando Viajar." },
   { company: "Walmart.com", period: "2014 – 2014", detail: "Marketplace: gerenciamento de sellers terceiros." },
@@ -319,7 +319,7 @@ export const CLIENTS: ClientBrand[] = [
   { name: "UOL", logo: "/images/logos/uol.webp" },
   { name: "Reclame Aqui", logo: "/images/logos/reclameaqui.webp" },
   { name: "ViajaNet", logo: "/images/logos/viajanet.webp" },
-  { name: "Grupo Pão de Açucar", logo: "/images/logos/gpa.webp" },
+  { name: "Grupo Pão de Açúcar", logo: "/images/logos/gpa.webp" },
 ];
 
 export const CONTACT = {

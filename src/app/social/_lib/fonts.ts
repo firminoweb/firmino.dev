@@ -11,7 +11,8 @@
 const ALPHABET =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" +
   "ÀÁÂÃÉÊÍÓÔÕÚÇàáâãéêíóôõúç" +
-  "0123456789 .,:;·/+-–&()'";
+  "0123456789 .,:;·/+-–&()'" +
+  '?!"“”‘’—%';
 
 type FontStyle = "normal" | "italic";
 
