@@ -40,7 +40,7 @@ const PUBLIC_CHANNELS: PublicChannel[] = [
   },
   {
     label: "GitHub",
-    value: "/firminoweb",
+    value: "/firmino-dev",
     href: CONTACT.github,
     icon: "</>",
     desc: "Código aberto e experimentos",

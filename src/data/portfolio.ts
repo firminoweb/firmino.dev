@@ -330,7 +330,7 @@ export const CONTACT = {
   whatsapp: "5511970836907",
   location: "São Paulo, Brasil",
   linkedin: "https://linkedin.com/company/firminodev",
-  github: "https://github.com/firminoweb",
+  github: "https://github.com/firmino-dev",
   twitter: "https://x.com/firminodev",
 };
 
