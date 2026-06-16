@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 import { getFonts } from "@/app/social/_lib/fonts";
 import { C, COPY } from "@/app/social/_lib/brand";
@@ -26,6 +28,20 @@ export default async function OpenGraphImage({
 }) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
+
+  // Posts com ogImage no frontmatter servem o PNG estático tal e qual
+  // (mantém uma única tag og:image, sem card gerado).
+  if (post?.ogImage) {
+    const file = path.join(process.cwd(), "public", post.ogImage.replace(/^\/+/, ""));
+    const data = await readFile(file);
+    return new Response(new Uint8Array(data), {
+      headers: {
+        "Content-Type": contentType,
+        "Cache-Control": "public, max-age=31536000, immutable",
+      },
+    });
+  }
+
   const fonts = await getFonts();
 
   const title = post?.title ?? "Blog da firmino.dev";

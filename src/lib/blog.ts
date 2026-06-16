@@ -13,6 +13,8 @@ export interface BlogPostMeta {
   author?: string;
   tags?: string[];
   cover?: string;
+  /** Static social/OG image (served as-is by the segment opengraph-image route). */
+  ogImage?: string;
   readingTime: string;
   /** When true, the post is excluded from listing, sitemap and routing. */
   draft?: boolean;
@@ -41,6 +43,7 @@ function parseFile(file: string): BlogPost {
     author: data.author ? String(data.author) : undefined,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : undefined,
     cover: data.cover ? String(data.cover) : undefined,
+    ogImage: data.ogImage ? String(data.ogImage) : undefined,
     readingTime: readingTime(content).text,
     draft: data.draft === true,
     content,
