@@ -4,6 +4,7 @@ import {
   Clients,
   KeyAchievements,
   Services,
+  ComoFunciona,
   Cases,
   Testimonials,
   Faq,
@@ -21,6 +22,7 @@ export default function HomePage() {
           <Clients />
           <KeyAchievements />
           <Services />
+          <ComoFunciona />
           <Cases />
           <Testimonials />
           <Faq />

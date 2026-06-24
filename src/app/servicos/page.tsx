@@ -122,60 +122,56 @@ export default function ServicosPage() {
         </section>
 
         <section className="section-padding !pt-6">
-          <div className="content-container max-w-[920px] flex flex-col gap-5">
+          <div className="content-container max-w-[1080px] grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
             {SERVICES.map((s, i) => {
               const extra = SERVICE_DETAILS[s.title];
               const hasDetail = hasServicoContent(s.slug);
               return (
-                <Reveal key={s.title} delay={i * 0.05}>
-                  <div className="gc py-8 px-7 sm:py-10 sm:px-10 relative overflow-hidden">
-                    <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-10">
-                      <div className="service-icon !mb-0">{s.icon}</div>
-                      <div>
-                        <h2 className="text-[20px] sm:text-[22px] font-bold text-text-light mb-3 tracking-tight">
-                          {hasDetail ? (
-                            <Link
-                              href={`/servicos/${s.slug}`}
-                              className="hover:text-accent-light transition-colors"
-                            >
-                              {s.title}
-                            </Link>
-                          ) : (
-                            s.title
-                          )}
-                        </h2>
-                        <p className="text-[14.5px] text-text-dim leading-[1.75] mb-5">
-                          {s.desc}
-                        </p>
-                        {extra && (
-                          <>
-                            <ul className="flex flex-col gap-2 mb-5">
-                              {extra.deliverables.map((d) => (
-                                <li key={d} className="flex items-start gap-3">
-                                  <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-[9px]" />
-                                  <span className="text-[13.5px] text-text-subtle leading-[1.65]">
-                                    {d}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                            <div className="flex flex-wrap gap-1.5 mb-5">
-                              {extra.stack.map((t) => (
-                                <Tag key={t}>{t}</Tag>
-                              ))}
-                            </div>
-                          </>
-                        )}
-                        {hasDetail && (
-                          <Link
-                            href={`/servicos/${s.slug}`}
-                            className="text-[13px] text-accent-light hover:text-accent transition-colors inline-flex items-center gap-1.5 font-medium"
-                          >
-                            Saber mais sobre esse serviço →
-                          </Link>
-                        )}
-                      </div>
-                    </div>
+                <Reveal key={s.title} delay={i * 0.05} className="h-full">
+                  <div className="gc py-8 px-7 sm:py-10 sm:px-10 relative overflow-hidden h-full flex flex-col">
+                    <div className="service-icon">{s.icon}</div>
+                    <h2 className="text-[20px] sm:text-[22px] font-bold text-text-light mb-3 tracking-tight">
+                      {hasDetail ? (
+                        <Link
+                          href={`/servicos/${s.slug}`}
+                          className="hover:text-accent-light transition-colors"
+                        >
+                          {s.title}
+                        </Link>
+                      ) : (
+                        s.title
+                      )}
+                    </h2>
+                    <p className="text-[14.5px] text-text-dim leading-[1.75] mb-5">
+                      {s.desc}
+                    </p>
+                    {extra && (
+                      <>
+                        <ul className="flex flex-col gap-2 mb-5">
+                          {extra.deliverables.map((d) => (
+                            <li key={d} className="flex items-start gap-3">
+                              <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-[9px]" />
+                              <span className="text-[13.5px] text-text-subtle leading-[1.65]">
+                                {d}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex flex-wrap gap-1.5 mb-5">
+                          {extra.stack.map((t) => (
+                            <Tag key={t}>{t}</Tag>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                    {hasDetail && (
+                      <Link
+                        href={`/servicos/${s.slug}`}
+                        className="mt-auto text-[13px] text-accent-light hover:text-accent transition-colors inline-flex items-center gap-1.5 font-medium"
+                      >
+                        Saber mais sobre esse serviço →
+                      </Link>
+                    )}
                   </div>
                 </Reveal>
               );
