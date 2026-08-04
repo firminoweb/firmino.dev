@@ -26,16 +26,15 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+// Light é o tema principal; dark é opt-in via toggle (não segue o SO).
+// O ThemeToggle reescreve este meta quando o visitante escolhe dark.
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0b0e2d" },
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-  ],
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
 
-const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('firmino-theme');if(t==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`;
+const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('firmino-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();`;
 
 // Stub síncrono do gtag: precisa existir antes de qualquer clique para que
 // trackEvent() enfileire no dataLayer enquanto o gtag.js (lazyOnload) não chega.

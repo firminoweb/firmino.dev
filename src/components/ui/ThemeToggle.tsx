@@ -7,19 +7,30 @@ type Theme = "dark" | "light";
 
 const STORAGE_KEY = "firmino-theme";
 
+const THEME_COLOR = { light: "#ffffff", dark: "#0b0e2d" } as const;
+
 function readStoredTheme(): Theme {
-  if (typeof document === "undefined") return "dark";
+  if (typeof document === "undefined") return "light";
   const attr = document.documentElement.getAttribute("data-theme");
-  return attr === "light" ? "light" : "dark";
+  return attr === "dark" ? "dark" : "light";
+}
+
+// Mantém a barra do navegador mobile alinhada ao tema escolhido; o meta
+// estático do layout só cobre o light (default), então dark precisa de sync.
+function syncThemeColor(next: Theme) {
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", THEME_COLOR[next]);
 }
 
 function applyTheme(next: Theme) {
   const html = document.documentElement;
-  if (next === "light") {
-    html.setAttribute("data-theme", "light");
+  if (next === "dark") {
+    html.setAttribute("data-theme", "dark");
   } else {
     html.removeAttribute("data-theme");
   }
+  syncThemeColor(next);
   try {
     localStorage.setItem(STORAGE_KEY, next);
   } catch {
@@ -32,15 +43,18 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   // Hydration gate: the theme is applied to <html> by an inline script before
   // paint; here we sync component state post-mount to avoid an icon mismatch.
   useEffect(() => {
+    const stored = readStoredTheme();
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(readStoredTheme());
+    setTheme(stored);
     setMounted(true);
+    // Visitante que já estava em dark volta com o meta estático (#ffffff).
+    if (stored === "dark") syncThemeColor(stored);
   }, []);
 
   const toggle = () => {

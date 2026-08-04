@@ -80,6 +80,18 @@
   margin-top: 0;
 }
 
+/* Dual theme do shiki — cada token carrega --shiki-light/--shiki-dark inline e
+   nenhum `color`, então a escolha do tema acontece aqui. O rehype-pretty-code
+   remove as classes .shiki, por isso o hook é o atributo [data-theme] que ele
+   deixa em pre/code. Os <span data-line> não têm as vars: o var() indefinido
+   invalida a declaração e a cor cai por herança, que é o comportamento certo. */
+.prose-firmino code[data-theme] span {
+  color: var(--shiki-light);
+}
+html[data-theme="dark"] .prose-firmino code[data-theme] span {
+  color: var(--shiki-dark);
+}
+
 /* Highlighted lines */
 .prose-firmino :where([data-highlighted-line]):not(:where([class~="not-prose"] *)) {
   background: var(--prose-highlight-bg);
