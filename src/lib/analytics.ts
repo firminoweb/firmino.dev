@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════
-   Conversion tracking — firmino.dev
+   Conversion tracking · firmino.dev
    Thin wrapper over GA4 (gtag). No-ops when GA
    isn't loaded (dev, blocked, or NEXT_PUBLIC_GA_ID
    absent), so call sites never need to guard.

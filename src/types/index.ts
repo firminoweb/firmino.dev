@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════
-   Type definitions — firmino.dev
+   Type definitions · firmino.dev
    ════════════════════════════════════════════ */
 
 export interface KeyAchievement {

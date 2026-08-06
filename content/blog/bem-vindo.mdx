@@ -1,6 +1,6 @@
 ---
 title: Bem-vindo ao blog da firmino.dev
-description: Por que esse espaço existe, o que você vai encontrar aqui — e uma amostra dos formatos técnicos que vamos usar.
+description: Por que esse espaço existe, o que você vai encontrar aqui, e uma amostra dos formatos técnicos que vamos usar.
 date: 2026-05-06
 tags: [meta, anúncio, engenharia]
 author: João Firmino
@@ -8,13 +8,13 @@ cover: /images/blog/default-cover.svg
 ---
 
 A firmino.dev é uma empresa de engenharia de software com **16+ anos**
-construindo plataformas para grandes operações — bancos, varejo, mobilidade, e-commerce.
+construindo plataformas para grandes operações, bancos, varejo, mobilidade, e-commerce.
 Esse blog tem dois objetivos claros:
 
-1. **Corporativo** — registrar publicamente como pensamos arquitetura, qualidade e
+1. **Corporativo**: registrar publicamente como pensamos arquitetura, qualidade e
    entrega. Quem está avaliando contratar a firmino.dev deve conseguir ler aqui e
    entender exatamente o que esperamos de software bem feito.
-2. **Educacional** — compartilhar o que aprendemos em produção. Cada post nasce
+2. **Educacional**: compartilhar o que aprendemos em produção. Cada post nasce
    de um problema real que enfrentamos com algum cliente, ou de uma decisão técnica
    que valeu a pena documentar para o time.
 
@@ -25,17 +25,17 @@ sobreviveu ao contato com produção e melhorou alguma métrica de negócio.
 
 Os temas vão girar em torno do que dominamos no dia a dia:
 
-- **Frontend em escala** — Angular, React, Next.js, Module Federation
-- **Mobile** — React Native, PWA, distribuição em stores
-- **Performance & Web Vitals** — LCP, CLS, INP em casos reais
-- **Generative AI & LLMOps** — integração de LLMs em produtos, AI-Driven Development
-- **Arquitetura** — Clean Architecture, SOLID, Design Systems multi-cliente
-- **Qualidade** — testes, acessibilidade WCAG, code review
+- **Frontend em escala**: Angular, React, Next.js, Module Federation
+- **Mobile**: React Native, PWA, distribuição em stores
+- **Performance & Web Vitals**: LCP, CLS, INP em casos reais
+- **Generative AI & LLMOps**: integração de LLMs em produtos, AI-Driven Development
+- **Arquitetura**: Clean Architecture, SOLID, Design Systems multi-cliente
+- **Qualidade**: testes, acessibilidade WCAG, code review
 
 ## Como esse blog é construído
 
 Para evitar overhead operacional (servidor, banco, login), o blog roda em
-**MDX versionado no Git**. Cada post é um `.mdx` com frontmatter — build-time,
+**MDX versionado no Git**. Cada post é um `.mdx` com frontmatter, build-time,
 tipado, sem CMS. Stack:
 
 ```ts title="src/lib/blog.ts"
@@ -143,26 +143,26 @@ contraste sem virar bloco gigante.
 ### Listas ordenadas e blockquotes
 
 > "If you only do what works, you'll only ever know what works."
-> — princípio que guia muito do que tentamos por aqui.
+> Princípio que guia muito do que tentamos por aqui.
 
 1. Primeiro item de uma lista numerada
-2. Segundo item — útil para descrever passos de migração
+2. Segundo item, útil para descrever passos de migração
 3. Terceiro item
 
 ### Links
 
 Internos viram navegação SPA do Next: visite os [projetos](/projetos) ou veja a
-[nossa stack](/stack). Externos abrem em nova aba — por exemplo, o
+[nossa stack](/stack). Externos abrem em nova aba, por exemplo, o
 [shiki](https://shiki.style/) que move o syntax highlighting.
 
 ## O que vem por aí
 
 Já temos rascunho de alguns posts:
 
-- **Module Federation sem dor** — como estruturamos micro-frontends sem cair
+- **Module Federation sem dor**: como estruturamos micro-frontends sem cair
   nas armadilhas comuns (singleton-hell, version mismatch, bundle bloat)
-- **LLMs locais no fluxo de dev** — quando usar ollama vs API paga
-- **Whitelabel real em Next 15** — caso da plataforma Viaza/GoMilhas
+- **LLMs locais no fluxo de dev**: quando usar ollama vs API paga
+- **Whitelabel real em Next 15**: caso da plataforma Viaza/GoMilhas
 
-Se você tem interesse em algum tema específico — ou quer discutir um problema
-parecido com algo que vamos publicar — [fala com a gente](/contato).
+Se você tem interesse em algum tema específico, ou quer discutir um problema
+parecido com algo que vamos publicar, [fala com a gente](/contato).

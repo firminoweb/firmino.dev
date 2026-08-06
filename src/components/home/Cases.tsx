@@ -20,7 +20,7 @@ export function Cases() {
                 <span className="text-accent-light italic">resultado</span>
               </h2>
               <p className="text-[15px] text-text-dim leading-[1.75] mb-6 max-w-[380px]">
-                De plataformas corporativas a apps mobile e produtos com IA Generativa — uma seleção dos projetos que construímos.
+                De plataformas corporativas a apps mobile e produtos com IA Generativa: uma seleção dos projetos que construímos.
               </p>
 
               <div className="grid grid-cols-2 gap-2.5 mb-7">

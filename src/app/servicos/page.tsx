@@ -6,7 +6,7 @@ import { SERVICES } from "@/data/portfolio";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { hasServicoContent } from "@/lib/servicos";
 
-const TITLE = "Serviços — firmino.dev";
+const TITLE = "Serviços · firmino.dev";
 const DESCRIPTION =
   "Squad sênior plug-and-play para empresas digitalizando operação e agências precisando de reforço técnico. 16+ anos em stack de produção web, mobile e Generative AI.";
 
@@ -36,7 +36,7 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
     deliverables: [
       "Sênior ou squad alocado no seu time de delivery",
       "Encaixe no seu PM, no seu Jira e na sua relação com o cliente",
-      "White-label total — sem contato com seu cliente final se você preferir",
+      "White-label total, sem contato com seu cliente final se você preferir",
       "Faturamento PJ limpo: você emite a NF, a gente entrega o código",
     ],
     stack: ["Alocação sênior", "White-label", "PM-friendly", "PJ"],
@@ -45,7 +45,7 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
     deliverables: [
       "Chatbot que atende cliente em texto ou voz, conectado ao seu sistema",
       "Agente que lê documento, extrai informação e devolve resultado pronto",
-      "Automação de tarefa repetitiva — atendimento, triagem, geração de conteúdo",
+      "Automação de tarefa repetitiva: atendimento, triagem, geração de conteúdo",
       "Integração com IA dentro do que você já usa (WhatsApp, planilha, CRM, ERP)",
     ],
     stack: ["IA Generativa", "LLM", "Agentes", "Automação", "Integrações"],
@@ -53,7 +53,7 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
   "App mobile sob medida pra sua empresa": {
     deliverables: [
       "App nativo iOS e Android construído do zero",
-      "Catálogo, pedido, pagamento, fidelidade — qualquer fluxo da sua operação",
+      "Catálogo, pedido, pagamento, fidelidade: qualquer fluxo da sua operação",
       "Publicação nas lojas (App Store e Google Play) e atualizações contínuas",
       "Integração com seu sistema atual (ERP, CRM, e-commerce)",
     ],
@@ -61,7 +61,7 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
   },
   "Aplicações web sob medida pra sua empresa": {
     deliverables: [
-      "Sistemas, sites e plataformas web sob medida — do protótipo até no ar",
+      "Sistemas, sites e plataformas web sob medida, do protótipo até no ar",
       "Painéis administrativos, e-commerce, plataformas de cliente, sistemas internos",
       "APIs e integrações com bancos de dados e serviços que você já usa",
       "Hospedagem, manutenção e evolução contínua",
@@ -70,7 +70,7 @@ const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] 
   },
   "Manutenção de sistemas web e aplicativos": {
     deliverables: [
-      "Monitoramento contínuo — a gente fica sabendo do problema antes do seu cliente",
+      "Monitoramento contínuo: a gente fica sabendo do problema antes do seu cliente",
       "Atualizações de segurança, backups e correções incluídas todo mês",
       "Apps em dia com as exigências da App Store e do Google Play",
       "Relatório mensal em linguagem de dono: o que foi feito e como o sistema está",

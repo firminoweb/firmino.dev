@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "firmino.dev — Engenharia de Software, Mobile & Generative AI",
+    title: "firmino.dev · Engenharia de Software, Mobile & Generative AI",
     description:
       "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
     url: SITE_URL,
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@firminodev",
     creator: "@firminodev",
-    title: "firmino.dev — Engenharia de Software, Mobile & Generative AI",
+    title: "firmino.dev · Engenharia de Software, Mobile & Generative AI",
     description:
       "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
   },
@@ -149,7 +149,7 @@ const WEBSITE_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "firmino.dev",
-  alternateName: "firmino.dev — Engenharia de Software",
+  alternateName: "firmino.dev · Engenharia de Software",
   url: SITE_URL,
   inLanguage: "pt-BR",
   publisher: { "@type": "Organization", name: "firmino.dev", url: SITE_URL },

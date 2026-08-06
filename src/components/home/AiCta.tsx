@@ -15,7 +15,7 @@ export function AiCta() {
                 <span className="text-accent-light italic">aplicações inteligentes</span>
               </h2>
               <p className="text-[14px] sm:text-[15px] text-text-dim leading-[1.75] max-w-[560px] mx-auto mb-9">
-                Coloque a inteligência artificial pra trabalhar no seu dia a dia: chatbot que atende cliente, agente que lê documento e automação que tira a tarefa repetitiva do time. Conectado ao que você já usa — WhatsApp, planilha, CRM — e entregue funcionando, sem precisar virar uma empresa de tecnologia.
+                Coloque a inteligência artificial pra trabalhar no seu dia a dia: chatbot que atende cliente, agente que lê documento e automação que tira a tarefa repetitiva do time. Conectado ao que você já usa (WhatsApp, planilha, CRM) e entregue funcionando, sem precisar virar uma empresa de tecnologia.
               </p>
               <TrackedLink
                 href="/contato"

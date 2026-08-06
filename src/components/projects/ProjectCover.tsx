@@ -19,7 +19,7 @@ export function ProjectCover({ project }: ProjectCoverProps) {
       <div className="project-cover">
         <Image
           src={project.cover}
-          alt={`${project.title} — ${project.client}`}
+          alt={`${project.title} · ${project.client}`}
           fill
           sizes="(max-width: 920px) 100vw, 920px"
           priority

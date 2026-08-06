@@ -7,9 +7,9 @@ import { STATS, CONTACT } from "@/data/portfolio";
 import { PERSON_ID, PERSON } from "@/data/curriculo";
 import { breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
-const TITLE = "Sobre — firmino.dev";
+const TITLE = "Sobre · firmino.dev";
 const DESCRIPTION =
-  "Conheça a firmino.dev — empresa de engenharia de software com 16+ anos de mercado, especializada em web, mobile, micro-frontends e Generative AI.";
+  "Conheça a firmino.dev, empresa de engenharia de software com 16+ anos de mercado, especializada em web, mobile, micro-frontends e Generative AI.";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -67,7 +67,7 @@ const PRINCIPLES = [
   {
     icon: "⬡",
     title: "Decisões com critério",
-    desc: "Cada escolha de stack, arquitetura e padrão precisa ser justificável. Nada de framework do mês — só ferramenta que resolve um problema concreto.",
+    desc: "Cada escolha de stack, arquitetura e padrão precisa ser justificável. Nada de framework do mês: só ferramenta que resolve um problema concreto.",
   },
   {
     icon: "◎",
@@ -77,7 +77,7 @@ const PRINCIPLES = [
   {
     icon: "⏣",
     title: "AI-Driven com responsabilidade",
-    desc: "Usamos LLMs e ferramentas de IA Generativa para acelerar entrega — sem abrir mão de revisão crítica, segurança e propriedade do código.",
+    desc: "Usamos LLMs e ferramentas de IA Generativa para acelerar entrega, sem abrir mão de revisão crítica, segurança e propriedade do código.",
   },
 ];
 
@@ -88,22 +88,22 @@ const TIMELINE = [
     desc: "Primeiros projetos web em PHP/JS para agências e produtos próprios. Aprendendo o ofício no chão de fábrica da web.",
   },
   {
-    year: "2012 – 2016",
+    year: "2012 a 2016",
     title: "Produto e escala",
     desc: "Carreira em produtos de alto tráfego: UOL, Walmart, ViajaNet, Reclame Aqui, Grupo Pão de Açúcar. Ionic, AngularJS, Node em ambiente real.",
   },
   {
-    year: "2016 – 2020",
+    year: "2016 a 2020",
     title: "Plataformas corporativas",
     desc: "Itaú (zFlow), GPA, NTT Data/everis. Design Systems multi-cliente, micro-frontends e cobertura de testes elevada.",
   },
   {
-    year: "2020 – 2023",
+    year: "2020 a 2023",
     title: "Liderança técnica",
     desc: "O Boticário, TOTVS, Itaú Unibanco. PWA e mobile em escala nacional, orquestrador de APIs com Module Federation, mentoria e arquitetura.",
   },
   {
-    year: "2024 – hoje",
+    year: "2024 até hoje",
     title: "AI-Driven & whitelabel",
     desc: "Plataformas whitelabel multi-marca, integração de Generative AI no ciclo de desenvolvimento e consultoria técnica para times de produto.",
   },
@@ -164,7 +164,7 @@ export default function AboutPage() {
                   De 2009 até <span className="text-accent-light italic">aqui</span>
                 </h2>
                 <p className="text-[15px] text-text-muted leading-[1.85] mb-4">
-                  A firmino.dev nasceu como continuação natural de uma trajetória de mais de 16 anos em engenharia de software — passando por produtos digitais de alto tráfego, plataformas corporativas críticas e times de design system multi-cliente.
+                  A firmino.dev nasceu como continuação natural de uma trajetória de mais de 16 anos em engenharia de software, passando por produtos digitais de alto tráfego, plataformas corporativas críticas e times de design system multi-cliente.
                 </p>
                 <p className="text-[15px] text-text-muted leading-[1.85]">
                   Ao longo desse caminho, ficou claro que software de qualidade não é uma questão de stack favorita, mas de método: decisões de arquitetura justificáveis, qualidade tratada como hábito (não etapa) e respeito pelo código que outro time vai herdar. É essa abordagem que oferecemos para nossos clientes.

@@ -9,7 +9,7 @@ interface FaqItem {
 const FAQ_ITEMS: FaqItem[] = [
   {
     q: "Quanto custa um projeto?",
-    a: "Depende do tamanho. Um site institucional, um app e uma plataforma com integração têm escopos diferentes. Na primeira conversa a gente entende o que você precisa e devolve uma estimativa de investimento e prazo — sem custo e sem compromisso.",
+    a: "Depende do tamanho. Um site institucional, um app e uma plataforma com integração têm escopos diferentes. Na primeira conversa a gente entende o que você precisa e devolve uma estimativa de investimento e prazo, sem custo e sem compromisso.",
   },
   {
     q: "Em quanto tempo fica pronto?",
@@ -17,7 +17,7 @@ const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Vocês trabalham com contrato e nota fiscal?",
-    a: `Sim. Somos uma empresa registrada no Brasil — ${COMPANY.legalName}, CNPJ ${COMPANY.cnpj} — com contrato e nota fiscal em todos os projetos, do pequeno negócio à grande operação.`,
+    a: `Sim. Somos uma empresa registrada no Brasil (${COMPANY.legalName}, CNPJ ${COMPANY.cnpj}), com contrato e nota fiscal em todos os projetos, do pequeno negócio à grande operação.`,
   },
   {
     q: "Atendem empresas fora de São Paulo?",
@@ -25,11 +25,11 @@ const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Já tenho um sistema ou uma agência. Dá pra trabalhar junto?",
-    a: "Dá. A gente assume a evolução de um sistema que já existe ou entra como reforço técnico dentro do seu time ou da sua agência — no seu processo e nas suas ferramentas, sem fricção e, se você preferir, sem contato com o seu cliente final.",
+    a: "Dá. A gente assume a evolução de um sistema que já existe ou entra como reforço técnico dentro do seu time ou da sua agência, no seu processo e nas suas ferramentas, sem fricção e, se você preferir, sem contato com o seu cliente final.",
   },
   {
     q: "Como começa?",
-    a: "Você manda uma mensagem pelo formulário ou pelo WhatsApp contando o que precisa. Respondemos em até 24h úteis com os próximos passos — e só seguimos adiante se fizer sentido pra você.",
+    a: "Você manda uma mensagem pelo formulário ou pelo WhatsApp contando o que precisa. Respondemos em até 24h úteis com os próximos passos, e só seguimos adiante se fizer sentido pra você.",
   },
 ];
 
