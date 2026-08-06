@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
 import { STATS, CONTACT } from "@/data/portfolio";
+import { PERSON_ID, PERSON } from "@/data/curriculo";
 import { breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
-const TITLE = "Sobre — firmino.dev";
+const TITLE = "Sobre · firmino.dev";
 const DESCRIPTION =
-  "Conheça a firmino.dev — empresa de engenharia de software com 15+ anos de mercado, especializada em web, mobile, micro-frontends e Generative AI.";
+  "Conheça a firmino.dev, empresa de engenharia de software com 16+ anos de mercado, especializada em web, mobile, micro-frontends e Generative AI.";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -25,11 +27,12 @@ export const metadata: Metadata = {
 const PERSON_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": PERSON_ID,
   name: "João Firmino",
-  url: `${SITE_URL}/sobre`,
+  url: `${SITE_URL}/joao`,
   jobTitle: "Engenheiro de Software · Tech Lead",
   description:
-    "Engenheiro de software com 15+ anos de experiência em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI.",
+    "Engenheiro de software com 16+ anos de experiência em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI.",
   knowsAbout: [
     "Angular",
     "React",
@@ -64,7 +67,7 @@ const PRINCIPLES = [
   {
     icon: "⬡",
     title: "Decisões com critério",
-    desc: "Cada escolha de stack, arquitetura e padrão precisa ser justificável. Nada de framework do mês — só ferramenta que resolve um problema concreto.",
+    desc: "Cada escolha de stack, arquitetura e padrão precisa ser justificável. Nada de framework do mês: só ferramenta que resolve um problema concreto.",
   },
   {
     icon: "◎",
@@ -74,7 +77,7 @@ const PRINCIPLES = [
   {
     icon: "⏣",
     title: "AI-Driven com responsabilidade",
-    desc: "Usamos LLMs e ferramentas de IA Generativa para acelerar entrega — sem abrir mão de revisão crítica, segurança e propriedade do código.",
+    desc: "Usamos LLMs e ferramentas de IA Generativa para acelerar entrega, sem abrir mão de revisão crítica, segurança e propriedade do código.",
   },
 ];
 
@@ -85,22 +88,22 @@ const TIMELINE = [
     desc: "Primeiros projetos web em PHP/JS para agências e produtos próprios. Aprendendo o ofício no chão de fábrica da web.",
   },
   {
-    year: "2012 – 2016",
+    year: "2012 a 2016",
     title: "Produto e escala",
     desc: "Carreira em produtos de alto tráfego: UOL, Walmart, ViajaNet, Reclame Aqui, Grupo Pão de Açúcar. Ionic, AngularJS, Node em ambiente real.",
   },
   {
-    year: "2016 – 2020",
+    year: "2016 a 2020",
     title: "Plataformas corporativas",
     desc: "Itaú (zFlow), GPA, NTT Data/everis. Design Systems multi-cliente, micro-frontends e cobertura de testes elevada.",
   },
   {
-    year: "2020 – 2023",
+    year: "2020 a 2023",
     title: "Liderança técnica",
     desc: "O Boticário, TOTVS, Itaú Unibanco. PWA e mobile em escala nacional, orquestrador de APIs com Module Federation, mentoria e arquitetura.",
   },
   {
-    year: "2024 – hoje",
+    year: "2024 até hoje",
     title: "AI-Driven & whitelabel",
     desc: "Plataformas whitelabel multi-marca, integração de Generative AI no ciclo de desenvolvimento e consultoria técnica para times de produto.",
   },
@@ -161,7 +164,7 @@ export default function AboutPage() {
                   De 2009 até <span className="text-accent-light italic">aqui</span>
                 </h2>
                 <p className="text-[15px] text-text-muted leading-[1.85] mb-4">
-                  A firmino.dev nasceu como continuação natural de uma trajetória de mais de 15 anos em engenharia de software — passando por produtos digitais de alto tráfego, plataformas corporativas críticas e times de design system multi-cliente.
+                  A firmino.dev nasceu como continuação natural de uma trajetória de mais de 16 anos em engenharia de software, passando por produtos digitais de alto tráfego, plataformas corporativas críticas e times de design system multi-cliente.
                 </p>
                 <p className="text-[15px] text-text-muted leading-[1.85]">
                   Ao longo desse caminho, ficou claro que software de qualidade não é uma questão de stack favorita, mas de método: decisões de arquitetura justificáveis, qualidade tratada como hábito (não etapa) e respeito pelo código que outro time vai herdar. É essa abordagem que oferecemos para nossos clientes.
@@ -216,6 +219,41 @@ export default function AboutPage() {
                     </Reveal>
                   ))}
                 </div>
+              </div>
+            </Reveal>
+
+            {/* Quem está por trás */}
+            <Reveal>
+              <div>
+                <SectionLabel>Quem está por trás</SectionLabel>
+                <h2 className="font-serif section-heading !text-[clamp(26px,3.4vw,38px)] !leading-[1.18] mb-7">
+                  A pessoa que <span className="text-accent-light italic">responde</span>
+                </h2>
+                <Link
+                  href="/joao"
+                  className="gc case-card py-7 px-6 sm:px-8 flex flex-col sm:flex-row sm:items-center gap-6 relative overflow-hidden"
+                >
+                  <div className="case-glow-line" />
+                  <Image
+                    src={PERSON.photo}
+                    alt={`Foto de ${PERSON.name}`}
+                    width={400}
+                    height={400}
+                    className="w-[96px] h-[96px] rounded-full object-cover border border-border-subtle shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <h3 className="text-[17px] font-bold text-brand tracking-tight mb-1">
+                      {PERSON.name}
+                    </h3>
+                    <p className="text-[13px] text-accent-light font-medium mb-2.5">
+                      {PERSON.role} · {PERSON.headline}
+                    </p>
+                    <p className="text-[13.5px] text-text-dim leading-[1.7]">
+                      16+ anos de engenharia de software em Itaú, O Boticário, TOTVS, NTT Data, Walmart e UOL. Ver a trajetória completa, habilidades e currículo.
+                    </p>
+                  </div>
+                  <span className="case-arrow shrink-0 hidden sm:block">↗</span>
+                </Link>
               </div>
             </Reveal>
           </div>

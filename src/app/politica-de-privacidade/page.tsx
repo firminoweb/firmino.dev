@@ -5,7 +5,7 @@ import { SectionLabel, JsonLd, ObfuscatedContact } from "@/components/ui";
 import { CONTACT, COMPANY } from "@/data/portfolio";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
-const TITLE = "Política de Privacidade — firmino.dev";
+const TITLE = "Política de Privacidade · firmino.dev";
 const DESCRIPTION =
   "Como a firmino.dev coleta, usa e protege os seus dados pessoais, em conformidade com a LGPD (Lei nº 13.709/2018).";
 const LAST_UPDATE = "10 de junho de 2026";
@@ -53,7 +53,7 @@ export default function PrivacidadePage() {
               <p>
                 Esta política explica, em linguagem direta, quais dados pessoais coletamos
                 quando você usa o site <strong>firmino.dev</strong>, para que usamos, com
-                quem são compartilhados e quais são os seus direitos — em conformidade com
+                quem são compartilhados e quais são os seus direitos, em conformidade com
                 a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).
               </p>
 
@@ -80,7 +80,7 @@ export default function PrivacidadePage() {
                 acesso, tipo de dispositivo, eventos de navegação), por meio de cookies e
                 identificadores. Nosso provedor de hospedagem (Vercel) coleta métricas
                 técnicas de desempenho e registra temporariamente o endereço IP das
-                requisições — que também usamos, de forma transitória, para limitar abuso
+                requisições, que também usamos, de forma transitória, para limitar abuso
                 no envio do formulário. A sua preferência de tema (claro/escuro) fica
                 guardada apenas no seu navegador e não chega até nós.
               </p>
@@ -92,12 +92,12 @@ export default function PrivacidadePage() {
               <ul>
                 <li>
                   <strong>Responder ao seu contato</strong> e conduzir a conversa
-                  comercial que você iniciou — proposta, orçamento, agenda (base legal:
+                  comercial que você iniciou: proposta, orçamento, agenda (base legal:
                   procedimentos preliminares de contrato e legítimo interesse, art. 7º, V
                   e IX da LGPD).
                 </li>
                 <li>
-                  <strong>Medir e melhorar o site</strong> — estatísticas de uso agregadas
+                  <strong>Medir e melhorar o site</strong>: estatísticas de uso agregadas
                   via Google Analytics (base legal: legítimo interesse).
                 </li>
                 <li>
@@ -117,18 +117,18 @@ export default function PrivacidadePage() {
               </p>
               <ul>
                 <li>
-                  <strong>Resend</strong> — entrega por e-mail das mensagens enviadas pelo
+                  <strong>Resend</strong>: entrega por e-mail das mensagens enviadas pelo
                   formulário de contato;
                 </li>
                 <li>
-                  <strong>Vercel</strong> — hospedagem do site e métricas técnicas de
+                  <strong>Vercel</strong>: hospedagem do site e métricas técnicas de
                   desempenho;
                 </li>
                 <li>
-                  <strong>Google (Analytics)</strong> — estatísticas de uso do site;
+                  <strong>Google (Analytics)</strong>: estatísticas de uso do site;
                 </li>
                 <li>
-                  <strong>Meta (WhatsApp)</strong> — quando você opta por falar conosco
+                  <strong>Meta (WhatsApp)</strong>: quando você opta por falar conosco
                   pelo WhatsApp, a conversa é processada pela plataforma, sujeita à
                   política de privacidade do WhatsApp.
                 </li>
@@ -144,7 +144,7 @@ export default function PrivacidadePage() {
               <p>
                 Usamos cookies e identificadores do Google Analytics para medição de
                 audiência. Você pode bloquear ou apagar cookies nas configurações do seu
-                navegador — o site continua funcionando normalmente sem eles. O
+                navegador, e o site continua funcionando normalmente sem eles. O
                 armazenamento local do navegador guarda apenas a sua preferência de tema,
                 sem qualquer dado pessoal.
               </p>
@@ -165,7 +165,7 @@ export default function PrivacidadePage() {
                 eliminação, solicitar portabilidade, obter informação sobre
                 compartilhamentos e revogar consentimento. Para exercer qualquer um desses
                 direitos, envie um e-mail para{" "}
-                <ObfuscatedContact value={CONTACT.email} kind="email" className="font-semibold" /> —
+                <ObfuscatedContact value={CONTACT.email} kind="email" className="font-semibold" />.
                 respondemos em até 15 dias. Você também pode apresentar reclamação à
                 Autoridade Nacional de Proteção de Dados (ANPD).
               </p>

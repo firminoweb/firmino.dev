@@ -1,20 +1,20 @@
 ---
 title: Module Federation sem dor
-description: Como estruturamos micro-frontends em produção sem cair em singleton-hell, version mismatch e bundle bloat — com checklist concreto e snippets de webpack/Next.
+description: Como estruturamos micro-frontends em produção sem cair em singleton-hell, version mismatch e bundle bloat, com checklist concreto e snippets de webpack/Next.
 date: 2026-05-08
 tags: [arquitetura, frontend, micro-frontends, webpack, next-js]
 author: João Firmino
 cover: /images/blog/default-cover.svg
 ---
 
-Module Federation é uma das primitivas mais poderosas de frontend moderno —
+Module Federation é uma das primitivas mais poderosas de frontend moderno,
 e também das mais perigosas. A promessa é simples: cada time entrega o seu
 pedaço da aplicação independentemente, sem rebuild monolítico. A realidade,
 quando alguém ignora os detalhes, é singleton duplicado em runtime, telas
 brancas em produção e bundle 40% maior do que precisa.
 
-Esse post compila o que aprendemos integrando MF em plataformas reais —
-varejo, mobilidade, plataforma whitelabel — e o checklist que aplicamos
+Esse post compila o que aprendemos integrando MF em plataformas reais,
+varejo, mobilidade, plataforma whitelabel, e o checklist que aplicamos
 **antes** de deixar o primeiro remote subir.
 
 ## O modelo mental certo
@@ -28,10 +28,10 @@ deploy específico.
 
 Tudo de ruim que acontece em MF decorre de ignorar essa fronteira:
 
-1. **Singletons** — React, design system, store global
-2. **Versões** — host na 18, remote na 17, runtime explode
-3. **Estilos** — CSS global do remote vazando no host
-4. **Tipos** — host não sabe a interface do remote em build-time
+1. **Singletons**: React, design system, store global
+2. **Versões**: host na 18, remote na 17, runtime explode
+3. **Estilos**: CSS global do remote vazando no host
+4. **Tipos**: host não sabe a interface do remote em build-time
 
 Os quatro pontos abaixo são o que efetivamente quebra. Resolva-os e MF
 deixa de ser dor.
@@ -44,7 +44,7 @@ sem motivo aparente. Quase sempre é porque o host e o remote bundlaram
 cada um o seu React.
 
 A regra é: **toda lib stateful precisa ser singleton compartilhado**.
-Não é só React — qualquer coisa que mantenha estado em closures globais
+Não é só React, qualquer coisa que mantenha estado em closures globais
 ou em context entra na lista: `react-router`, `@tanstack/react-query`,
 `styled-components`, design system com Provider, etc.
 
@@ -69,11 +69,11 @@ new ModuleFederationPlugin({
 
 Três flags importam:
 
-- `singleton: true` — garante uma única instância em runtime. Se versão
+- `singleton: true`: garante uma única instância em runtime. Se versão
   do host e do remote divergirem, MF emite warning e usa a do host.
-- `requiredVersion` — derivado do `package.json`, não hardcoded. Hardcode
+- `requiredVersion`: derivado do `package.json`, não hardcoded. Hardcode
   envelhece e some do radar do `yarn upgrade-interactive`.
-- `eager: true` no host — carrega a dep no chunk inicial, evita o erro
+- `eager: true` no host, carrega a dep no chunk inicial, evita o erro
   *"Shared module is not available for eager consumption"* no boot do
   remote.
 
@@ -82,7 +82,7 @@ Três flags importam:
 
 ## 2. Version mismatch silencioso
 
-`singleton: true` força uma única instância — mas a versão escolhida é a
+`singleton: true` força uma única instância, mas a versão escolhida é a
 do host. Se o remote foi compilado contra React 19 e o host está em 18,
 o remote roda em 18, e funcionalidades novas explodem em runtime sem
 nenhum aviso em build-time.
@@ -119,7 +119,7 @@ if [[ "$ACTUAL" != "$CONTRACT_REACT" ]]; then
 fi
 ```
 
-## 3. Bundle bloat — o problema que ninguém mede
+## 3. Bundle bloat: o problema que ninguém mede
 
 MF não dá tree-shaking entre fronteiras. Se você expõe um `./Components`
 inteiro como entrada, o host puxa tudo mesmo importando uma única peça.
@@ -162,7 +162,7 @@ Use CSS Modules, Tailwind com prefix, ou Shadow DOM se o isolamento
 precisa ser cirúrgico. Nada de `styled-components` com `createGlobalStyle`
 no remote.
 
-**Tipos** — o host importa de uma URL em runtime, mas o TS quer tipo em
+**Tipos**: o host importa de uma URL em runtime, mas o TS quer tipo em
 build-time. Resolução: `@module-federation/typescript` baixa os `.d.ts`
 do remote durante o `dev`/`build` do host, mantendo a DX próxima de um
 import normal. Sem isso, você acaba com `any` em volta de toda fronteira
@@ -189,7 +189,7 @@ vermelho, não merge.
 1. [ ] Toda lib stateful está em `shared` com `singleton: true`?
 2. [ ] `requiredVersion` é derivado do `package.json`, não hardcoded?
 3. [ ] `strictVersion: true` no host para libs críticas (React, router)?
-4. [ ] Cada componente é `exposes` próprio — nenhum barrel?
+4. [ ] Cada componente é `exposes` próprio, nenhum barrel?
 5. [ ] Bundle analyzer rodou e o tamanho está dentro do budget?
 6. [ ] CSS está isolado (Modules, Tailwind com prefix, ou Shadow DOM)?
 7. [ ] Tipos do remote estão sendo gerados/baixados em build-time?
@@ -197,12 +197,12 @@ vermelho, não merge.
 9. [ ] CI valida contrato de versão das `shared` deps entre repos?
 10. [ ] Logs do `ModuleFederationPlugin` em dev estão em `info` (não silenciados)?
 
-O item 8 merece um post próprio — é o que separa "MF funciona" de
+O item 8 merece um post próprio, é o que separa "MF funciona" de
 "MF funciona quando a CDN do remote cai". Fica para a próxima.
 
 ## Fechamento
 
-Module Federation não é caro de operar — é **caro de operar errado**.
+Module Federation não é caro de operar, é **caro de operar errado**.
 A diferença entre os dois cenários é uma checklist de 10 itens e
 disciplina de bundle. Se a sua plataforma tem 3+ times tocando o mesmo
 frontend, MF paga o investimento; abaixo disso, monorepo + build

@@ -32,7 +32,7 @@ export const COPY = {
   hlAccent: "software",
   hlTail: "que escala",
   subline: "Web · Mobile · Generative AI",
-  footerLeft: "15+ anos · Itaú · Boticário · TOTVS · NTT Data",
+  footerLeft: "16+ anos · Itaú · Boticário · TOTVS · NTT Data",
   footerRight: "firmino.dev",
 } as const;
 

@@ -99,7 +99,7 @@ export function ProjectsExplorer() {
       {filtered.length === 0 && (
         <div className="gc px-6 py-10 text-center">
           <p className="text-sm text-text-dim">
-            Em breve — projetos desta categoria serão publicados aqui.
+            Em breve: projetos desta categoria serão publicados aqui.
           </p>
         </div>
       )}
@@ -118,7 +118,7 @@ export function ProjectsExplorer() {
       >
         <div className="pt-4 pb-2">
           <span className="text-xs text-text-dark tracking-[1.5px] uppercase font-medium">
-            Demais clientes (2009 – 2018)
+            Demais clientes (2009 a 2018)
           </span>
         </div>
         {PAST_CLIENTS.map((c, i) => (

@@ -4,6 +4,7 @@ import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { WhatsAppFab } from "@/components/ui";
 import { CONTACT, COMPANY } from "@/data/portfolio";
+import { PERSON_ID } from "@/data/curriculo";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     template: "%s · firmino.dev",
   },
   description:
-    "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI & LLM. 15+ anos entregando soluções escaláveis para empresas líderes.",
+    "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI & LLM. 16+ anos entregando soluções escaláveis para empresas líderes.",
   keywords: [
     "Engenharia de Software",
     "Aplicações Web",
@@ -85,7 +86,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "firmino.dev — Engenharia de Software, Mobile & Generative AI",
+    title: "firmino.dev · Engenharia de Software, Mobile & Generative AI",
     description:
       "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
     url: SITE_URL,
@@ -97,7 +98,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@firminodev",
     creator: "@firminodev",
-    title: "firmino.dev — Engenharia de Software, Mobile & Generative AI",
+    title: "firmino.dev · Engenharia de Software, Mobile & Generative AI",
     description:
       "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
   },
@@ -117,7 +118,14 @@ const ORG_JSON_LD = {
   slogan: "Construímos software. Reforçamos times.",
   foundingDate: "2009",
   knowsLanguage: ["pt-BR", "en"],
-  founder: { "@type": "Person", name: "João Firmino" },
+  // @id aponta para o Person da /joao — sem isso o Google cria uma segunda
+  // entidade "João Firmino" solta, desconectada do perfil.
+  founder: {
+    "@type": "Person",
+    "@id": PERSON_ID,
+    name: "João Firmino",
+    url: `${SITE_URL}/joao`,
+  },
   address: {
     "@type": "PostalAddress",
     addressLocality: "São Paulo",
@@ -141,7 +149,7 @@ const WEBSITE_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "firmino.dev",
-  alternateName: "firmino.dev — Engenharia de Software",
+  alternateName: "firmino.dev · Engenharia de Software",
   url: SITE_URL,
   inLanguage: "pt-BR",
   publisher: { "@type": "Organization", name: "firmino.dev", url: SITE_URL },

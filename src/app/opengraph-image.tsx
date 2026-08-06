@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "firmino.dev — Engenharia de Software, Mobile & Generative AI";
+export const alt = "firmino.dev · Engenharia de Software, Mobile & Generative AI";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -72,7 +72,7 @@ export default async function OpenGraphImage() {
             fontSize: 18,
           }}
         >
-          <span>15+ anos · Itaú · Boticário · TOTVS · NTT Data</span>
+          <span>16+ anos · Itaú · Boticário · TOTVS · NTT Data</span>
           <span style={{ color: "#5c7cfa" }}>firmino.dev</span>
         </div>
       </div>

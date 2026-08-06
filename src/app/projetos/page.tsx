@@ -4,9 +4,9 @@ import { SectionLabel, JsonLd } from "@/components/ui";
 import { ProjectsExplorer } from "@/components/projects/ProjectsExplorer";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
-const TITLE = "Projetos — firmino.dev";
+const TITLE = "Projetos · firmino.dev";
 const DESCRIPTION =
-  "Projetos entregues pela firmino.dev — corporativos, freelance, pessoais e open source.";
+  "Projetos entregues pela firmino.dev: corporativos, freelance, pessoais e open source.";
 
 export const metadata: Metadata = {
   title: "Projetos",
@@ -41,7 +41,7 @@ export default function ProjetosPage() {
               <span className="text-accent-light italic">cases entregues</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Uma seleção dos trabalhos que construímos — em grandes empresas, projetos freelance e iniciativas próprias.
+              Uma seleção dos trabalhos que construímos, em grandes empresas, projetos freelance e iniciativas próprias.
             </p>
           </div>
         </section>

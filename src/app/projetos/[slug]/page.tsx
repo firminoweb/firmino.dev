@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: CaseDetailProps): Promise<Met
     };
   }
 
-  const title = `${project.title} — ${project.client}`;
+  const title = `${project.title} · ${project.client}`;
   const ogTitle = `${title} · firmino.dev`;
   const path = `/projetos/${project.slug}`;
   const ogImage = project.logo ? [absoluteUrl(project.logo)] : undefined;

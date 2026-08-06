@@ -37,7 +37,7 @@ export function Hero() {
             <span className="font-serif">.</span>
           </h1>
           <p className="text-base text-text-muted leading-[1.75] max-w-[500px] mb-5">
-            Aplicações web, apps mobile e automações com IA sob medida pra sua empresa. 15+ anos construindo produto que rende, do pequeno negócio à grande operação.
+            Aplicações web, apps mobile e automações com IA sob medida pra sua empresa. 16+ anos construindo produto que rende, do pequeno negócio à grande operação.
           </p>
           <div className="flex flex-wrap gap-2 mb-9">
             {HERO_TAGS.map((t) => (

@@ -137,7 +137,7 @@ export function ContactForm() {
         </Button>
         <p className="text-[12px] text-text-dark leading-[1.6]">
           Respondemos em até 24h úteis. Seus dados são usados só para responder ao seu
-          contato —{" "}
+          contato.{" "}
           <Link
             href="/politica-de-privacidade"
             className="underline underline-offset-2 hover:text-text-muted transition-colors"

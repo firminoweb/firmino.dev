@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { CONTACT, COMPANY } from "@/data/portfolio";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
-const TITLE = "Contato — firmino.dev";
+const TITLE = "Contato · firmino.dev";
 const DESCRIPTION =
   "Fale com a firmino.dev. Discuta seu projeto, peça um orçamento ou agende uma conversa.";
 
@@ -98,7 +98,7 @@ export default function ContatoPage() {
               Vamos <span className="text-accent-light italic">conversar</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Conta pra gente o que você está construindo. Discutimos escopo, prazo e a melhor abordagem técnica — sem compromisso.
+              Conta pra gente o que você está construindo. Discutimos escopo, prazo e a melhor abordagem técnica, sem compromisso.
             </p>
           </div>
         </section>
@@ -154,7 +154,7 @@ export default function ContatoPage() {
                 <div className="case-glow-line" />
                 <SectionLabel>Canais diretos</SectionLabel>
                 <p className="text-[13px] text-text-dim leading-[1.65] mb-5 max-w-[560px]">
-                  Preferimos o formulário acima — é mais rápido pra alinhar contexto. Se preferir, os canais diretos abaixo também funcionam.
+                  Preferimos o formulário acima, é mais rápido pra alinhar contexto. Se preferir, os canais diretos abaixo também funcionam.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                   {PROTECTED_CHANNELS.map((c) => (
@@ -187,7 +187,7 @@ export default function ContatoPage() {
                   Atendimento 100% remoto para clientes do Brasil e exterior. Workshops e imersões presenciais sob demanda na grande São Paulo.
                 </p>
                 <p className="text-[12.5px] text-text-darker leading-[1.7] mt-4 pt-4 border-t border-border-subtle max-w-[560px]">
-                  Empresa registrada no Brasil: {COMPANY.legalName} — CNPJ {COMPANY.cnpj}
+                  Empresa registrada no Brasil: {COMPANY.legalName} · CNPJ {COMPANY.cnpj}
                 </p>
               </div>
             </Reveal>

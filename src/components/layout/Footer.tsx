@@ -4,6 +4,7 @@ import { CONTACT, COMPANY } from "@/data/portfolio";
 
 const COMPANY_LINKS: { label: string; href: string }[] = [
   { label: "Sobre", href: "/sobre" },
+  { label: "João Firmino", href: "/joao" },
   { label: "Blog", href: "/blog" },
   { label: "Projetos", href: "/projetos" },
   { label: "Contato", href: "/contato" },
@@ -92,7 +93,7 @@ export function Footer() {
 
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6 border-t border-border-subtle">
             <span className="text-[12.5px] text-text-darker text-center sm:text-left">
-              © 2026 firmino.dev — {COMPANY.legalName} · CNPJ {COMPANY.cnpj}. Todos os direitos reservados. ·{" "}
+              © 2026 firmino.dev · {COMPANY.legalName} · CNPJ {COMPANY.cnpj}. Todos os direitos reservados. ·{" "}
               <Link
                 href="/politica-de-privacidade"
                 className="underline underline-offset-2 hover:text-text-muted transition-colors"

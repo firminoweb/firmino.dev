@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════
-   BFF API helpers — firmino.dev
+   BFF API helpers · firmino.dev
    ════════════════════════════════════════════
 
    Funções utilitárias para os API routes

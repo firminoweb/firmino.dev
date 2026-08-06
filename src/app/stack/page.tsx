@@ -5,7 +5,7 @@ import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
 import { STACK } from "@/data/portfolio";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
-const TITLE = "Stack — firmino.dev";
+const TITLE = "Stack · firmino.dev";
 const DESCRIPTION =
   "Tecnologias que usamos para entregar resultado: web, mobile, backend, testes, arquitetura, DevOps e Generative AI.";
 
@@ -43,7 +43,7 @@ export default function StackPage() {
               Tecnologias que <span className="text-accent-light italic">dominamos</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Stack pragmática, escolhida com critério para cada projeto — do produto ao deploy, com qualidade automatizada e foco em performance.
+              Stack pragmática, escolhida com critério para cada projeto, do produto ao deploy, com qualidade automatizada e foco em performance.
             </p>
           </div>
         </section>

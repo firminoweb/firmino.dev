@@ -5,7 +5,7 @@ import { JsonLd, SectionLabel } from "@/components/ui";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { getAllPosts } from "@/lib/blog";
 
-const TITLE = "Blog — firmino.dev";
+const TITLE = "Blog · firmino.dev";
 const DESCRIPTION =
   "Artigos sobre desenvolvimento web, AI-Driven Development, micro-frontends e mais.";
 
@@ -73,7 +73,7 @@ export default function BlogPage() {
               Notas <span className="text-accent-light italic">técnicas</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Aprendizados de quem constrói software em produção — sem hype, sem framework do mês.
+              Aprendizados de quem constrói software em produção, sem hype e sem framework do mês.
             </p>
           </div>
         </section>

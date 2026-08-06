@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════
-   Type definitions — firmino.dev
+   Type definitions · firmino.dev
    ════════════════════════════════════════════ */
 
 export interface KeyAchievement {
@@ -73,5 +73,42 @@ export interface Stat {
 
 export interface Stack {
   [category: string]: string[];
+}
+
+/* ── Currículo (/joao) ─────────────────────── */
+
+export interface CareerRole {
+  company: string;
+  role: string;
+  period: string;
+  /** Marca a posição atual — usado no schema e no selo "atual". */
+  current?: boolean;
+  location?: string;
+  highlights: string[];
+  stack?: string[];
+}
+
+export interface EarlierRole {
+  company: string;
+  role: string;
+  period: string;
+  detail: string;
+}
+
+export interface SkillGroup {
+  title: string;
+  items: string[];
+}
+
+export interface Education {
+  degree: string;
+  school: string;
+  year: string;
+  location?: string;
+}
+
+export interface Language {
+  name: string;
+  level: string;
 }
 
