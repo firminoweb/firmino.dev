@@ -8,7 +8,7 @@ import { hasServicoContent } from "@/lib/servicos";
 
 const TITLE = "Serviços — firmino.dev";
 const DESCRIPTION =
-  "Squad sênior plug-and-play para empresas digitalizando operação e agências precisando de reforço técnico. 15+ anos em stack de produção web, mobile e Generative AI.";
+  "Squad sênior plug-and-play para empresas digitalizando operação e agências precisando de reforço técnico. 16+ anos em stack de produção web, mobile e Generative AI.";
 
 export const metadata: Metadata = {
   title: "Serviços",
@@ -116,7 +116,7 @@ export default function ServicosPage() {
               Como <span className="text-accent-light italic">atendemos</span> sua empresa ou agência
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Trabalhamos em dois formatos comerciais: squad dedicado para empresas digitalizando ou alocação sênior dentro do seu time de agência. Sustentado por 15+ anos de stack de produção em Angular, React, Next.js, React Native e Generative AI.
+              Trabalhamos em dois formatos comerciais: squad dedicado para empresas digitalizando ou alocação sênior dentro do seu time de agência. Sustentado por 16+ anos de stack de produção em Angular, React, Next.js, React Native e Generative AI.
             </p>
           </div>
         </section>

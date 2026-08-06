@@ -4,6 +4,7 @@ import { CONTACT, COMPANY } from "@/data/portfolio";
 
 const COMPANY_LINKS: { label: string; href: string }[] = [
   { label: "Sobre", href: "/sobre" },
+  { label: "João Firmino", href: "/joao" },
   { label: "Blog", href: "/blog" },
   { label: "Projetos", href: "/projetos" },
   { label: "Contato", href: "/contato" },

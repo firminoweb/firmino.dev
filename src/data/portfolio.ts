@@ -355,7 +355,7 @@ export const PAST_CLIENTS: PastClient[] = [
 ];
 
 export const STATS: Stat[] = [
-  { value: "15+", label: "Anos no mercado", detail: "Desde 2009" },
+  { value: "16+", label: "Anos no mercado", detail: "Desde 2009" },
   { value: "20+", label: "Clientes atendidos", detail: "Startups a Enterprise" },
   { value: "Milhões+", label: "Usuários impactados", detail: "Escala nacional" },
   { value: "50+", label: "Projetos entregues", detail: "Web, Mobile & AI" },
