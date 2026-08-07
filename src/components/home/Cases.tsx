@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal, Button, Tag, SectionLabel } from "@/components/ui";
-import { PROJECTS, PROJECT_TYPE_LABELS, STATS } from "@/data/portfolio";
+import { CLIENT_PROJECTS, STATS } from "@/data/portfolio";
 
 const TEASER_COUNT = 3;
 
 export function Cases() {
-  const teaser = PROJECTS.filter((p) => p.featured).slice(0, TEASER_COUNT);
+  const teaser = CLIENT_PROJECTS.filter((p) => p.featured).slice(0, TEASER_COUNT);
 
   return (
     <section className="section-padding">
@@ -20,7 +20,7 @@ export function Cases() {
                 <span className="text-accent-light italic">resultado</span>
               </h2>
               <p className="text-[15px] text-text-dim leading-[1.75] mb-6 max-w-[380px]">
-                De plataformas corporativas a apps mobile e produtos com IA Generativa: uma seleção dos projetos que construímos.
+                De plataforma de pagamentos a app mobile e produto com IA: o que construímos para quem nos contratou.
               </p>
 
               <div className="grid grid-cols-2 gap-2.5 mb-7">
@@ -55,7 +55,7 @@ export function Cases() {
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 mb-1.5">
                             <Tag accent className="!text-[10px]">
-                              {PROJECT_TYPE_LABELS[p.type]}
+                              {p.segment}
                             </Tag>
                             <span className="text-[11px] text-text-muted">{p.year}</span>
                           </div>

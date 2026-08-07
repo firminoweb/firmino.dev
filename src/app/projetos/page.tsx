@@ -6,7 +6,7 @@ import { breadcrumbJsonLd } from "@/lib/seo";
 
 const TITLE = "Projetos · firmino.dev";
 const DESCRIPTION =
-  "Projetos entregues pela firmino.dev: corporativos, freelance, pessoais e open source.";
+  "Cases de clientes atendidos pela firmino.dev: fintech, óptica, jurídico, viagens e governo.";
 
 export const metadata: Metadata = {
   title: "Projetos",
@@ -41,7 +41,7 @@ export default function ProjetosPage() {
               <span className="text-accent-light italic">cases entregues</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Uma seleção dos trabalhos que construímos, em grandes empresas, projetos freelance e iniciativas próprias.
+              O que construímos para quem nos contratou, com o contexto, a decisão técnica e o resultado de cada projeto.
             </p>
           </div>
         </section>

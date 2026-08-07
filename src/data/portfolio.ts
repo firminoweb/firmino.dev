@@ -3,7 +3,6 @@ import type {
   Service,
   Project,
   ProjectType,
-  PastClient,
   Stat,
   Stack,
   ClientBrand,
@@ -61,6 +60,8 @@ export const PROJECTS: Project[] = [
     title: "Lançar a próxima marca sem refazer nada: Viaza e GoMilhas em um código só",
     client: "Viaza / GoMilhas",
     type: "freelance",
+    kind: "cliente",
+    segment: "Viagens",
     role: "Engenharia de plataforma · Web & PWA",
     year: "2024 a 2026",
     period: "Em andamento",
@@ -125,6 +126,8 @@ export const PROJECTS: Project[] = [
     title: "MyBenk: banking white-label da Celcoin em 3 frentes (app, backoffice e BaaS)",
     client: "Celcoin",
     type: "freelance",
+    kind: "cliente",
+    segment: "Fintech",
     role: "Desenvolvimento full-stack · App mobile, painel admin & BaaS",
     year: "2025 a 2026",
     period: "2025 a 2026",
@@ -184,11 +187,208 @@ export const PROJECTS: Project[] = [
     ],
     featured: true,
   },
+
+  /* ── Clientes novos ───────────────────────────────────────────────────────
+     Escritos a partir dos repos locais e dos sites públicos. Os TODO marcam
+     o que só o João sabe: resultado de negócio, papel exato e período.
+     ──────────────────────────────────────────────────────────────────────── */
+  {
+    slug: "opticuspro-site-medicao-otica",
+    title: "Ótica vendendo multifocal fora da loja: o site que explica a medição por foto",
+    client: "OpticusPRO",
+    type: "freelance",
+    kind: "cliente",
+    segment: "Óptica",
+    role: "Desenvolvimento web · Site institucional e conversão",
+    year: "TODO: período",
+    period: "TODO: período",
+    duration: "TODO",
+    location: "Remoto, Brasil",
+    summary:
+      "O OpticusPRO mede DP, DNP e altura de montagem a partir de uma foto, com IA, para a ótica vender lente multifocal pelo Instagram, WhatsApp ou e-commerce, sem o cliente precisar ir à loja. Construímos o site comercial que apresenta o produto, explica o fluxo de medição em três passos e leva o visitante do interesse ao plano assinado.",
+    accent: "#0ea5e9",
+    context: [
+      "Vender multifocal a distância esbarra na medição: DP, DNP e altura de montagem sempre exigiram o cliente presente e equipamento na loja. O OpticusPRO resolve isso processando uma foto tirada pelo próprio cliente, o que abre para a ótica um canal de venda que antes não existia.",
+      "O produto é vendido por assinatura em três faixas mensais conforme o volume de medições. O site é a porta de entrada comercial: precisa explicar uma tecnologia pouco familiar e converter o dono da ótica em assinante.",
+    ],
+    challenge: [
+      "Explicar de forma simples, para um público que não é técnico, um fluxo que envolve foto, processamento com IA e retorno de medidas ópticas precisas, sem transformar a página em manual.",
+      "Sustentar a objeção central do setor, que é confiança na precisão da medida, e conduzir da explicação até a escolha de plano na mesma página.",
+    ],
+    solution: [
+      "Site construído em HTML, CSS e JavaScript sem framework, priorizando carregamento rápido e simplicidade de manutenção para uma página cujo trabalho é converter.",
+      "Narrativa em blocos: o problema da ótica presa à loja, os diferenciais (medição sem óculos, independência de plataforma, nuvem), o fluxo em três passos (o sistema recebe a foto, processa, devolve o resultado), prova social e a tabela de planos.",
+      "Ferramentas de apoio no próprio repositório para produção e otimização dos assets das cenas, incluindo captura automatizada com Playwright e scripts Python de comparação e compressão de imagens.",
+    ],
+    outcome: [
+      "TODO: resultado de negócio. O site público cita mais de 2.000 lentes multifocais vendidas com o sistema e um cliente relatando 50% de crescimento. Confirmar se esses números podem ser usados como resultado do projeto e qual o dado de conversão do site em si.",
+    ],
+    highlights: [
+      "Site de conversão para SaaS de medição óptica por foto com IA",
+      "Explicação do fluxo de medição em três passos para público não técnico",
+      "Tabela de planos com três faixas de volume mensal",
+      "Stack sem framework, focado em carregamento rápido",
+      "Pipeline de assets com Playwright e scripts Python de otimização",
+    ],
+    metrics: [
+      { value: "3", label: "Planos de assinatura" },
+      { value: "2.000+", label: "Lentes vendidas com o sistema" },
+    ],
+    stack: ["HTML5", "CSS3", "JavaScript", "Playwright", "Python"],
+    links: [{ href: "https://www.opticuspro.com", label: "opticuspro.com" }],
+    featured: true,
+    draft: true,
+  },
+  {
+    slug: "startprev-app-acompanhamento-processos",
+    title: "Cliente acompanhando o próprio processo pelo celular, sem ligar para o escritório",
+    client: "StartPrev",
+    type: "freelance",
+    kind: "cliente",
+    segment: "Jurídico",
+    role: "Desenvolvimento mobile · App iOS e Android",
+    year: "TODO: período",
+    period: "TODO: período",
+    duration: "TODO",
+    location: "Remoto, Brasil",
+    summary:
+      "App mobile que dá ao cliente visibilidade do próprio processo: status atualizado, notificação quando algo anda e chat direto com o escritório. Tira do atendimento a ligação repetida de \"como está o meu caso?\" e devolve esse tempo para o time.",
+    accent: "#16a34a",
+    context: [
+      "O acompanhamento de processo é o ponto de maior atrito entre escritório e cliente: quem contratou quer saber como está o caso, e a única via costumava ser ligar ou mandar mensagem para alguém do time consultar e responder.",
+      "Cada consulta dessas consome tempo de uma pessoa que poderia estar trabalhando no processo, e a ausência de resposta rápida gera insegurança em quem contratou.",
+    ],
+    challenge: [
+      "Entregar acesso a informação sensível de processo em um app público nas lojas, com autenticação simples o bastante para um público que não é técnico e segura o bastante para dado jurídico.",
+      "Garantir que a atualização chegue ao cliente sem ele precisar abrir o app, que é o que efetivamente corta a ligação para o escritório.",
+    ],
+    solution: [
+      "App em React Native com Expo, publicado para iOS e Android a partir de um código só, com navegação baseada em arquivos via Expo Router.",
+      "Autenticação por SMS, que dispensa senha e reduz o abandono no primeiro acesso, com credenciais guardadas em Expo Secure Store.",
+      "Notificação push via Firebase Cloud Messaging a cada mudança de status, e chat de suporte integrado para quando a dúvida sai do que a tela responde.",
+      "TypeScript em todo o projeto, com tipagem dos contratos de processo e status.",
+    ],
+    outcome: [
+      "TODO: resultado de negócio. Bons candidatos: redução no volume de ligações e mensagens de acompanhamento recebidas pelo escritório, tempo economizado do time por semana, ou número de clientes ativos no app.",
+    ],
+    highlights: [
+      "App iOS e Android a partir de um código só (React Native + Expo)",
+      "Autenticação por SMS, sem senha",
+      "Notificação push de mudança de status via Firebase Cloud Messaging",
+      "Chat de suporte integrado",
+      "Armazenamento seguro de credenciais com Expo Secure Store",
+      "Navegação baseada em arquivos com Expo Router",
+    ],
+    metrics: [
+      { value: "2", label: "Plataformas, um código" },
+      { value: "SMS", label: "Login sem senha" },
+    ],
+    stack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Expo Router",
+      "Firebase Cloud Messaging",
+      "Expo Secure Store",
+    ],
+    featured: true,
+    draft: true,
+  },
+  {
+    slug: "velana-plataforma-pagamentos",
+    title: "Nova adquirente entrando sem reescrever a plataforma: o middleware de pagamentos da Velana",
+    client: "Velana",
+    type: "freelance",
+    kind: "cliente",
+    segment: "Fintech",
+    role: "Engenharia de plataforma · Backend, middleware e dashboard",
+    year: "TODO: período",
+    period: "TODO: período",
+    duration: "TODO",
+    location: "Remoto, Brasil",
+    summary:
+      "Plataforma de pagamentos em quatro serviços (middleware, dashboard, bot e relatórios) construída para que integrar mais uma adquirente seja uma tarefa de configuração, e não um projeto novo. Seis integrações já rodam sob o mesmo contrato interno, além de saque automático e saque fatiado.",
+    accent: "#7c3aed",
+    context: [
+      "Operação de pagamentos que precisa conversar com várias adquirentes ao mesmo tempo. Cada uma tem contrato de API, formato de retorno e regra de conciliação próprios, e a tentação é escrever um caminho separado para cada uma, o que multiplica o custo de manutenção a cada nova parceira.",
+      "A operação também depende de saque, que é onde erro custa dinheiro real e imediato.",
+    ],
+    challenge: [
+      "Definir um contrato interno único capaz de absorver adquirentes com comportamentos diferentes, de modo que a próxima integração seja mapeamento e configuração em vez de código novo espalhado.",
+      "Operar mudanças em fluxo de dinheiro sem janela de manutenção, com capacidade de ligar e desligar comportamento em produção e de enxergar o que quebrou antes que o suporte descubra.",
+    ],
+    solution: [
+      "Arquitetura em quatro serviços com responsabilidade separada: middleware de integração com as adquirentes, dashboard de operação, bot de automação e serviço dedicado a relatórios.",
+      "Middleware em Node.js e Express concentrando o contrato único de integração, com suporte a proxy por adquirente e criptografia dos campos sensíveis.",
+      "LaunchDarkly para feature flags, o que permite habilitar uma adquirente ou um comportamento novo de forma gradual e reverter sem deploy, e Highlight para observabilidade do que acontece em produção.",
+      "Postgres serverless via Neon como base compartilhada, dashboard em React com Radix UI e geração de relatórios em PDF com pdfkit.",
+      "Fluxos de saque automático e saque fatiado documentados e implementados como parte da plataforma.",
+    ],
+    outcome: [
+      "TODO: resultado de negócio. Bons candidatos: tempo para integrar uma nova adquirente antes e depois, volume transacionado, ou queda em incidente de conciliação.",
+    ],
+    highlights: [
+      "Quatro serviços: middleware, dashboard, bot e relatórios",
+      "Seis adquirentes integradas sob um contrato interno único",
+      "Feature flags com LaunchDarkly para ligar integração sem deploy",
+      "Observabilidade em produção com Highlight",
+      "Postgres serverless via Neon",
+      "Saque automático e saque fatiado",
+      "Relatórios em PDF gerados com pdfkit",
+      "Criptografia de campos sensíveis no middleware",
+    ],
+    metrics: [
+      { value: "6", label: "Adquirentes integradas" },
+      { value: "4", label: "Serviços na plataforma" },
+    ],
+    stack: [
+      "Node.js",
+      "Express",
+      "TypeScript",
+      "React",
+      "Radix UI",
+      "PostgreSQL (Neon)",
+      "LaunchDarkly",
+      "Highlight",
+      "pdfkit",
+    ],
+    featured: false,
+    draft: true,
+  },
+  {
+    slug: "portal-pmerj",
+    title: "TODO: resultado de negócio do Portal PMERJ",
+    client: "Portal PMERJ",
+    type: "freelance",
+    kind: "cliente",
+    segment: "Governo",
+    role: "TODO: seu papel no projeto",
+    year: "TODO: período",
+    period: "TODO: período",
+    duration: "TODO",
+    location: "Remoto, Brasil",
+    summary:
+      "TODO: descrever o portal. Não consegui levantar nada: portal.pmerj.seg.br responde apenas \"Portal\" porque é renderizado por JavaScript, e não existe repositório local em ~/Projects/github. Precisa vir de você quem é o público, o que o portal resolve e qual foi o seu escopo.",
+    accent: "#334155",
+    context: ["TODO: contexto do cliente e do problema."],
+    challenge: ["TODO: o desafio técnico ou de negócio."],
+    solution: ["TODO: o que foi construído."],
+    outcome: ["TODO: resultado de negócio."],
+    highlights: ["TODO: pontos altos da entrega."],
+    metrics: [{ value: "TODO", label: "métrica" }],
+    stack: ["TODO: stack"],
+    links: [{ href: "https://portal.pmerj.seg.br", label: "portal.pmerj.seg.br" }],
+    featured: false,
+    draft: true,
+  },
+
   {
     slug: "itau-unibanco-plataformas-internas",
     title: "Dois projetos internos do Itaú 60% mais rápidos e mais estáveis em 3 anos",
     client: "Itaú Unibanco",
     type: "corporate",
+    kind: "carreira",
+    segment: "Banco",
     role: "Desenvolvimento full-stack · Web & Mobile",
     year: "2023 a 2026",
     period: "Mar 2023 a Jan 2026",
@@ -232,6 +432,8 @@ export const PROJECTS: Project[] = [
     title: "Plataforma corporativa da TOTVS 30% mais rápida, com vários times entregando em paralelo",
     client: "TOTVS",
     type: "corporate",
+    kind: "carreira",
+    segment: "Software",
     role: "Arquitetura de plataforma & Micro-frontends",
     year: "2022 a 2023",
     period: "Jan 2022 a Mar 2023",
@@ -270,6 +472,8 @@ export const PROJECTS: Project[] = [
     title: "Eudora e Boticário: +80% de venda mobile e metade do tempo pra lançar",
     client: "O Boticário",
     type: "corporate",
+    kind: "carreira",
+    segment: "Varejo",
     role: "Liderança técnica · Web & Mobile",
     year: "2020 a 2022",
     period: "Fev 2020 a Jan 2022",
@@ -308,6 +512,8 @@ export const PROJECTS: Project[] = [
     title: "30% menos tempo de desenvolvimento em projetos para Santander e Vivo",
     client: "NTT Data (everis)",
     type: "corporate",
+    kind: "carreira",
+    segment: "Consultoria",
     role: "Engenharia de Design System",
     year: "2018 a 2020",
     period: "Nov 2018 a Fev 2020",
@@ -342,17 +548,15 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const PAST_CLIENTS: PastClient[] = [
-  { company: "zFlow", period: "2017 a 2018", detail: "Aplicações de financiamento e simulação para o Banco Itaú. Cobertura de testes 0% → 80%." },
-  { company: "Grupo Pão de Açúcar", period: "2016 a 2017", detail: "Apps híbridos: Casas Bahia, Pontofrio e Extra." },
-  { company: "Reclame Aqui", period: "2015 a 2016", detail: "Novo portal da plataforma. MVP mobile com Ionic e Angular." },
-  { company: "ViajaNet", period: "2014 a 2015", detail: "Plataforma de passagens aéreas + serviço Quando Viajar." },
-  { company: "Walmart.com", period: "2014 a 2014", detail: "Marketplace: gerenciamento de sellers terceiros." },
-  { company: "UOL", period: "2012 a 2014", detail: "TodaOferta + Painel UOL Diveo (Cloud)." },
-  { company: "Axis.Idea", period: "2012 a 2013", detail: "Websites e soluções mobile + desktop." },
-  { company: "Tonks Idéias Criativas", period: "2010 a 2012", detail: "" },
-  { company: "Arca Solutions", period: "2009 a 2010", detail: "" },
-];
+/**
+ * PROJECTS continua sendo um array só de propósito: getProjectBySlug, o
+ * generateStaticParams de /projetos/[slug] e o sitemap seguem cobrindo tudo,
+ * então as URLs dos cases de carreira continuam vivas e indexadas. Quem separa
+ * o que aparece em cada página são os dois seletores abaixo.
+ */
+export const PUBLISHED_PROJECTS: Project[] = PROJECTS.filter((p) => !p.draft);
+export const CLIENT_PROJECTS: Project[] = PUBLISHED_PROJECTS.filter((p) => p.kind === "cliente");
+export const CAREER_PROJECTS: Project[] = PUBLISHED_PROJECTS.filter((p) => p.kind === "carreira");
 
 export const STATS: Stat[] = [
   { value: "16+", label: "Anos no mercado", detail: "Desde 2009" },

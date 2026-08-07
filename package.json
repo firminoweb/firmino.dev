@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "build:cv": "tsx scripts/build-cv.ts",
     "optimize:logos": "node scripts/optimize-logos.mjs",
     "export:social": "node scripts/export-social.mjs",
     "audit:lh": "lhci autorun --collect.startServerCommand='next start' --collect.startServerReadyPattern='ready'"
@@ -31,11 +32,14 @@
     "@lhci/cli": "^0.15.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pdfkit": "0.17.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "pdfkit": "0.19.1",
     "tailwindcss": "^4",
+    "tsx": "4.23.11",
     "typescript": "^5",
     "wait-on": "^9.0.5"
   }

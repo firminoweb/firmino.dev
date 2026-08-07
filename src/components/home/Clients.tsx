@@ -8,7 +8,7 @@ export function Clients() {
       <section className="section-padding-sm">
         <div className="content-container">
           <p className="text-center text-xs text-text-muted tracking-[2px] uppercase mb-7 font-medium">
-            Empresas que confiam na nossa expertise
+            Experiência construída em
           </p>
           <div className="flex flex-wrap justify-center gap-3 sm:gap-4 items-center py-7 border-y border-border-subtle">
             {CLIENTS.map((c) => (

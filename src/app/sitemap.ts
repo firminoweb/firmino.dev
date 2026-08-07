@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { PROJECTS } from "@/data/portfolio";
+import { PUBLISHED_PROJECTS } from "@/data/portfolio";
 import { getAllPosts } from "@/lib/blog";
 import { getAllServicoSlugs } from "@/lib/servicos";
 
@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/politica-de-privacidade`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const projectRoutes: MetadataRoute.Sitemap = PROJECTS.map((p) => ({
+  const projectRoutes: MetadataRoute.Sitemap = PUBLISHED_PROJECTS.map((p) => ({
     url: `${SITE_URL}/projetos/${p.slug}`,
     lastModified: now,
     changeFrequency: "monthly",
