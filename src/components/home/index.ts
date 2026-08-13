@@ -1,6 +1,6 @@
 export { Hero } from "./Hero";
-export { Clients } from "./Clients";
-export { KeyAchievements } from "./KeyAchievements";
+export { Founder } from "./Founder";
+export { Parceiros } from "./Parceiros";
 export { Services } from "./Services";
 export { ComoFunciona } from "./ComoFunciona";
 export { Cases } from "./Cases";

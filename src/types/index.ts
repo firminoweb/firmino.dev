@@ -25,8 +25,6 @@ export interface ProjectLink {
   label: string;
 }
 
-export type ProjectType = "corporate" | "freelance" | "personal" | "oss";
-
 /**
  * Dono da relação. "cliente" é contrato da firmino.dev e pode aparecer como
  * vitrine comercial; "carreira" é trabalho feito como funcionário e só aparece
@@ -38,7 +36,6 @@ export interface Project {
   slug: string;
   title: string;
   client: string;
-  type: ProjectType;
   kind: ProjectKind;
   /** Setor do cliente, exibido no card ("Fintech", "Óptica", "Governo"). */
   segment: string;

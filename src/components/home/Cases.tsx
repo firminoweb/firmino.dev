@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal, Button, Tag, SectionLabel } from "@/components/ui";
-import { CLIENT_PROJECTS, STATS } from "@/data/portfolio";
+import { CLIENT_PROJECTS, COMPANY_STATS } from "@/data/portfolio";
 
 const TEASER_COUNT = 3;
 
@@ -24,7 +24,7 @@ export function Cases() {
               </p>
 
               <div className="grid grid-cols-2 gap-2.5 mb-7">
-                {STATS.map((s, i) => (
+                {COMPANY_STATS.map((s, i) => (
                   <div key={i} className="stat-box">
                     <div className="font-serif text-2xl text-brand">{s.value}</div>
                     <div className="text-[11px] text-text-dim">{s.label}</div>

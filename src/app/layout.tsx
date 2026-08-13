@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     template: "%s · firmino.dev",
   },
   description:
-    "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI & LLM. 16+ anos entregando soluções escaláveis para empresas líderes.",
+    "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI & LLM. Engenharia sênior para empresas digitalizando a operação e agências que precisam de reforço técnico.",
   keywords: [
     "Engenharia de Software",
     "Aplicações Web",
@@ -116,7 +116,9 @@ const ORG_JSON_LD = {
   description:
     "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
   slogan: "Construímos software. Reforçamos times.",
-  foundingDate: "2009",
+  // 2024: quando a empresa começou a atender cliente. Os 16+ anos são
+  // do fundador e vivem no Person da /joao, não aqui.
+  foundingDate: "2024",
   knowsLanguage: ["pt-BR", "en"],
   // @id aponta para o Person da /joao — sem isso o Google cria uma segunda
   // entidade "João Firmino" solta, desconectada do perfil.

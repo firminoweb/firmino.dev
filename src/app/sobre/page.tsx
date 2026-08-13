@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
-import { STATS, CONTACT } from "@/data/portfolio";
+import { COMPANY_STATS, CONTACT, PARTNER_AREAS } from "@/data/portfolio";
 import { PERSON_ID, PERSON } from "@/data/curriculo";
 import { breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
 const TITLE = "Sobre · firmino.dev";
 const DESCRIPTION =
-  "Conheça a firmino.dev, empresa de engenharia de software com 16+ anos de mercado, especializada em web, mobile, micro-frontends e Generative AI.";
+  "Conheça a firmino.dev: empresa de engenharia de software que atende clientes desde 2024, com um fundador de 16+ anos de mercado e uma rede de parceiros pelo Brasil.";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -81,31 +81,28 @@ const PRINCIPLES = [
   },
 ];
 
+// Marcos da EMPRESA. A trajetória de carreira do fundador (2009 em diante)
+// vive na /joao, para não ser lida como histórico da companhia.
 const TIMELINE = [
   {
-    year: "2009",
-    title: "Início da jornada",
-    desc: "Primeiros projetos web em PHP/JS para agências e produtos próprios. Aprendendo o ofício no chão de fábrica da web.",
+    year: "2024",
+    title: "Primeiros contratos",
+    desc: "A operação começa com dois projetos de fôlego longo: a plataforma whitelabel de passagens com milhas da Viaza e a sustentação do portal da PMERJ, em Angular.",
   },
   {
-    year: "2012 a 2016",
-    title: "Produto e escala",
-    desc: "Carreira em produtos de alto tráfego: UOL, Walmart, ViajaNet, Reclame Aqui, Grupo Pão de Açúcar. Ionic, AngularJS, Node em ambiente real.",
+    year: "2025",
+    title: "Produto financeiro e mobile",
+    desc: "Entram o MyBenk, banking white-label da Celcoin em três frentes, e o app da StartPrev, publicado na App Store e na Google Play.",
   },
   {
-    year: "2016 a 2020",
-    title: "Plataformas corporativas",
-    desc: "Itaú (zFlow), GPA, NTT Data/everis. Design Systems multi-cliente, micro-frontends e cobertura de testes elevada.",
+    year: "2026",
+    title: "Pagamentos e fundação de produto",
+    desc: "Plataforma de pagamentos da Velana, com integração de adquirentes e saque automático, e a base de front-end do OpticusPRO em Next.js.",
   },
   {
-    year: "2020 a 2023",
-    title: "Liderança técnica",
-    desc: "O Boticário, TOTVS, Itaú Unibanco. PWA e mobile em escala nacional, orquestrador de APIs com Module Federation, mentoria e arquitetura.",
-  },
-  {
-    year: "2024 até hoje",
-    title: "AI-Driven & whitelabel",
-    desc: "Plataformas whitelabel multi-marca, integração de Generative AI no ciclo de desenvolvimento e consultoria técnica para times de produto.",
+    year: "Hoje",
+    title: "Rede de parceiros",
+    desc: "Desenvolvimento, UI/UX e marketing digital acionados por projeto, com profissionais e estúdios parceiros espalhados pelo Brasil.",
   },
 ];
 
@@ -130,7 +127,7 @@ export default function AboutPage() {
               entrega <span className="text-accent-light italic">com critério</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Somos uma empresa de engenharia de software fundada por João Firmino, focada em construir plataformas web, apps mobile e produtos com Generative AI para times que exigem excelência técnica.
+              Somos uma empresa de engenharia de software que atende clientes desde 2024, construindo plataformas web, apps mobile e produtos com IA. Por trás dela, um fundador com 16+ anos de mercado e uma rede de parceiros espalhada pelo Brasil.
             </p>
           </div>
         </section>
@@ -140,7 +137,7 @@ export default function AboutPage() {
           <div className="content-container max-w-[920px]">
             <Reveal>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {STATS.map((s, i) => (
+                {COMPANY_STATS.map((s, i) => (
                   <div key={i} className="metric-box !text-left !px-5 !py-4">
                     <div className="font-serif text-[26px] sm:text-[30px] font-medium text-brand tracking-tight">
                       {s.value}
@@ -161,13 +158,13 @@ export default function AboutPage() {
               <div>
                 <SectionLabel>História</SectionLabel>
                 <h2 className="font-serif section-heading !text-[clamp(26px,3.4vw,38px)] !leading-[1.18] mb-5">
-                  De 2009 até <span className="text-accent-light italic">aqui</span>
+                  De 2024 até <span className="text-accent-light italic">aqui</span>
                 </h2>
                 <p className="text-[15px] text-text-muted leading-[1.85] mb-4">
-                  A firmino.dev nasceu como continuação natural de uma trajetória de mais de 16 anos em engenharia de software, passando por produtos digitais de alto tráfego, plataformas corporativas críticas e times de design system multi-cliente.
+                  A firmino.dev começou a atender clientes em 2024, quando os primeiros contratos saíram do papel: uma plataforma whitelabel de viagens e a sustentação de um portal de governo. De lá para cá foram seis clientes, em cinco segmentos, do app publicado nas lojas à plataforma de pagamentos em produção.
                 </p>
                 <p className="text-[15px] text-text-muted leading-[1.85]">
-                  Ao longo desse caminho, ficou claro que software de qualidade não é uma questão de stack favorita, mas de método: decisões de arquitetura justificáveis, qualidade tratada como hábito (não etapa) e respeito pelo código que outro time vai herdar. É essa abordagem que oferecemos para nossos clientes.
+                  A empresa é nova, mas o método não. Ele vem de mais de 16 anos do fundador dentro de produtos de alta escala, e parte de uma convicção simples: software de qualidade não é questão de stack favorita, e sim de decisão de arquitetura justificável, qualidade tratada como hábito e respeito pelo código que outro time vai herdar.
                 </p>
               </div>
             </Reveal>
@@ -249,11 +246,41 @@ export default function AboutPage() {
                       {PERSON.role} · {PERSON.headline}
                     </p>
                     <p className="text-[13.5px] text-text-dim leading-[1.7]">
-                      16+ anos de engenharia de software em Itaú, O Boticário, TOTVS, NTT Data, Walmart e UOL. Ver a trajetória completa, habilidades e currículo.
+                      16+ anos de engenharia de software em Itaú, O Boticário, TOTVS, NTT Data, Walmart e UOL, antes de fundar a empresa. É o lastro técnico por trás de cada projeto. Ver a trajetória completa e o currículo.
                     </p>
                   </div>
                   <span className="case-arrow shrink-0 hidden sm:block">↗</span>
                 </Link>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Parceiros */}
+        <section className="section-padding !pt-0">
+          <div className="content-container max-w-[920px]">
+            <Reveal>
+              <div>
+                <SectionLabel>Rede de parceiros</SectionLabel>
+                <h2 className="font-serif section-heading !text-[clamp(26px,3.4vw,38px)] !leading-[1.18] mb-5">
+                  Um time que <span className="text-accent-light italic">monta</span> conforme o projeto
+                </h2>
+                <p className="text-[15px] text-text-muted leading-[1.85] mb-7 max-w-[640px]">
+                  Além do fundador, trabalhamos com profissionais e estúdios parceiros espalhados pelo Brasil. Cada projeto recebe a composição que ele pede, sem o cliente pagar por estrutura que o caso não precisa.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {PARTNER_AREAS.map((a, i) => (
+                    <Reveal key={a.title} delay={i * 0.06}>
+                      <div className="gc py-7 px-6 h-full">
+                        <div className="service-icon">{a.icon}</div>
+                        <h3 className="text-[16px] font-bold text-text-light mb-2 tracking-tight">
+                          {a.title}
+                        </h3>
+                        <p className="text-[13.5px] text-text-dim leading-[1.7]">{a.desc}</p>
+                      </div>
+                    </Reveal>
+                  ))}
+                </div>
               </div>
             </Reveal>
           </div>
