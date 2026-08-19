@@ -59,8 +59,6 @@ export const PROJECTS: Project[] = [
     kind: "cliente",
     segment: "Viagens",
     role: "Engenharia de plataforma · Web & PWA",
-    year: "2024 a 2026",
-    period: "Em andamento",
     duration: "Em andamento",
     location: "Remoto, Brasil",
     summary:
@@ -124,8 +122,6 @@ export const PROJECTS: Project[] = [
     kind: "cliente",
     segment: "Fintech",
     role: "Desenvolvimento full-stack · App mobile, painel admin & BaaS",
-    year: "2025 a 2026",
-    period: "2025 a 2026",
     duration: "Concluído",
     location: "Remoto, Brasil",
     summary:
@@ -144,10 +140,10 @@ export const PROJECTS: Project[] = [
       "Frente 1, app de internet banking white-label: aplicativo mobile em React Native com Expo cobrindo onboarding e KYC, abertura de conta PF e PJ, Pix (envio, recebimento e chaves), cartões e extrato.",
       "Frente 2, painel backoffice (admin): aplicação web em React e Next.js para gestão da operação, relatórios de evolução do negócio e controle de contas, carteiras e cobranças.",
       "Frente 3, integração BaaS: backend em NestJS com MongoDB orquestrando a API de Banking as a Service da Celcoin, as regras de negócio e a segurança e rastreabilidade das operações financeiras.",
-      "Ciclo contínuo de desenvolvimento e manutenção evolutiva das três frentes, com entrega de novas funcionalidades e acompanhamento do produto em produção ao longo de 2025 e 2026.",
+      "Ciclo contínuo de desenvolvimento e manutenção evolutiva das três frentes, com entrega de novas funcionalidades e acompanhamento do produto em produção.",
     ],
     outcome: [
-      "MyBenk em produção nas três frentes (app, backoffice e integração BaaS), com Pix, contas PF e PJ e cartões operando sob a marca do cliente, e manutenção contínua durante toda a participação no projeto (2025 a 2026).",
+      "MyBenk em produção nas três frentes (app, backoffice e integração BaaS), com Pix, contas PF e PJ e cartões operando sob a marca do cliente, e manutenção contínua durante toda a participação no projeto.",
     ],
     highlights: [
       "Três frentes do produto: app de internet banking, painel backoffice (admin) e integração BaaS",
@@ -194,8 +190,6 @@ export const PROJECTS: Project[] = [
     kind: "cliente",
     segment: "Óptica",
     role: "Desenvolvimento front-end · Estrutura inicial e componentes",
-    year: "2026",
-    period: "Jul 2026 a Ago 2026",
     duration: "2 meses",
     location: "Remoto, Brasil",
     logo: "/images/logos/opticuspro.webp",
@@ -216,7 +210,7 @@ export const PROJECTS: Project[] = [
       "Template e camada visual do produto, ligando a interface ao fluxo de medição por foto que é o núcleo do OpticusPRO.",
     ],
     outcome: [
-      "Fundação do front-end entregue em dois meses (julho a agosto de 2026): template, estrutura de projeto e componentes iniciais em Next.js, deixando o produto pronto para ser evoluído em cima de uma base definida em vez de improvisada.",
+      "Fundação do front-end entregue em dois meses: template, estrutura de projeto e componentes iniciais em Next.js, deixando o produto pronto para ser evoluído em cima de uma base definida em vez de improvisada.",
     ],
     highlights: [
       "Versão kickstart do front-end em Next.js, do zero",
@@ -240,8 +234,6 @@ export const PROJECTS: Project[] = [
     kind: "cliente",
     segment: "Jurídico",
     role: "Desenvolvimento mobile · App iOS e Android",
-    year: "2025 a 2026",
-    period: "Nov 2025 a Fev 2026",
     duration: "4 meses",
     location: "Remoto, Brasil",
     logo: "/images/logos/startprev.webp",
@@ -264,7 +256,7 @@ export const PROJECTS: Project[] = [
       "TypeScript em todo o projeto, com tipagem dos contratos de processo e status.",
     ],
     outcome: [
-      "App publicado e disponível na App Store e na Google Play, com o ciclo completo entregue em quatro meses (novembro de 2025 a fevereiro de 2026), a partir de uma única base de código para as duas plataformas.",
+      "App publicado e disponível na App Store e na Google Play, com o ciclo completo entregue em quatro meses, a partir de uma única base de código para as duas plataformas.",
       "O cliente passou a consultar status, receber aviso de movimentação e falar com a empresa pelo próprio app, sem depender do canal de atendimento para cada pergunta.",
     ],
     highlights: [
@@ -297,8 +289,6 @@ export const PROJECTS: Project[] = [
     kind: "cliente",
     segment: "Fintech",
     role: "Engenharia de plataforma · Middleware, dashboard, bot e relatórios",
-    year: "2026",
-    period: "Jul 2026 até hoje",
     duration: "Em andamento",
     location: "Remoto, Brasil",
     logo: "/images/logos/velana.webp",
@@ -360,8 +350,6 @@ export const PROJECTS: Project[] = [
     kind: "cliente",
     segment: "Governo",
     role: "Sustentação · Front-end Angular e API WebSocket em Node.js",
-    year: "2024 a 2026",
-    period: "Dez 2024 a Jun 2026",
     duration: "18 meses",
     location: "Remoto, Brasil",
     logo: "/images/logos/pmerj.webp",
@@ -383,7 +371,7 @@ export const PROJECTS: Project[] = [
       "Desenvolvimento de novas funcionalidades sobre a base existente, em ciclo contínuo junto da sustentação.",
     ],
     outcome: [
-      "Portal sustentado e evoluindo por 18 meses seguidos (dezembro de 2024 a junho de 2026), em ambiente de uso operacional, sem interromper os módulos dos quais as diretorias dependem.",
+      "Portal sustentado e evoluindo por 18 meses seguidos, em ambiente de uso operacional, sem interromper os módulos dos quais as diretorias dependem.",
       "Comportamento em tempo real entregue via API WebSocket em Node.js, tirando do usuário a necessidade de recarregar a página para ver informação atualizada.",
     ],
     highlights: [

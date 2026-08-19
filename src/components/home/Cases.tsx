@@ -57,7 +57,9 @@ export function Cases() {
                             <Tag accent className="!text-[10px]">
                               {p.segment}
                             </Tag>
-                            <span className="text-[11px] text-text-muted">{p.year}</span>
+                            {p.year && (
+                              <span className="text-[11px] text-text-muted">{p.year}</span>
+                            )}
                           </div>
                           <h3 className="text-[17px] sm:text-[19px] font-bold text-brand mb-1 tracking-tight">
                             {p.title}

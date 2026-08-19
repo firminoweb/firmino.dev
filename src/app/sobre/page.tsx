@@ -81,28 +81,29 @@ const PRINCIPLES = [
   },
 ];
 
-// Marcos da EMPRESA. A trajetória de carreira do fundador (2009 em diante)
-// vive na /joao, para não ser lida como histórico da companhia.
+// Fases da EMPRESA, sem ano: a firmino.dev não data trabalho de cliente, e
+// amarrar cada cliente a um ano aqui reintroduziria pela porta dos fundos a
+// datação que os cases deixaram de expor.
 const TIMELINE = [
   {
-    year: "2024",
+    year: "Início",
     title: "Primeiros contratos",
-    desc: "A operação começa com dois projetos de fôlego longo: a plataforma whitelabel de passagens com milhas da Viaza e a sustentação do portal da PMERJ, em Angular.",
+    desc: "A operação começa com dois projetos de fôlego longo: uma plataforma whitelabel de passagens com milhas e a sustentação de um portal de governo em Angular.",
   },
   {
-    year: "2025",
+    year: "Expansão",
     title: "Produto financeiro e mobile",
-    desc: "Entram o MyBenk, banking white-label da Celcoin em três frentes, e o app da StartPrev, publicado na App Store e na Google Play.",
-  },
-  {
-    year: "2026",
-    title: "Pagamentos e fundação de produto",
-    desc: "Plataforma de pagamentos da Velana, com integração de adquirentes e saque automático, e a base de front-end do OpticusPRO em Next.js.",
+    desc: "Entram banking white-label em três frentes, do app do usuário final ao backoffice e à integração BaaS, e um app publicado na App Store e na Google Play.",
   },
   {
     year: "Hoje",
-    title: "Rede de parceiros",
-    desc: "Desenvolvimento, UI/UX e marketing digital acionados por projeto, com profissionais e estúdios parceiros espalhados pelo Brasil.",
+    title: "Pagamentos e fundação de produto",
+    desc: "Plataforma de pagamentos com integração de adquirentes e saque automático, e base de front-end em Next.js para produto começando do zero.",
+  },
+  {
+    year: "Rede",
+    title: "Parceiros pelo Brasil",
+    desc: "Desenvolvimento, UI/UX e marketing digital acionados por projeto, com profissionais e estúdios parceiros espalhados pelo país.",
   },
 ];
 
@@ -158,7 +159,7 @@ export default function AboutPage() {
               <div>
                 <SectionLabel>História</SectionLabel>
                 <h2 className="font-serif section-heading !text-[clamp(26px,3.4vw,38px)] !leading-[1.18] mb-5">
-                  De 2024 até <span className="text-accent-light italic">aqui</span>
+                  Da fundação até <span className="text-accent-light italic">aqui</span>
                 </h2>
                 <p className="text-[15px] text-text-muted leading-[1.85] mb-4">
                   A firmino.dev começou a atender clientes em 2024, quando os primeiros contratos saíram do papel: uma plataforma whitelabel de viagens e a sustentação de um portal de governo. De lá para cá foram seis clientes, em cinco segmentos, do app publicado nas lojas à plataforma de pagamentos em produção.

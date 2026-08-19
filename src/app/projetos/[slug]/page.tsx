@@ -137,8 +137,12 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
 
               <div className="flex flex-wrap items-center gap-2 mb-5">
                 <Tag accent>{project.segment}</Tag>
-                <span className="text-[12px] text-text-muted">{project.year}</span>
-                <span className="text-text-dim" aria-hidden="true">·</span>
+                {project.year && (
+                  <>
+                    <span className="text-[12px] text-text-muted">{project.year}</span>
+                    <span className="text-text-dim" aria-hidden="true">·</span>
+                  </>
+                )}
                 <span className="text-[12px] text-text-muted">{project.location}</span>
               </div>
 
@@ -253,7 +257,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                         <Tag accent className="!text-[10px]">
                           {r.segment}
                         </Tag>
-                        <span className="text-[11px] text-text-muted">{r.year}</span>
+                        {r.year && <span className="text-[11px] text-text-muted">{r.year}</span>}
                       </div>
                       <h3 className="text-[16px] font-bold text-brand mb-1 tracking-tight">
                         {r.title}

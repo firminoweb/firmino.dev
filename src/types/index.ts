@@ -40,8 +40,10 @@ export interface Project {
   /** Setor do cliente, exibido no card ("Fintech", "Óptica", "Governo"). */
   segment: string;
   role: string;
-  year: string;
-  period: string;
+  /** Ano do projeto. Ausente nos cases de cliente: a firmino.dev não data
+   *  trabalho de cliente. Presente nos de carreira, onde é currículo. */
+  year?: string;
+  period?: string;
   duration: string;
   location: string;
   summary: string;

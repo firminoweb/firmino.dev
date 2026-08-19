@@ -33,7 +33,7 @@ export function ProjectsExplorer() {
                   <Tag accent className="!text-[10px]">
                     {p.segment}
                   </Tag>
-                  <span className="text-[11px] text-text-dark">{p.year}</span>
+                  {p.year && <span className="text-[11px] text-text-dark">{p.year}</span>}
                 </div>
                 <h2 className="text-[18px] font-bold text-brand mb-1 tracking-tight">
                   {p.title}
