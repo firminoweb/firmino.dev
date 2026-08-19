@@ -5,11 +5,8 @@ import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Tag, SectionLabel, Button, JsonLd } from "@/components/ui";
 import { ProjectCover } from "@/components/projects/ProjectCover";
-import {
-  PROJECTS,
-  PROJECT_TYPE_LABELS,
-  getProjectBySlug,
-} from "@/data/portfolio";
+import { PUBLISHED_PROJECTS, getProjectBySlug } from "@/data/portfolio";
+import { PERSON_ID } from "@/data/curriculo";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
 interface CaseDetailProps {
@@ -17,8 +14,12 @@ interface CaseDetailProps {
 }
 
 export function generateStaticParams() {
-  return PROJECTS.map((p) => ({ slug: p.slug }));
+  return PUBLISHED_PROJECTS.map((p) => ({ slug: p.slug }));
 }
+
+// Sem isso, slug fora do generateStaticParams ainda renderiza sob demanda e um
+// case marcado como draft ficaria acessível por URL direta com os TODO à vista.
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: CaseDetailProps): Promise<Metadata> {
   const { slug } = await params;
@@ -62,9 +63,14 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
 
   if (!project) notFound();
 
-  const related = PROJECTS.filter(
-    (p) => p.slug !== project.slug && (p.type === project.type || p.featured),
+  // Relacionados ficam dentro do mesmo kind: case de cliente não sugere case de
+  // carreira, e vice-versa, senão a página de detalhe recria a mistura que o
+  // /projetos acabou de desfazer.
+  const related = PUBLISHED_PROJECTS.filter(
+    (p) => p.slug !== project.slug && p.kind === project.kind && (p.segment === project.segment || p.featured),
   ).slice(0, 2);
+
+  const isCareer = project.kind === "carreira";
 
   const projectUrl = absoluteUrl(`/projetos/${project.slug}`);
   const projectJsonLd = {
@@ -77,11 +83,12 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
     inLanguage: "pt-BR",
     ...(project.logo && { image: absoluteUrl(project.logo) }),
     keywords: project.stack.join(", "),
-    author: {
-      "@type": "Organization",
-      name: "firmino.dev",
-      url: SITE_URL,
-    },
+    // Case de carreira foi feito pela pessoa como funcionário, não pela
+    // empresa. Creditar a firmino.dev aqui recriaria no dado estruturado a
+    // mesma confusão que a separação cliente/carreira desfaz na página.
+    author: isCareer
+      ? { "@type": "Person", "@id": PERSON_ID, name: "João Firmino", url: `${SITE_URL}/joao` }
+      : { "@type": "Organization", name: "firmino.dev", url: SITE_URL },
     about: {
       "@type": "Organization",
       name: project.client,
@@ -107,16 +114,35 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
           <section className="page-hero !min-h-[58vh] !pb-12">
             <div className="content-container w-full max-w-[920px]">
               <Link
-                href="/projetos"
+                href={isCareer ? "/joao" : "/projetos"}
                 className="text-[12.5px] text-text-muted hover:text-text-nav transition-colors mb-8 inline-block"
               >
-                ← Voltar para projetos
+                {isCareer ? "← Voltar para o perfil de João Firmino" : "← Voltar para projetos"}
               </Link>
 
+              {isCareer && (
+                <div className="gc py-4 px-5 mb-6 border-l-2 !border-l-accent-light">
+                  <p className="text-[13px] text-text-dim leading-[1.7]">
+                    <strong className="text-text-light">Experiência de carreira.</strong>{" "}
+                    Este trabalho foi realizado por João Firmino como funcionário da{" "}
+                    {project.client}, antes da firmino.dev. Não foi um contrato da empresa.
+                    Os cases de clientes estão em{" "}
+                    <Link href="/projetos" className="underline underline-offset-2 hover:text-accent-light">
+                      projetos
+                    </Link>
+                    .
+                  </p>
+                </div>
+              )}
+
               <div className="flex flex-wrap items-center gap-2 mb-5">
-                <Tag accent>{PROJECT_TYPE_LABELS[project.type]}</Tag>
-                <span className="text-[12px] text-text-muted">{project.year}</span>
-                <span className="text-text-dim" aria-hidden="true">·</span>
+                <Tag accent>{project.segment}</Tag>
+                {project.year && (
+                  <>
+                    <span className="text-[12px] text-text-muted">{project.year}</span>
+                    <span className="text-text-dim" aria-hidden="true">·</span>
+                  </>
+                )}
                 <span className="text-[12px] text-text-muted">{project.location}</span>
               </div>
 
@@ -229,9 +255,9 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                       <div className="case-glow-line" />
                       <div className="flex items-center gap-2 mb-3">
                         <Tag accent className="!text-[10px]">
-                          {PROJECT_TYPE_LABELS[r.type]}
+                          {r.segment}
                         </Tag>
-                        <span className="text-[11px] text-text-muted">{r.year}</span>
+                        {r.year && <span className="text-[11px] text-text-muted">{r.year}</span>}
                       </div>
                       <h3 className="text-[16px] font-bold text-brand mb-1 tracking-tight">
                         {r.title}

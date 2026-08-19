@@ -52,7 +52,10 @@ export const CAREER: CareerRole[] = [
   {
     company: "firmino.dev",
     role: "Fundador e Senior Full Stack Developer",
-    period: "Jan 2026 até hoje",
+    // 2024 e não 2026: os primeiros clientes (Viaza, PMERJ) começaram aí,
+    // em paralelo ao Itaú. Datar em 2026 criava cliente atendido antes da
+    // empresa existir, visível ao cruzar /projetos com esta página.
+    period: "2024 até hoje",
     current: true,
     location: "São Paulo, SP",
     highlights: [
@@ -60,7 +63,18 @@ export const CAREER: CareerRole[] = [
       "Aplicações web e apps mobile sob medida, do produto ao deploy, com qualidade automatizada e foco em performance.",
       "Automações e aplicações com IA Generativa conectadas ao que o cliente já usa.",
     ],
-    stack: ["React", "Next.js", "Node.js", "React Native", "TypeScript", "IA aplicada"],
+    stack: [
+      "React",
+      "Next.js",
+      "Node.js",
+      "NestJS",
+      "React Native",
+      "Angular",
+      "TypeScript",
+      "MongoDB",
+      "PostgreSQL",
+      "IA aplicada",
+    ],
   },
   {
     company: "Itaú Unibanco",

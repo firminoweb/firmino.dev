@@ -23,6 +23,7 @@ import {
   CERTIFICATIONS,
   LANGUAGES,
 } from "@/data/curriculo";
+import { CAREER_PROJECTS } from "@/data/portfolio";
 import { breadcrumbJsonLd, absoluteUrl, SITE_URL } from "@/lib/seo";
 
 const TITLE = "João Firmino · Senior Full Stack Developer";
@@ -240,6 +241,62 @@ export default function JoaoPage() {
                         </div>
                       )}
                     </article>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Cases de carreira */}
+          <Reveal>
+            <div>
+              <SectionLabel>Cases de carreira</SectionLabel>
+              <h2 className="font-serif section-heading !text-[clamp(26px,3.4vw,38px)] !leading-[1.18] mb-4">
+                Projetos que eu <span className="text-accent-light italic">liderei</span>
+              </h2>
+              <p className="text-[14px] text-text-dim leading-[1.75] mb-7 max-w-[620px]">
+                Trabalho feito como funcionário dessas empresas, com contexto, desafio,
+                solução e resultado. Os cases de clientes da firmino.dev estão em{" "}
+                <Link href="/projetos" className="underline underline-offset-2 hover:text-accent-light transition-colors">
+                  projetos
+                </Link>
+                .
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {CAREER_PROJECTS.map((p, i) => (
+                  <Reveal key={p.slug} delay={i * 0.05}>
+                    <Link
+                      href={`/projetos/${p.slug}`}
+                      className="gc case-card p-6 block relative overflow-hidden h-full"
+                    >
+                      <div className="case-glow-line" />
+                      <div className="flex items-start gap-3 mb-3">
+                        {p.logo && (
+                          <div className="project-brand">
+                            <Image src={p.logo} alt={p.client} width={44} height={44} />
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <Tag accent className="!text-[10px]">
+                              {p.segment}
+                            </Tag>
+                            {p.year && <span className="text-[11px] text-text-dark">{p.year}</span>}
+                          </div>
+                          <h3 className="text-[16px] font-bold text-brand mb-1 tracking-tight leading-[1.35]">
+                            {p.title}
+                          </h3>
+                          <p className="text-[12.5px] text-text-dim">
+                            {p.client} · {p.role}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {p.stack.slice(0, 5).map((t) => (
+                          <Tag key={t}>{t}</Tag>
+                        ))}
+                      </div>
+                    </Link>
                   </Reveal>
                 ))}
               </div>

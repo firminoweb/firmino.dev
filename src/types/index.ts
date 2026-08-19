@@ -25,16 +25,25 @@ export interface ProjectLink {
   label: string;
 }
 
-export type ProjectType = "corporate" | "freelance" | "personal" | "oss";
+/**
+ * Dono da relação. "cliente" é contrato da firmino.dev e pode aparecer como
+ * vitrine comercial; "carreira" é trabalho feito como funcionário e só aparece
+ * na /joao, onde o contexto de emprego é explícito.
+ */
+export type ProjectKind = "cliente" | "carreira";
 
 export interface Project {
   slug: string;
   title: string;
   client: string;
-  type: ProjectType;
+  kind: ProjectKind;
+  /** Setor do cliente, exibido no card ("Fintech", "Óptica", "Governo"). */
+  segment: string;
   role: string;
-  year: string;
-  period: string;
+  /** Ano do projeto. Ausente nos cases de cliente: a firmino.dev não data
+   *  trabalho de cliente. Presente nos de carreira, onde é currículo. */
+  year?: string;
+  period?: string;
   duration: string;
   location: string;
   summary: string;
@@ -47,6 +56,8 @@ export interface Project {
   stack: string[];
   links?: ProjectLink[];
   featured?: boolean;
+  /** Rascunho: fica no repo mas não vai para listagem, sitemap nem rota. */
+  draft?: boolean;
   logo?: string;
   cover?: string;
   /** Hex color used to seed the gradient cover when `cover` is absent. */
@@ -55,13 +66,6 @@ export interface Project {
 
 export interface ClientBrand {
   name: string;
-  logo?: string;
-}
-
-export interface PastClient {
-  company: string;
-  period: string;
-  detail: string;
   logo?: string;
 }
 

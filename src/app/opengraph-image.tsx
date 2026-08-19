@@ -72,7 +72,7 @@ export default async function OpenGraphImage() {
             fontSize: 18,
           }}
         >
-          <span>16+ anos · Itaú · Boticário · TOTVS · NTT Data</span>
+          <span>Engenharia sênior · Web · Mobile · IA</span>
           <span style={{ color: "#5c7cfa" }}>firmino.dev</span>
         </div>
       </div>

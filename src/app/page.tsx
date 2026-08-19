@@ -1,11 +1,11 @@
 import { Navbar, Footer, Background } from "@/components/layout";
 import {
   Hero,
-  Clients,
-  KeyAchievements,
   Services,
   ComoFunciona,
   Cases,
+  Founder,
+  Parceiros,
   Testimonials,
   Faq,
   AiCta,
@@ -19,11 +19,11 @@ export default function HomePage() {
       <div className="relative z-[1]">
         <main>
           <Hero />
-          <Clients />
-          <KeyAchievements />
           <Services />
           <ComoFunciona />
           <Cases />
+          <Founder />
+          <Parceiros />
           <Testimonials />
           <Faq />
           <AiCta />

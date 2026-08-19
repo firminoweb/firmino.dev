@@ -57,7 +57,7 @@ export function ProjectCover({ project }: ProjectCoverProps) {
       <div className="project-cover-meta">
         <span>{project.client}</span>
         <span>·</span>
-        <span>{project.year}</span>
+        <span>{project.year ?? project.duration}</span>
       </div>
       <div className="project-cover-title">
         {project.title}
