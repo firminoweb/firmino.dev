@@ -4,9 +4,8 @@ import {
   Services,
   ComoFunciona,
   Cases,
-  Founder,
-  Parceiros,
   Testimonials,
+  QuemFaz,
   Faq,
   AiCta,
 } from "@/components/home";
@@ -22,9 +21,8 @@ export default function HomePage() {
           <Services />
           <ComoFunciona />
           <Cases />
-          <Founder />
-          <Parceiros />
           <Testimonials />
+          <QuemFaz />
           <Faq />
           <AiCta />
         </main>

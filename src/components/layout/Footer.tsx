@@ -4,10 +4,11 @@ import { CONTACT, COMPANY } from "@/data/portfolio";
 
 const COMPANY_LINKS: { label: string; href: string }[] = [
   { label: "Sobre", href: "/sobre" },
-  { label: "João Firmino", href: "/joao" },
+  { label: "Como trabalhamos", href: "/como-trabalhamos" },
+  { label: "Cases", href: "/projetos" },
   { label: "Blog", href: "/blog" },
-  { label: "Projetos", href: "/projetos" },
   { label: "Contato", href: "/contato" },
+  { label: "Tecnologias", href: "/stack" },
 ];
 
 const SERVICE_LINKS: { label: string; href: string }[] = [
@@ -22,7 +23,6 @@ const SERVICE_LINKS: { label: string; href: string }[] = [
 
 const SOCIAL_LINKS: { label: string; href: string }[] = [
   { label: "LinkedIn", href: CONTACT.linkedin },
-  { label: "GitHub", href: CONTACT.github },
   { label: "X", href: CONTACT.twitter },
 ];
 
@@ -38,7 +38,7 @@ export function Footer() {
                 <span className="text-xl font-normal text-accent-light">.dev</span>
               </Link>
               <p className="text-[13.5px] text-text-dark leading-[1.75] max-w-[260px]">
-                Empresa de engenharia de software especializada em plataformas web, apps mobile e aplicações inteligentes com Generative AI & LLM para empresas que exigem excelência técnica.
+                Empresa de desenvolvimento de software sob medida: sites, sistemas, apps e IA para empresas e agências de todo o Brasil.
               </p>
             </div>
 
@@ -101,10 +101,9 @@ export function Footer() {
                 Política de Privacidade
               </Link>
             </span>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-success shadow-[0_0_8px_#22C55E44]" />
-              <span className="text-xs text-text-darker">Disponível para novos projetos</span>
-            </div>
+            <span className="text-xs text-text-darker">
+              Atendimento em todo o Brasil · resposta em até 24h úteis
+            </span>
           </div>
         </Reveal>
       </div>

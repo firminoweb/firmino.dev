@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { JsonLd, SectionLabel } from "@/components/ui";
-import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, SITE_URL, OG_IMAGES } from "@/lib/seo";
 import { getAllPosts } from "@/lib/blog";
 
 const TITLE = "Blog · firmino.dev";
@@ -18,8 +18,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/blog",
     type: "website",
+    images: OG_IMAGES,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 };
 
 const DATE_FORMATTER = new Intl.DateTimeFormat("pt-BR", {

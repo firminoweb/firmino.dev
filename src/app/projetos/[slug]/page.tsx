@@ -7,7 +7,7 @@ import { Tag, SectionLabel, Button, JsonLd } from "@/components/ui";
 import { ProjectCover } from "@/components/projects/ProjectCover";
 import { PUBLISHED_PROJECTS, getProjectBySlug } from "@/data/portfolio";
 import { PERSON_ID } from "@/data/curriculo";
-import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, SITE_URL, ORG_ID } from "@/lib/seo";
 
 interface CaseDetailProps {
   params: Promise<{ slug: string }>;
@@ -35,8 +35,9 @@ export async function generateMetadata({ params }: CaseDetailProps): Promise<Met
   const title = `${project.title} · ${project.client}`;
   const ogTitle = `${title} · firmino.dev`;
   const path = `/projetos/${project.slug}`;
-  const ogImage = project.logo ? [absoluteUrl(project.logo)] : undefined;
 
+  // Sem `images` aqui de propósito: quem serve a prévia é o opengraph-image.tsx
+  // deste segmento, que desenha título e números em 1200x630.
   return {
     title,
     description: project.summary,
@@ -46,13 +47,11 @@ export async function generateMetadata({ params }: CaseDetailProps): Promise<Met
       description: project.summary,
       url: path,
       type: "article",
-      ...(ogImage && { images: ogImage }),
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description: project.summary,
-      ...(ogImage && { images: ogImage }),
     },
   };
 }
@@ -88,7 +87,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
     // mesma confusão que a separação cliente/carreira desfaz na página.
     author: isCareer
       ? { "@type": "Person", "@id": PERSON_ID, name: "João Firmino", url: `${SITE_URL}/joao` }
-      : { "@type": "Organization", name: "firmino.dev", url: SITE_URL },
+      : { "@type": "Organization", "@id": ORG_ID, name: "firmino.dev", url: SITE_URL },
     about: {
       "@type": "Organization",
       name: project.client,
@@ -102,7 +101,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
-          { name: "Projetos", path: "/projetos" },
+          { name: "Cases", path: "/projetos" },
           { name: project.title, path: `/projetos/${project.slug}` },
         ])}
       />
@@ -117,7 +116,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                 href={isCareer ? "/joao" : "/projetos"}
                 className="text-[12.5px] text-text-muted hover:text-text-nav transition-colors mb-8 inline-block"
               >
-                {isCareer ? "← Voltar para o perfil de João Firmino" : "← Voltar para projetos"}
+                {isCareer ? "← Voltar para o perfil de João Firmino" : "← Voltar para cases"}
               </Link>
 
               {isCareer && (
@@ -128,7 +127,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                     {project.client}, antes da firmino.dev. Não foi um contrato da empresa.
                     Os cases de clientes estão em{" "}
                     <Link href="/projetos" className="underline underline-offset-2 hover:text-accent-light">
-                      projetos
+                      cases
                     </Link>
                     .
                   </p>
@@ -241,7 +240,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
           {related.length > 0 && (
             <section className="section-padding !pt-4">
               <div className="content-container max-w-[920px]">
-                <SectionLabel>Próximos projetos</SectionLabel>
+                <SectionLabel>Outros cases</SectionLabel>
                 <h2 className="font-serif section-heading !text-[clamp(24px,3.2vw,34px)] !leading-[1.18] mb-6">
                   Continue <span className="text-accent-light italic">explorando</span>
                 </h2>

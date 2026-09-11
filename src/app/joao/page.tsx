@@ -8,7 +8,7 @@ import {
   Button,
   Tag,
   JsonLd,
-  ObfuscatedContact,
+  TrackedLink,
   TrackedExternalLink,
 } from "@/components/ui";
 import {
@@ -24,9 +24,9 @@ import {
   LANGUAGES,
 } from "@/data/curriculo";
 import { CAREER_PROJECTS } from "@/data/portfolio";
-import { breadcrumbJsonLd, absoluteUrl, SITE_URL } from "@/lib/seo";
+import { breadcrumbJsonLd, absoluteUrl, SITE_URL, ORG_ID, OG_IMAGES } from "@/lib/seo";
 
-const TITLE = "João Firmino · Senior Full Stack Developer";
+const TITLE = "João Firmino · Fundador da firmino.dev";
 const DESCRIPTION =
   "João Henrique Firmino, fundador da firmino.dev. 16+ anos de engenharia de software em Itaú, O Boticário, TOTVS, NTT Data, Walmart e UOL. React, Angular, Next.js, Node.js, React Native e IA aplicada.";
 
@@ -39,8 +39,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/joao",
     type: "profile",
+    images: OG_IMAGES,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 };
 
 const PROFILE_JSON_LD = {
@@ -53,10 +54,10 @@ const PROFILE_JSON_LD = {
     alternateName: PERSON.shortName,
     url: `${SITE_URL}/joao`,
     image: absoluteUrl(PERSON.photo),
-    jobTitle: PERSON.role,
+    jobTitle: PERSON.founderTitle,
     description: DESCRIPTION,
-    // E-mail em claro só aqui, como no resto do site: o JSON-LD é para o
-    // Google, o HTML visível usa ObfuscatedContact.
+    // E-mail em claro só aqui, para o Google. O HTML visível não exibe o
+    // e-mail pessoal: o contato comercial passa pelo /contato.
     email: PERSON.email,
     address: {
       "@type": "PostalAddress",
@@ -66,6 +67,7 @@ const PROFILE_JSON_LD = {
     },
     worksFor: {
       "@type": "Organization",
+      "@id": ORG_ID,
       name: "firmino.dev",
       url: SITE_URL,
     },
@@ -125,40 +127,26 @@ export default function JoaoPage() {
                   João Henrique <span className="text-accent-light italic">Firmino</span>
                 </h1>
                 <p className="text-[15px] text-text-muted leading-[1.7]">
-                  {PERSON.role} · {PERSON.location}
+                  {PERSON.founderTitle} · {PERSON.location}
                 </p>
-                <div className="flex flex-wrap gap-2.5 mt-6">
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3 mt-6">
+                  <TrackedLink
+                    href="/contato"
+                    event="cta_click"
+                    eventParams={{ location: "joao_hero", label: "contato" }}
+                    className="btn-primary inline-flex items-center justify-center"
+                  >
+                    Falar com a firmino.dev →
+                  </TrackedLink>
                   <TrackedExternalLink
                     href={PERSON.linkedin}
                     event="cta_click"
                     eventParams={{ location: "joao_hero", label: "linkedin" }}
-                    className="btn-primary inline-flex items-center justify-center"
+                    className="text-[13.5px] text-text-dim hover:text-accent-light transition-colors"
                   >
                     LinkedIn ↗
                   </TrackedExternalLink>
-                  <TrackedExternalLink
-                    href={PERSON.github}
-                    event="cta_click"
-                    eventParams={{ location: "joao_hero", label: "github" }}
-                    className="btn-ghost inline-flex items-center justify-center"
-                  >
-                    GitHub ↗
-                  </TrackedExternalLink>
-                  <TrackedExternalLink
-                    href={PERSON.cv}
-                    event="cta_click"
-                    eventParams={{ location: "joao_hero", label: "download_cv" }}
-                    className="btn-ghost inline-flex items-center justify-center"
-                  >
-                    Baixar CV (PDF)
-                  </TrackedExternalLink>
                 </div>
-                <ObfuscatedContact
-                  value={PERSON.email}
-                  kind="email"
-                  prefix="✉ "
-                  className="inline-block text-[13.5px] text-text-dim hover:text-accent-light transition-colors mt-4"
-                />
               </div>
             </div>
           </div>
@@ -258,7 +246,7 @@ export default function JoaoPage() {
                 Trabalho feito como funcionário dessas empresas, com contexto, desafio,
                 solução e resultado. Os cases de clientes da firmino.dev estão em{" "}
                 <Link href="/projetos" className="underline underline-offset-2 hover:text-accent-light transition-colors">
-                  projetos
+                  cases
                 </Link>
                 .
               </p>
@@ -429,13 +417,13 @@ export default function JoaoPage() {
           <Reveal>
             <div className="gc py-8 px-6 sm:py-10 sm:px-9">
               <h2 className="font-serif text-[22px] sm:text-[26px] font-medium text-brand tracking-tight mb-3">
-                Cases detalhados
+                Cases de clientes
               </h2>
               <p className="text-[14px] text-text-dim leading-[1.75] mb-6 max-w-[560px]">
-                Os projetos com contexto, desafio, solução e resultado estão na área de projetos da firmino.dev.
+                O que a firmino.dev entregou pra quem a contratou, com contexto, desafio, solução e resultado.
               </p>
               <Button href="/projetos" variant="ghost">
-                Ver projetos →
+                Ver cases →
               </Button>
             </div>
           </Reveal>
@@ -450,23 +438,23 @@ export default function JoaoPage() {
                 <div className="cta-radial-overlay" />
                 <div className="relative">
                   <h2 className="font-serif section-heading !text-[clamp(22px,3vw,34px)] !leading-[1.2] mb-4">
-                    Vamos conversar?
+                    Quer esse cuidado <span className="text-accent-light italic">no seu projeto</span>?
                   </h2>
                   <p className="text-[14px] text-text-dim leading-[1.7] max-w-[500px] mx-auto mb-7">
-                    Para projeto, consultoria ou posição efetiva, o caminho mais rápido é o formulário ou o LinkedIn.
+                    Quem fala com você na firmino.dev é quem responde pela parte técnica. Conte o que você precisa.
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <Link href="/contato">
-                      <Button>Fale comigo →</Button>
-                    </Link>
-                    <TrackedExternalLink
-                      href={PERSON.linkedin}
+                    <TrackedLink
+                      href="/contato"
                       event="cta_click"
-                      eventParams={{ location: "joao_cta", label: "linkedin" }}
-                      className="btn-ghost inline-flex items-center justify-center"
+                      eventParams={{ location: "joao_cta", label: "contato" }}
+                      className="btn-primary inline-flex items-center justify-center"
                     >
-                      Chamar no LinkedIn ↗
-                    </TrackedExternalLink>
+                      Falar com a firmino.dev →
+                    </TrackedLink>
+                    <Button href="/como-trabalhamos" variant="ghost">
+                      Ver como trabalhamos
+                    </Button>
                   </div>
                 </div>
               </div>

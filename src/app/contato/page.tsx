@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, ObfuscatedContact, JsonLd } from "@/components/ui";
+import {
+  Reveal,
+  SectionLabel,
+  ObfuscatedContact,
+  JsonLd,
+  WhatsAppButton,
+  WhatsAppGlyph,
+} from "@/components/ui";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { CONTACT, COMPANY } from "@/data/portfolio";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
 
 const TITLE = "Contato · firmino.dev";
 const DESCRIPTION =
@@ -18,8 +25,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/contato",
     type: "website",
+    images: OG_IMAGES,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 };
 
 interface PublicChannel {
@@ -37,13 +45,6 @@ const PUBLIC_CHANNELS: PublicChannel[] = [
     href: CONTACT.linkedin,
     icon: "in",
     desc: "Siga a página da empresa",
-  },
-  {
-    label: "GitHub",
-    value: "/firmino-dev",
-    href: CONTACT.github,
-    icon: "</>",
-    desc: "Código aberto e experimentos",
   },
   {
     label: "X / Twitter",
@@ -119,15 +120,38 @@ export default function ContatoPage() {
               </div>
             </Reveal>
 
-            {/* Canais públicos: LinkedIn / GitHub / X — links abertos */}
+            {/* Canais públicos: WhatsApp (canal principal de lead), LinkedIn e X */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Reveal className="h-full">
+                <WhatsAppButton
+                  source="contato"
+                  className="gc case-card p-7 block relative overflow-hidden h-full"
+                >
+                  <div className="case-glow-line" />
+                  <div className="flex items-start gap-4">
+                    <div className="service-icon !mb-0">
+                      <WhatsAppGlyph className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h2 className="text-[12px] uppercase tracking-[2px] font-semibold text-text-dim mb-2">
+                        WhatsApp
+                      </h2>
+                      <p className="text-[16px] font-bold text-brand tracking-tight mb-1">Falar agora</p>
+                      <p className="text-[12.5px] text-text-dark leading-[1.6]">
+                        O jeito mais rápido de tirar uma dúvida
+                      </p>
+                    </div>
+                    <span className="case-arrow">↗</span>
+                  </div>
+                </WhatsAppButton>
+              </Reveal>
               {PUBLIC_CHANNELS.map((c, i) => (
-                <Reveal key={c.label} delay={i * 0.06}>
+                <Reveal key={c.label} delay={(i + 1) * 0.06} className="h-full">
                   <a
                     href={c.href}
                     target="_blank"
                     rel="me noopener noreferrer"
-                    className="gc case-card p-7 block relative overflow-hidden"
+                    className="gc case-card p-7 block relative overflow-hidden h-full"
                   >
                     <div className="case-glow-line" />
                     <div className="flex items-start gap-4">

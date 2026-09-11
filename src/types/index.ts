@@ -2,12 +2,6 @@
    Type definitions · firmino.dev
    ════════════════════════════════════════════ */
 
-export interface KeyAchievement {
-  value: string;
-  label: string;
-  desc: string;
-}
-
 export interface Service {
   slug: string;
   icon: string;
@@ -39,6 +33,8 @@ export interface Project {
   kind: ProjectKind;
   /** Setor do cliente, exibido no card ("Fintech", "Óptica", "Governo"). */
   segment: string;
+  /** Cliente: o que a firmino.dev entregou, em linguagem de negócio.
+   *  Carreira: o papel do João no projeto. */
   role: string;
   /** Ano do projeto. Ausente nos cases de cliente: a firmino.dev não data
    *  trabalho de cliente. Presente nos de carreira, onde é currículo. */
@@ -62,11 +58,6 @@ export interface Project {
   cover?: string;
   /** Hex color used to seed the gradient cover when `cover` is absent. */
   accent?: string;
-}
-
-export interface ClientBrand {
-  name: string;
-  logo?: string;
 }
 
 export interface Stat {
@@ -114,5 +105,41 @@ export interface Education {
 export interface Language {
   name: string;
   level: string;
+}
+
+/* ── Empresa (home, /como-trabalhamos, /sobre) ── */
+
+export type TeamAreaId = "lideranca" | "desenvolvimento" | "design" | "marketing";
+
+export interface TeamArea {
+  id: TeamAreaId;
+  icon: string;
+  title: string;
+  desc: string;
+  /** Em que momento do projeto a área entra. */
+  entersWhen: string;
+}
+
+export interface ProcessStep {
+  num: string;
+  title: string;
+  desc: string;
+  /** Áreas que participam da etapa, na ordem de protagonismo. */
+  areas: TeamAreaId[];
+}
+
+export interface EngagementModel {
+  id: string;
+  title: string;
+  /** Resumo de 2 a 4 palavras, usado na faixa da home. */
+  short: string;
+  forWhen: string;
+  billing: string;
+  services: { slug: string; label: string }[];
+}
+
+export interface Guarantee {
+  title: string;
+  desc: string;
 }
 

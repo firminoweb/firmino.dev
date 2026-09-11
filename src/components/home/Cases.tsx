@@ -14,7 +14,7 @@ export function Cases() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-14 items-start">
           <Reveal>
             <div className="lg:sticky lg:top-[120px]">
-              <SectionLabel>Projetos em destaque</SectionLabel>
+              <SectionLabel>Cases</SectionLabel>
               <h2 className="font-serif section-heading !leading-[1.12] mb-5">
                 Trabalhos que entregam<br />
                 <span className="text-accent-light italic">resultado</span>
@@ -32,7 +32,7 @@ export function Cases() {
                 ))}
               </div>
 
-              <Button href="/projetos" variant="ghost">Ver todos os projetos →</Button>
+              <Button href="/projetos" variant="ghost">Ver todos os cases →</Button>
             </div>
           </Reveal>
 
@@ -76,7 +76,7 @@ export function Cases() {
                     </p>
                   </div>
 
-                  <div className="px-5 sm:px-7 pb-4 flex flex-wrap gap-3">
+                  <div className="px-5 sm:px-7 pb-6 flex flex-wrap gap-3">
                     {p.metrics.map((m, j) => (
                       <div key={j} className="metric-box flex-1 min-w-[100px]">
                         <div className="font-serif text-[22px] sm:text-[26px] font-medium text-brand tracking-tight">
@@ -84,12 +84,6 @@ export function Cases() {
                         </div>
                         <div className="text-[11px] text-text-dim mt-0.5">{m.label}</div>
                       </div>
-                    ))}
-                  </div>
-
-                  <div className="px-5 sm:px-7 pt-3 pb-6 flex flex-wrap gap-1.5">
-                    {p.stack.slice(0, 5).map((t) => (
-                      <Tag key={t}>{t}</Tag>
                     ))}
                   </div>
                 </Link>

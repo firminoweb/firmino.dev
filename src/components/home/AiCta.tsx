@@ -9,7 +9,7 @@ export function AiCta() {
             <div className="glow-line-top-cta" />
             <div className="cta-radial-overlay" />
             <div className="relative">
-              <SectionLabel center>Generative AI & LLM Applications</SectionLabel>
+              <SectionLabel center>Inteligência artificial</SectionLabel>
               <h2 className="font-serif section-heading !text-[clamp(24px,3.5vw,44px)] !tracking-tight !leading-[1.2] mb-5">
                 Impulsione seu negócio com<br />
                 <span className="text-accent-light italic">aplicações inteligentes</span>

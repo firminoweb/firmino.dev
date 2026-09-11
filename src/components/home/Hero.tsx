@@ -1,24 +1,24 @@
 import Image from "next/image";
 import {
   Button,
-  Tag,
   SectionLabel,
   WhatsAppButton,
   WhatsAppGlyph,
   TrackedLink,
 } from "@/components/ui";
-import { HERO_TAGS } from "@/data/portfolio";
+import { CLIENT_PROJECTS } from "@/data/portfolio";
+import { HERO_TRUST } from "@/data/empresa";
 
-const PROOF_LOGOS = [
-  { name: "Itaú", logo: "/images/logos/itau.webp" },
-  { name: "O Boticário", logo: "/images/logos/oboticario.webp" },
-  { name: "TOTVS", logo: "/images/logos/totvs.webp" },
-  { name: "NTT Data", logo: "/images/logos/nttdata.webp" },
-];
+// Só clientes da firmino.dev. As marcas da carreira do fundador ficam na /joao.
+// Os logos de cliente são ícones quadrados, então o nome vai ao lado: sem ele,
+// um ícone de 24px não diz de quem é. "Viaza / GoMilhas" vira "Viaza" pra caber.
+const PROOF_LOGOS = CLIENT_PROJECTS.filter((p) => p.logo)
+  .slice(0, 6)
+  .map((p) => ({ name: p.client.split(" / ")[0], logo: p.logo as string }));
 
 const PROOF_METRICS = [
-  { value: "+80%", label: "venda mobile", sub: "Eudora & Boticário" },
-  { value: "-60%", label: "tempo de carga", sub: "plataformas Itaú" },
+  { value: "4 meses", label: "do início às duas lojas", sub: "StartPrev" },
+  { value: "18 meses", label: "de portal no ar", sub: "PMERJ" },
 ];
 
 export function Hero() {
@@ -39,11 +39,14 @@ export function Hero() {
           <p className="text-base text-text-muted leading-[1.75] max-w-[500px] mb-5">
             Aplicações web, apps mobile e automações com IA sob medida pra sua empresa. Do pequeno negócio à grande operação, com engenharia sênior do primeiro dia ao que vai pro ar.
           </p>
-          <div className="flex flex-wrap gap-2 mb-9">
-            {HERO_TAGS.map((t) => (
-              <Tag key={t} accent>{t}</Tag>
+          <ul className="flex flex-wrap gap-x-5 gap-y-2 mb-9">
+            {HERO_TRUST.map((t) => (
+              <li key={t} className="flex items-center gap-2 text-[13px] text-text-subtle font-medium">
+                <span aria-hidden className="text-success">✓</span>
+                {t}
+              </li>
             ))}
-          </div>
+          </ul>
           <div>
             <div className="flex flex-wrap gap-3.5">
               <TrackedLink
@@ -54,7 +57,7 @@ export function Hero() {
               >
                 Quero uma proposta →
               </TrackedLink>
-              <Button href="/projetos" variant="ghost">Ver casos</Button>
+              <Button href="/projetos" variant="ghost">Ver cases</Button>
             </div>
             <p className="text-[11.5px] text-text-dim mt-3">
               Resposta em 24h · sem compromisso
@@ -81,31 +84,28 @@ function ProofCard() {
           <div className="hero-card-dot" />
           <span className="text-[13px] text-text-subtle font-medium">firmino.dev</span>
         </div>
-        <span className="flex items-center gap-1.5 text-[11px] text-success font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-success shadow-[0_0_8px_#22c55e66]" />
-          Disponível
-        </span>
+        <span className="text-[11px] text-text-dim font-semibold">Desde 2024</span>
       </div>
 
       <div className="px-6 pt-6 pb-7 flex flex-col gap-5">
         <div>
           <span className="text-[10.5px] text-accent-light font-semibold tracking-[2px] uppercase">
-            Quem já confia na gente
+            Clientes atendidos
           </span>
-          <div className="grid grid-cols-4 gap-2 mt-3">
+          <div className="grid grid-cols-2 gap-2 mt-3">
             {PROOF_LOGOS.map((c) => (
               <div
                 key={c.name}
-                title={c.name}
-                className="flex items-center justify-center h-9 rounded-lg bg-[#f4f5fa] border border-border-card px-1.5"
+                className="flex items-center gap-2 h-10 rounded-lg bg-[#f4f5fa] border border-border-card px-2.5 min-w-0"
               >
                 <Image
                   src={c.logo}
-                  alt={c.name}
-                  width={72}
-                  height={24}
-                  className="h-4 w-auto object-contain"
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="w-6 h-6 rounded object-contain shrink-0"
                 />
+                <span className="text-[12px] font-semibold text-text-subtle truncate">{c.name}</span>
               </div>
             ))}
           </div>

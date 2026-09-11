@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "firmino.dev · Engenharia de Software, Mobile & Generative AI";
+export const alt = "firmino.dev · Construímos software. Reforçamos times.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -43,21 +43,20 @@ export default async function OpenGraphImage() {
           </div>
           <div
             style={{
-              fontSize: 72,
+              fontSize: 76,
               fontWeight: 500,
               color: "#fff",
               lineHeight: 1.05,
               letterSpacing: -2.5,
-              maxWidth: 980,
               display: "flex",
-              flexWrap: "wrap",
+              flexDirection: "column",
             }}
           >
-            Desenvolvemos soluções&nbsp;
-            <span style={{ color: "#5c7cfa", fontStyle: "italic" }}>que transformam negócios</span>
+            <span>Construímos software.</span>
+            <span style={{ color: "#5c7cfa", fontStyle: "italic" }}>Reforçamos times.</span>
           </div>
-          <div style={{ fontSize: 22, color: "#8e92b0", lineHeight: 1.4, maxWidth: 920 }}>
-            Angular · React · React Native · Next.js · Node.js · Generative AI · LLM Applications
+          <div style={{ fontSize: 24, color: "#8e92b0", lineHeight: 1.4, maxWidth: 920 }}>
+            Sites, sistemas, apps e automações com IA sob medida
           </div>
         </div>
 
