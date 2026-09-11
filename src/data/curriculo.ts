@@ -26,6 +26,8 @@ export const PERSON = {
   shortName: "João Firmino",
   role: "Senior Full Stack Developer",
   headline: "Fundador da firmino.dev",
+  /** Título exibido no site. O `role` acima é o do CV (scripts/build-cv.ts). */
+  founderTitle: "Fundador e responsável técnico",
   location: "São Paulo, SP",
   photo: "/images/joao-firmino.jpg",
   cv: "/cv-joao-firmino-full-stack.pdf",

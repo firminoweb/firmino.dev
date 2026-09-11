@@ -5,35 +5,7 @@ import {
   WhatsAppButton,
   WhatsAppGlyph,
 } from "@/components/ui";
-
-interface Step {
-  num: string;
-  title: string;
-  desc: string;
-}
-
-const STEPS: Step[] = [
-  {
-    num: "01",
-    title: "Conversa e diagnóstico",
-    desc: "Você conta o que precisa pelo WhatsApp ou pelo formulário. A gente entende a sua operação, aponta o caminho e devolve uma estimativa de investimento e prazo. Sem custo e sem compromisso.",
-  },
-  {
-    num: "02",
-    title: "Plano combinado",
-    desc: "Antes de começar, definimos juntos o escopo, o cronograma e por onde faz mais sentido começar. Você aprova o plano já sabendo onde quer chegar.",
-  },
-  {
-    num: "03",
-    title: "Construção com entregas frequentes",
-    desc: "A gente constrói em ciclos curtos, com algo funcionando cedo pra você acompanhar de perto. A cada quinzena você vê o que andou e ajusta a prioridade do que vem.",
-  },
-  {
-    num: "04",
-    title: "Entrega, evolução e suporte",
-    desc: "O sistema entra no ar e continua evoluindo junto com a sua operação. O código é seu, fica no seu repositório, e a gente segue dando suporte e melhorando conforme o uso real mostra o que importa.",
-  },
-];
+import { PROCESS_STEPS, ENGAGEMENT_MODELS } from "@/data/empresa";
 
 export function ComoFunciona() {
   return (
@@ -41,7 +13,7 @@ export function ComoFunciona() {
       <div className="content-container">
         <Reveal>
           <div className="text-center mb-12">
-            <SectionLabel center>Como funciona</SectionLabel>
+            <SectionLabel center>Como trabalhamos</SectionLabel>
             <h2 className="font-serif section-heading">
               Do primeiro contato ao<br />
               <span className="text-accent-light italic">sistema rodando</span>
@@ -53,7 +25,7 @@ export function ComoFunciona() {
         </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 items-stretch">
-          {STEPS.map((s, i) => (
+          {PROCESS_STEPS.map((s, i) => (
             <Reveal key={s.num} delay={i * 0.07} className="h-full">
               <div className="gc py-8 px-7 relative overflow-hidden h-full flex flex-col">
                 <div className="glow-line-top" />
@@ -68,6 +40,30 @@ export function ComoFunciona() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.05}>
+          <div className="gc mt-10 px-6 py-6 sm:px-8">
+            <p className="text-[11px] text-text-darker tracking-[1.5px] uppercase font-medium mb-4">
+              Quatro jeitos de contratar
+            </p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {ENGAGEMENT_MODELS.map((m) => (
+                <div key={m.id} className="metric-box !text-left !px-4 !py-3">
+                  <div className="text-[14px] font-bold text-brand tracking-tight">{m.title}</div>
+                  <div className="text-[11.5px] text-text-dim mt-0.5">{m.short}</div>
+                </div>
+              ))}
+            </div>
+            <TrackedLink
+              href="/como-trabalhamos"
+              event="cta_click"
+              eventParams={{ location: "como_funciona", label: "como_trabalhamos" }}
+              className="inline-block mt-5 text-[13px] text-accent-light hover:text-accent transition-colors font-medium"
+            >
+              Ver como trabalhamos →
+            </TrackedLink>
+          </div>
+        </Reveal>
 
         <Reveal delay={0.1}>
           <div className="text-center mt-12">

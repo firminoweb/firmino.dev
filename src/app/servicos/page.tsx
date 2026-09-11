@@ -3,12 +3,12 @@ import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, Button, Tag, JsonLd } from "@/components/ui";
 import { SERVICES } from "@/data/portfolio";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
 import { hasServicoContent } from "@/lib/servicos";
 
 const TITLE = "Serviços · firmino.dev";
 const DESCRIPTION =
-  "Squad sênior plug-and-play para empresas digitalizando operação e agências precisando de reforço técnico. Stack de produção em web, mobile e Generative AI.";
+  "Sites, sistemas, apps, automações com IA e manutenção sob medida para empresas, e reforço técnico para agências. Veja o que fazemos e como contratar.";
 
 export const metadata: Metadata = {
   title: "Serviços",
@@ -19,8 +19,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/servicos",
     type: "website",
+    images: OG_IMAGES,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 };
 
 const SERVICE_DETAILS: Record<string, { deliverables: string[]; stack: string[] }> = {
@@ -116,8 +117,14 @@ export default function ServicosPage() {
               Como <span className="text-accent-light italic">atendemos</span> sua empresa ou agência
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
-              Trabalhamos em dois formatos comerciais: squad dedicado para empresas digitalizando ou alocação sênior dentro do seu time de agência. Sustentado por engenharia sênior em Angular, React, Next.js, React Native e Generative AI, com uma rede de parceiros em desenvolvimento, UI/UX e marketing digital.
+              Do site institucional à plataforma completa, do app nas lojas à automação com IA. Você contrata por projeto, por time mensal, por plano de manutenção ou como reforço do seu time, sempre com engenharia sênior e uma rede de parceiros em design e marketing digital.
             </p>
+            <Link
+              href="/como-trabalhamos"
+              className="inline-block mt-4 text-[13.5px] text-accent-light hover:text-accent transition-colors font-medium"
+            >
+              Veja os modelos de contratação →
+            </Link>
           </div>
         </section>
 
@@ -197,7 +204,7 @@ export default function ServicosPage() {
                       <Button>Quero uma proposta →</Button>
                     </Link>
                     <Link href="/projetos">
-                      <Button variant="ghost">Ver projetos</Button>
+                      <Button variant="ghost">Ver cases</Button>
                     </Link>
                   </div>
                 </div>

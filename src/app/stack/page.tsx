@@ -3,14 +3,14 @@ import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
 import { STACK } from "@/data/portfolio";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
 
-const TITLE = "Stack · firmino.dev";
+const TITLE = "Tecnologias · firmino.dev";
 const DESCRIPTION =
   "Tecnologias que usamos para entregar resultado: web, mobile, backend, testes, arquitetura, DevOps e Generative AI.";
 
 export const metadata: Metadata = {
-  title: "Stack",
+  title: "Tecnologias",
   description: DESCRIPTION,
   alternates: { canonical: "/stack" },
   openGraph: {
@@ -18,8 +18,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/stack",
     type: "website",
+    images: OG_IMAGES,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 };
 
 export default function StackPage() {
@@ -30,7 +31,7 @@ export default function StackPage() {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
-          { name: "Stack", path: "/stack" },
+          { name: "Tecnologias", path: "/stack" },
         ])}
       />
       <Background />
@@ -38,9 +39,9 @@ export default function StackPage() {
       <div className="relative z-[1]">
         <section className="page-hero !min-h-[40vh] !pb-10">
           <div className="content-container w-full max-w-[920px]">
-            <SectionLabel>Nossa Stack</SectionLabel>
+            <SectionLabel>Tecnologias</SectionLabel>
             <h1 className="font-serif hero-heading !text-[clamp(40px,5vw,58px)] !leading-[1.06] mb-5">
-              Tecnologias que <span className="text-accent-light italic">dominamos</span>
+              Tecnologias que <span className="text-accent-light italic">usamos</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
               Stack pragmática, escolhida com critério para cada projeto, do produto ao deploy, com qualidade automatizada e foco em performance.

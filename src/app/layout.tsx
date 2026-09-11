@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { WhatsAppFab } from "@/components/ui";
 import { CONTACT, COMPANY } from "@/data/portfolio";
 import { PERSON_ID } from "@/data/curriculo";
+import { ORG_ID } from "@/lib/seo";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -43,30 +44,28 @@ const GA_STUB_SCRIPT = GA_ID
   ? `window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:true});`
   : null;
 
+const SITE_TITLE = "Desenvolvimento de sistemas, sites e apps sob medida · firmino.dev";
+const SITE_DESCRIPTION =
+  "Sites, sistemas, apps e automações com IA sob medida, do pequeno negócio à grande operação. Contrato, nota fiscal e código no seu nome. Atendimento em todo o Brasil.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "firmino.dev - Engenharia de Software, Mobile & Generative AI",
+    default: SITE_TITLE,
     template: "%s · firmino.dev",
   },
-  description:
-    "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI & LLM. Engenharia sênior para empresas digitalizando a operação e agências que precisam de reforço técnico.",
+  description: SITE_DESCRIPTION,
   keywords: [
-    "Engenharia de Software",
-    "Aplicações Web",
-    "Empresa de Software",
-    "React",
-    "Angular",
-    "React Native",
-    "Next.js",
-    "Node.js",
-    "TypeScript",
-    "Generative AI",
-    "LLM Applications",
-    "AI-Driven Development",
-    "Micro-frontends",
+    "desenvolvimento de sistemas sob medida",
+    "empresa de desenvolvimento de software",
+    "desenvolvimento de aplicativos",
+    "criação de sites",
+    "sistema sob medida",
+    "aplicativo para empresa",
+    "manutenção de sistemas",
+    "automação com IA",
+    "reforço técnico para agência",
     "São Paulo",
-    "empresa desenvolvimento software",
   ],
   authors: [{ name: "firmino.dev", url: SITE_URL }],
   creator: "firmino.dev",
@@ -86,9 +85,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "firmino.dev · Engenharia de Software, Mobile & Generative AI",
-    description:
-      "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: "firmino.dev",
     locale: "pt_BR",
@@ -98,15 +96,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@firminodev",
     creator: "@firminodev",
-    title: "firmino.dev · Engenharia de Software, Mobile & Generative AI",
-    description:
-      "Desenvolvemos soluções digitais que transformam negócios. Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
 };
 
 const ORG_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": ORG_ID,
   name: "firmino.dev",
   legalName: COMPANY.legalName,
   taxID: COMPANY.cnpj,
@@ -114,7 +112,7 @@ const ORG_JSON_LD = {
   // /apple-icon (180×180) — o Google exige logo ≥112px; /icon tem só 32px e /icon.png não existe
   logo: `${SITE_URL}/apple-icon`,
   description:
-    "Empresa de engenharia de software especializada em Angular, React, React Native, Next.js, Node.js e Generative AI & LLM Applications.",
+    "Empresa de desenvolvimento de software sob medida: sites, sistemas web, apps iOS e Android, automações com IA e manutenção, para empresas e agências de todo o Brasil.",
   slogan: "Construímos software. Reforçamos times.",
   // 2024: quando a empresa começou a atender cliente. Os 16+ anos são
   // do fundador e vivem no Person da /joao, não aqui.
@@ -151,10 +149,10 @@ const WEBSITE_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "firmino.dev",
-  alternateName: "firmino.dev · Engenharia de Software",
+  alternateName: "firmino.dev · Desenvolvimento de software sob medida",
   url: SITE_URL,
   inLanguage: "pt-BR",
-  publisher: { "@type": "Organization", name: "firmino.dev", url: SITE_URL },
+  publisher: { "@id": ORG_ID },
 };
 
 export default function RootLayout({

@@ -1,11 +1,4 @@
-import type {
-  KeyAchievement,
-  Service,
-  Project,
-  Stat,
-  Stack,
-  ClientBrand,
-} from "@/types";
+import type { Service, Project, Stat, Stack } from "@/types";
 
 /* ════════════════════════════════════════════
    Portfolio data · firmino.dev
@@ -18,26 +11,11 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Sobre", href: "/sobre" },
   { label: "Serviços", href: "/servicos" },
-  { label: "Projetos", href: "/projetos" },
-  { label: "Stack", href: "/stack" },
+  { label: "Cases", href: "/projetos" },
+  { label: "Como trabalhamos", href: "/como-trabalhamos" },
+  { label: "Sobre", href: "/sobre" },
   { label: "Blog", href: "/blog" },
-];
-
-export const HERO_TAGS = ["Angular", "React", "React Native", "Next.js", "Node.js", "Generative AI", "LLM Applications", "AI-Driven"];
-
-/**
- * Resultados de CARREIRA do fundador, obtidos como funcionário de Boticário e
- * Itaú. Não são entrega da firmino.dev e por isso só aparecem dentro do bloco
- * "quem está por trás", nunca como resultado da empresa.
- */
-export const FOUNDER_ACHIEVEMENTS: KeyAchievement[] = [
-  { value: "+80%", label: "Venda mobile", desc: "Mais conversão no celular, na Eudora e no Boticário" },
-  { value: "-60%", label: "Site mais rápido", desc: "Tempo de carga nas plataformas do Itaú" },
-  { value: "90%", label: "Sistema confiável", desc: "Bugs barrados antes do usuário, no Itaú" },
-  { value: "-50%", label: "Tempo pra lançar", desc: "Releases em metade do tempo, no Boticário" },
 ];
 
 export const SERVICES: Service[] = [
@@ -58,7 +36,7 @@ export const PROJECTS: Project[] = [
     client: "Viaza / GoMilhas",
     kind: "cliente",
     segment: "Viagens",
-    role: "Engenharia de plataforma · Web & PWA",
+    role: "Plataforma de venda de passagens para duas marcas",
     duration: "Em andamento",
     location: "Remoto, Brasil",
     summary:
@@ -121,12 +99,12 @@ export const PROJECTS: Project[] = [
     client: "Celcoin",
     kind: "cliente",
     segment: "Fintech",
-    role: "Desenvolvimento full-stack · App mobile, painel admin & BaaS",
+    role: "App de banco digital, painel de gestão e integração bancária",
     duration: "Concluído",
     location: "Remoto, Brasil",
     summary:
       "Desenvolvimento e manutenção do MyBenk, plataforma de banking white-label da Celcoin, em três frentes: o app de internet banking para o usuário final (React Native/Expo), o painel backoffice de gestão (React e Next.js) e a integração com o Banking as a Service (BaaS) da Celcoin no backend (NestJS e MongoDB). Pix, contas PF e PJ e cartões operando sob a marca do cliente, que vira o banco do próprio ecossistema.",
-    logo: "/images/logos/celcoin.png",
+    logo: "/images/logos/celcoin.webp",
     accent: "#6d28d9",
     context: [
       "A Celcoin é uma das principais empresas de infraestrutura financeira do Brasil. O MyBenk é o produto de banking white-label (Endofinance) que permite uma empresa oferecer conta, cartão e Pix sob a própria marca, virando o banco do seu próprio ecossistema (clientes, fornecedores, parceiros e colaboradores).",
@@ -189,7 +167,7 @@ export const PROJECTS: Project[] = [
     client: "OpticusPRO",
     kind: "cliente",
     segment: "Óptica",
-    role: "Desenvolvimento front-end · Estrutura inicial e componentes",
+    role: "Base do produto web: estrutura e componentes",
     duration: "2 meses",
     location: "Remoto, Brasil",
     logo: "/images/logos/opticuspro.webp",
@@ -233,7 +211,7 @@ export const PROJECTS: Project[] = [
     client: "StartPrev",
     kind: "cliente",
     segment: "Jurídico",
-    role: "Desenvolvimento mobile · App iOS e Android",
+    role: "App iOS e Android com chat e notificações",
     duration: "4 meses",
     location: "Remoto, Brasil",
     logo: "/images/logos/startprev.webp",
@@ -288,7 +266,7 @@ export const PROJECTS: Project[] = [
     client: "Velana",
     kind: "cliente",
     segment: "Fintech",
-    role: "Engenharia de plataforma · Middleware, dashboard, bot e relatórios",
+    role: "Plataforma de pagamentos Pix, painel e saque automático",
     duration: "Em andamento",
     location: "Remoto, Brasil",
     logo: "/images/logos/velana.webp",
@@ -349,7 +327,7 @@ export const PROJECTS: Project[] = [
     client: "PMERJ",
     kind: "cliente",
     segment: "Governo",
-    role: "Sustentação · Front-end Angular e API WebSocket em Node.js",
+    role: "Sustentação do portal e atualização em tempo real",
     duration: "18 meses",
     location: "Remoto, Brasil",
     logo: "/images/logos/pmerj.webp",
@@ -564,7 +542,7 @@ export const CAREER_PROJECTS: Project[] = PUBLISHED_PROJECTS.filter((p) => p.kin
 /**
  * Números da EMPRESA, contados de 2024 (primeiros clientes) em diante. Os
  * números de carreira do João vivem em PERSON_STATS (data/curriculo.ts) e só
- * aparecem na /joao e no bloco do fundador.
+ * aparecem na /joao.
  */
 export const COMPANY_STATS: Stat[] = [
   { value: "2024", label: "Empresa desde", detail: "CNPJ e contrato próprios" },
@@ -586,43 +564,6 @@ export const STACK: Stack = {
 };
 
 export const STACK_DEFAULT_TAB = "Web";
-
-/** Marcas em que o FUNDADOR trabalhou ao longo da carreira. Não são clientes
- *  da firmino.dev: aparecem apenas dentro do bloco "quem está por trás". */
-export const CLIENTS: ClientBrand[] = [
-  { name: "Itaú", logo: "/images/logos/itau.webp" },
-  { name: "O Boticário", logo: "/images/logos/oboticario.webp" },
-  { name: "TOTVS", logo: "/images/logos/totvs.webp" },
-  { name: "NTT Data", logo: "/images/logos/nttdata.webp" },
-  { name: "Viaza / GoMilhas", logo: "/images/logos/viaza.webp" },
-  { name: "Santander", logo: "/images/logos/santander.webp" },
-  { name: "Vivo", logo: "/images/logos/vivo.webp" },
-  { name: "Walmart", logo: "/images/logos/walmart.webp" },
-  { name: "UOL", logo: "/images/logos/uol.webp" },
-  { name: "Reclame Aqui", logo: "/images/logos/reclameaqui.webp" },
-  { name: "ViajaNet", logo: "/images/logos/viajanet.webp" },
-  { name: "Grupo Pão de Açúcar", logo: "/images/logos/gpa.webp" },
-];
-
-/** Rede de parceiros acionada por projeto. Sem nomes de propósito: são
- *  profissionais e estúdios independentes, não quadro fixo da empresa. */
-export const PARTNER_AREAS = [
-  {
-    icon: "◆",
-    title: "Desenvolvimento",
-    desc: "Especialistas em front-end, back-end e mobile acionados conforme o tamanho e a stack do projeto.",
-  },
-  {
-    icon: "◎",
-    title: "UI/UX",
-    desc: "Design de produto e interface para quando o projeto precisa de pesquisa, fluxo e tela antes do código.",
-  },
-  {
-    icon: "⏣",
-    title: "Marketing digital",
-    desc: "Aquisição, conteúdo e performance para quando o que foi construído precisa chegar ao cliente final.",
-  },
-];
 
 export const CONTACT = {
   email: "falecom@firmino.dev",

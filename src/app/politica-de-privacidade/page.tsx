@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { SectionLabel, JsonLd, ObfuscatedContact } from "@/components/ui";
 import { CONTACT, COMPANY } from "@/data/portfolio";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
 
 const TITLE = "Política de Privacidade · firmino.dev";
 const DESCRIPTION =
@@ -19,8 +19,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/politica-de-privacidade",
     type: "website",
+    images: OG_IMAGES,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 };
 
 export default function PrivacidadePage() {

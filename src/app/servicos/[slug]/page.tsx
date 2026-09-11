@@ -6,7 +6,7 @@ import { Navbar, Footer, Background } from "@/components/layout";
 import { Button, JsonLd, SectionLabel, Tag } from "@/components/ui";
 import { mdxComponents } from "@/components/blog/MdxComponents";
 import { mdxOptions } from "@/lib/mdx-options";
-import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, SITE_URL, OG_IMAGES } from "@/lib/seo";
 import { getAllServicoSlugs, getServicoBySlug } from "@/lib/servicos";
 import "../../blog/[slug]/prose.css";
 
@@ -41,11 +41,13 @@ export async function generateMetadata({ params }: ServicoPageProps): Promise<Me
       description: servico.description,
       url: path,
       type: "website",
+      images: OG_IMAGES,
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description: servico.description,
+      images: OG_IMAGES,
     },
   };
 }

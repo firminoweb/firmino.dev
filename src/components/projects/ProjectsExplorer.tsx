@@ -43,12 +43,7 @@ export function ProjectsExplorer() {
                 </p>
               </div>
             </div>
-            <p className="text-[13.5px] text-text-subtle leading-[1.65] mb-4">{p.summary}</p>
-            <div className="flex flex-wrap gap-1.5">
-              {p.stack.slice(0, 5).map((t) => (
-                <Tag key={t}>{t}</Tag>
-              ))}
-            </div>
+            <p className="text-[13.5px] text-text-subtle leading-[1.65] mb-0">{p.summary}</p>
           </Link>
         </Reveal>
       ))}

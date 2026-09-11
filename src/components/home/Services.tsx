@@ -13,7 +13,7 @@ export function Services() {
           <div className="text-center mb-12">
             <SectionLabel center>Serviços</SectionLabel>
             <h2 className="font-serif section-heading">
-              Como trabalhamos com <span className="text-accent-light italic">você</span>
+              O que fazemos pela <span className="text-accent-light italic">sua empresa</span>
             </h2>
           </div>
         </Reveal>

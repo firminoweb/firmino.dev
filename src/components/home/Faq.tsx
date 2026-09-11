@@ -28,6 +28,10 @@ const FAQ_ITEMS: FaqItem[] = [
     a: "Dá. A gente assume a evolução de um sistema que já existe ou entra como reforço técnico dentro do seu time ou da sua agência, no seu processo e nas suas ferramentas, sem fricção e, se você preferir, sem contato com o seu cliente final.",
   },
   {
+    q: "Quem vai trabalhar no meu projeto?",
+    a: "O fundador, João Firmino, conduz a parte técnica e é o seu ponto de contato do começo ao fim. Conforme o projeto pede, entram especialistas parceiros em desenvolvimento, design de produto e marketing digital. Você não paga por estrutura que o seu caso não precisa.",
+  },
+  {
     q: "Como começa?",
     a: "Você manda uma mensagem pelo formulário ou pelo WhatsApp contando o que precisa. Respondemos em até 24h úteis com os próximos passos, e só seguimos adiante se fizer sentido pra você.",
   },

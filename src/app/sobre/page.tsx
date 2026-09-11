@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
-import { COMPANY_STATS, CONTACT, PARTNER_AREAS } from "@/data/portfolio";
-import { PERSON_ID, PERSON } from "@/data/curriculo";
-import { breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
+import { COMPANY_STATS } from "@/data/portfolio";
+import { TEAM_AREAS } from "@/data/empresa";
+import { PERSON } from "@/data/curriculo";
+import { breadcrumbJsonLd, SITE_URL, ORG_ID, OG_IMAGES } from "@/lib/seo";
 
 const TITLE = "Sobre · firmino.dev";
 const DESCRIPTION =
@@ -19,43 +20,20 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: "/sobre",
-    type: "profile",
+    type: "website",
+    images: OG_IMAGES,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 };
 
-const PERSON_JSON_LD = {
+const ABOUT_JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": PERSON_ID,
-  name: "João Firmino",
-  url: `${SITE_URL}/joao`,
-  jobTitle: "Engenheiro de Software · Tech Lead",
-  description:
-    "Engenheiro de software com 16+ anos de experiência em Angular, React, React Native, Next.js, Node.js e aplicações com Generative AI.",
-  knowsAbout: [
-    "Angular",
-    "React",
-    "React Native",
-    "Next.js",
-    "Node.js",
-    "TypeScript",
-    "Micro-frontends",
-    "Module Federation",
-    "Clean Architecture",
-    "Generative AI",
-    "LLM Applications",
-    "AI-Driven Development",
-  ],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "São Paulo",
-    addressCountry: "BR",
-  },
-  worksFor: { "@type": "Organization", name: "firmino.dev", url: SITE_URL },
-  // sameAs de Person identifica a pessoa — a página /company/firminodev
-  // fica no sameAs da Organization (layout.tsx).
-  sameAs: ["https://linkedin.com/in/firminoweb", CONTACT.github],
+  "@type": "AboutPage",
+  name: TITLE,
+  url: `${SITE_URL}/sobre`,
+  inLanguage: "pt-BR",
+  // A Person vive na /joao; aqui a entidade principal é a empresa.
+  mainEntity: { "@id": ORG_ID },
 };
 
 const PRINCIPLES = [
@@ -76,7 +54,7 @@ const PRINCIPLES = [
   },
   {
     icon: "⏣",
-    title: "AI-Driven com responsabilidade",
+    title: "IA com responsabilidade",
     desc: "Usamos LLMs e ferramentas de IA Generativa para acelerar entrega, sem abrir mão de revisão crítica, segurança e propriedade do código.",
   },
 ];
@@ -110,7 +88,7 @@ const TIMELINE = [
 export default function AboutPage() {
   return (
     <>
-      <JsonLd data={PERSON_JSON_LD} />
+      <JsonLd data={ABOUT_JSON_LD} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -244,10 +222,10 @@ export default function AboutPage() {
                       {PERSON.name}
                     </h3>
                     <p className="text-[13px] text-accent-light font-medium mb-2.5">
-                      {PERSON.role} · {PERSON.headline}
+                      {PERSON.founderTitle}
                     </p>
                     <p className="text-[13.5px] text-text-dim leading-[1.7]">
-                      16+ anos de engenharia de software em Itaú, O Boticário, TOTVS, NTT Data, Walmart e UOL, antes de fundar a empresa. É o lastro técnico por trás de cada projeto. Ver a trajetória completa e o currículo.
+                      16+ anos de engenharia de software em Itaú, O Boticário, TOTVS, NTT Data, Walmart e UOL, antes de fundar a empresa. É o lastro técnico por trás de cada projeto. Conheça a trajetória do fundador.
                     </p>
                   </div>
                   <span className="case-arrow shrink-0 hidden sm:block">↗</span>
@@ -257,27 +235,28 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Parceiros */}
+        {/* Quem faz */}
         <section className="section-padding !pt-0">
           <div className="content-container max-w-[920px]">
             <Reveal>
               <div>
-                <SectionLabel>Rede de parceiros</SectionLabel>
+                <SectionLabel>Quem faz</SectionLabel>
                 <h2 className="font-serif section-heading !text-[clamp(26px,3.4vw,38px)] !leading-[1.18] mb-5">
-                  Um time que <span className="text-accent-light italic">monta</span> conforme o projeto
+                  Quem cuida do <span className="text-accent-light italic">seu projeto</span>
                 </h2>
                 <p className="text-[15px] text-text-muted leading-[1.85] mb-7 max-w-[640px]">
-                  Além do fundador, trabalhamos com profissionais e estúdios parceiros espalhados pelo Brasil. Cada projeto recebe a composição que ele pede, sem o cliente pagar por estrutura que o caso não precisa.
+                  Além do fundador, trabalhamos com profissionais e estúdios parceiros espalhados pelo Brasil. Cada projeto recebe as áreas que ele pede, sem o cliente pagar por estrutura que o caso não precisa.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {PARTNER_AREAS.map((a, i) => (
-                    <Reveal key={a.title} delay={i * 0.06}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {TEAM_AREAS.map((a, i) => (
+                    <Reveal key={a.id} delay={i * 0.06}>
                       <div className="gc py-7 px-6 h-full">
                         <div className="service-icon">{a.icon}</div>
                         <h3 className="text-[16px] font-bold text-text-light mb-2 tracking-tight">
                           {a.title}
                         </h3>
                         <p className="text-[13.5px] text-text-dim leading-[1.7]">{a.desc}</p>
+                        <p className="text-[11.5px] text-accent-light font-semibold mt-3">{a.entersWhen}</p>
                       </div>
                     </Reveal>
                   ))}
@@ -306,7 +285,7 @@ export default function AboutPage() {
                       <Button>Fale com a gente →</Button>
                     </Link>
                     <Link href="/projetos">
-                      <Button variant="ghost">Ver projetos</Button>
+                      <Button variant="ghost">Ver cases</Button>
                     </Link>
                   </div>
                 </div>

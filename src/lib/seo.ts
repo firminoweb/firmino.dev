@@ -3,6 +3,27 @@ export const SITE_URL =
 
 export const SITE_NAME = "firmino.dev";
 
+/** @id da Organization no grafo schema.org. Layout, /sobre, /joao e cases apontam pra ele. */
+export const ORG_ID = `${SITE_URL}/#organization`;
+
+/**
+ * Imagem de compartilhamento padrão (a rota /opengraph-image).
+ *
+ * Precisa ser declarada em TODA página que define `openGraph` próprio: o
+ * metadata da página substitui o do layout, e sem isso o link é compartilhado
+ * no WhatsApp e no LinkedIn sem prévia nenhuma. Segmentos com gerador próprio
+ * (blog/[slug], projetos/[slug]) não usam esta constante.
+ */
+export const OG_IMAGE = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: "firmino.dev · Construímos software. Reforçamos times.",
+};
+
+/** Açúcar para `openGraph.images` e `twitter.images`. */
+export const OG_IMAGES = [OG_IMAGE];
+
 export function absoluteUrl(path: string): string {
   if (path.startsWith("http")) return path;
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

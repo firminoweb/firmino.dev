@@ -218,15 +218,6 @@ export function Navbar() {
               </a>
               <span className="text-text-dim/40">·</span>
               <a
-                href={CONTACT.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[13px] text-text-muted hover:text-accent-light transition-colors"
-              >
-                GitHub
-              </a>
-              <span className="text-text-dim/40">·</span>
-              <a
                 href={CONTACT.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
