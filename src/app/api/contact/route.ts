@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { Resend } from "resend";
 import { jsonResponse, errorResponse } from "@/lib/api";
+import { describeTouch, landingPath, type Attribution } from "@/lib/attribution";
 
 const PROJECT_TYPE_LABELS: Record<string, string> = {
   web: "Site ou sistema web",
@@ -9,6 +10,12 @@ const PROJECT_TYPE_LABELS: Record<string, string> = {
   reforco: "Reforço para time ou agência",
   outro: "Outro / ainda não sei",
 };
+
+const TouchSchema = z.object({
+  l: z.string().max(300),
+  r: z.string().max(253),
+  t: z.number().int().nonnegative(),
+});
 
 const ContactSchema = z.object({
   name: z.string().min(2, "Nome muito curto").max(120, "Nome muito longo"),
@@ -20,6 +27,11 @@ const ContactSchema = z.object({
   message: z.string().min(10, "Mensagem muito curta (mín. 10 caracteres)").max(4000, "Mensagem muito longa"),
   website: z.string().max(0).optional().default(""), // honeypot — must be empty
   elapsedMs: z.number().int().nonnegative().optional().default(0),
+  // Informativo: dado de origem malformado nunca pode barrar um lead
+  attribution: z
+    .object({ session: TouchSchema.optional(), first: TouchSchema.optional() })
+    .optional()
+    .catch(undefined),
 });
 
 const MIN_FILL_TIME_MS = 2_000;
@@ -55,6 +67,27 @@ function escapeHtml(s: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function formatDate(ms: number): string {
+  return new Date(ms).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" });
+}
+
+/** "Origem do contato" lines for the lead e-mail; empty when nothing was captured. */
+function originLines(attribution: Attribution | undefined): string[] {
+  const { session, first } = attribution ?? {};
+  const lines: string[] = [];
+  if (session) {
+    lines.push(`Origem desta visita: ${describeTouch(session)}`);
+    lines.push(`Página de entrada: ${session.l}`);
+  }
+  // Só mostra a primeira visita quando ela foi outra (dia/canal diferente)
+  if (first && first.t !== session?.t) {
+    lines.push(
+      `Primeira visita: ${describeTouch(first)} em ${formatDate(first.t)}, entrada ${landingPath(first)}`,
+    );
+  }
+  return lines;
 }
 
 export async function POST(request: Request) {
@@ -99,6 +132,7 @@ export async function POST(request: Request) {
   const resend = new Resend(apiKey);
   const projectTypeLabel = PROJECT_TYPE_LABELS[data.projectType] ?? data.projectType;
   const subject = `[firmino.dev] Novo contato: ${data.name} · ${projectTypeLabel}`;
+  const origin = originLines(data.attribution);
   const html = `
     <div style="font-family: -apple-system, system-ui, sans-serif; line-height: 1.6; color: #111;">
       <h2 style="margin: 0 0 16px; font-size: 18px;">Novo contato pelo site</h2>
@@ -108,6 +142,11 @@ export async function POST(request: Request) {
       <p><strong>Tipo de projeto:</strong> ${escapeHtml(projectTypeLabel)}</p>
       <p style="margin-top: 16px;"><strong>Mensagem:</strong></p>
       <p style="white-space: pre-wrap; background: #f6f7fb; padding: 12px 14px; border-radius: 8px; border: 1px solid #e5e7eb;">${escapeHtml(data.message)}</p>
+      ${
+        origin.length
+          ? `<p style="margin-top: 24px; font-size: 13px; color: #555;"><strong>Origem do contato</strong><br>${origin.map(escapeHtml).join("<br>")}</p>`
+          : ""
+      }
     </div>
   `;
   const text = [
@@ -118,6 +157,7 @@ export async function POST(request: Request) {
     "",
     "Mensagem:",
     data.message,
+    ...(origin.length ? ["", "Origem do contato:", ...origin] : []),
   ]
     .filter(Boolean)
     .join("\n");

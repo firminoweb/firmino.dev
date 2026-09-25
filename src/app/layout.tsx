@@ -6,6 +6,7 @@ import { WhatsAppFab } from "@/components/ui";
 import { CONTACT, COMPANY } from "@/data/portfolio";
 import { PERSON_ID } from "@/data/curriculo";
 import { ORG_ID } from "@/lib/seo";
+import { ATTRIBUTION_INIT_SCRIPT } from "@/lib/attribution";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -164,6 +165,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${dmSans.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: ATTRIBUTION_INIT_SCRIPT }} />
         {GA_STUB_SCRIPT && (
           <script dangerouslySetInnerHTML={{ __html: GA_STUB_SCRIPT }} />
         )}

@@ -8,7 +8,7 @@ import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
 const TITLE = "Política de Privacidade · firmino.dev";
 const DESCRIPTION =
   "Como a firmino.dev coleta, usa e protege os seus dados pessoais, em conformidade com a LGPD (Lei nº 13.709/2018).";
-const LAST_UPDATE = "10 de junho de 2026";
+const LAST_UPDATE = "25 de setembro de 2026";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
@@ -83,7 +83,10 @@ export default function PrivacidadePage() {
                 técnicas de desempenho e registra temporariamente o endereço IP das
                 requisições, que também usamos, de forma transitória, para limitar abuso
                 no envio do formulário. A sua preferência de tema (claro/escuro) fica
-                guardada apenas no seu navegador e não chega até nós.
+                guardada apenas no seu navegador e não chega até nós. O navegador também
+                guarda a origem do acesso (o site de onde você veio, sem o endereço
+                completo, e a página em que entrou), que só é enviada junto com a sua
+                mensagem se você preencher o formulário de contato.
               </p>
               <p>
                 Não coletamos dados sensíveis e o site não se destina a menores de idade.
@@ -146,8 +149,8 @@ export default function PrivacidadePage() {
                 Usamos cookies e identificadores do Google Analytics para medição de
                 audiência. Você pode bloquear ou apagar cookies nas configurações do seu
                 navegador, e o site continua funcionando normalmente sem eles. O
-                armazenamento local do navegador guarda apenas a sua preferência de tema,
-                sem qualquer dado pessoal.
+                armazenamento local do navegador guarda apenas a sua preferência de tema
+                e a origem do acesso (por até 90 dias), sem qualquer dado pessoal.
               </p>
 
               <h2>6. Por quanto tempo guardamos</h2>
