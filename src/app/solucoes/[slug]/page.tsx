@@ -143,10 +143,22 @@ export default async function SolucaoPage({ params }: SolucaoPageProps) {
               <div className="content-container max-w-[760px]">
                 <Reveal>
                   <SectionLabel>{cases.length > 1 ? "Cases" : "Case"}</SectionLabel>
-                  <h2 className="font-serif section-heading !text-[clamp(24px,3vw,34px)] mb-8">
-                    Quem já construiu isso{" "}
-                    <span className="text-accent-light italic">com a gente</span>
-                  </h2>
+                  {solucao.prova === "setor" ? (
+                    <h2 className="font-serif section-heading !text-[clamp(24px,3vw,34px)] mb-8">
+                      Quem já construiu isso{" "}
+                      <span className="text-accent-light italic">com a gente</span>
+                    </h2>
+                  ) : (
+                    <>
+                      <h2 className="font-serif section-heading !text-[clamp(24px,3vw,34px)] mb-4">
+                        Já está funcionando{" "}
+                        <span className="text-accent-light italic">em produção</span>
+                      </h2>
+                      <p className="text-[14.5px] text-text-dim leading-[1.75] mb-8">
+                        As peças que {segmentInSentence(solucao)} precisam, como cobrança automática, aviso no celular e área do cliente, já rodam nestes projetos de outros setores:
+                      </p>
+                    </>
+                  )}
                 </Reveal>
                 <div className="flex flex-col gap-[18px]">
                   {cases.map((p) => (

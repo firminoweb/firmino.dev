@@ -142,7 +142,12 @@ function solucaoMd(slug: string): string | null {
     s.content.trim(),
     "",
     ...(cases.length
-      ? ["## Cases", "", ...cases.map((p) => link(p.title, `/projetos/${p.slug}`, `${p.client}. ${p.summary}`)), ""]
+      ? [
+          s.prova === "setor" ? "## Cases" : "## Projetos de outros setores que provam a solução",
+          "",
+          ...cases.map((p) => link(p.title, `/projetos/${p.slug}`, `${p.client}. ${p.summary}`)),
+          "",
+        ]
       : []),
     ...(s.faq.length ? ["## Perguntas frequentes", "", ...s.faq.flatMap((f) => [`### ${f.q}`, "", f.a, ""])] : []),
     ...CONTACT_FOOTER,
