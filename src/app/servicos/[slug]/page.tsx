@@ -6,7 +6,7 @@ import { Navbar, Footer, Background } from "@/components/layout";
 import { Button, JsonLd, SectionLabel, Tag } from "@/components/ui";
 import { mdxComponents } from "@/components/blog/MdxComponents";
 import { mdxOptions } from "@/lib/mdx-options";
-import { absoluteUrl, breadcrumbJsonLd, SITE_URL, OG_IMAGES } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, SITE_URL, ORG_ID, OG_IMAGES } from "@/lib/seo";
 import { getAllServicoSlugs, getServicoBySlug } from "@/lib/servicos";
 import "../../blog/[slug]/prose.css";
 
@@ -65,12 +65,16 @@ export default async function ServicoDetailPage({ params }: ServicoPageProps) {
     name: servico.title,
     description: servico.description,
     url,
+    ...(servico.tags && { serviceType: servico.tags }),
+    // @id liga o serviço à mesma entidade da empresa (layout), em vez de
+    // criar uma Organization "firmino.dev" solta em cada página
     provider: {
       "@type": "Organization",
+      "@id": ORG_ID,
       name: "firmino.dev",
       url: SITE_URL,
     },
-    areaServed: "BR",
+    areaServed: { "@type": "Country", name: "Brasil" },
     inLanguage: "pt-BR",
   };
 

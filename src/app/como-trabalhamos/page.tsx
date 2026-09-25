@@ -56,7 +56,7 @@ export default function ComoTrabalhamosPage() {
           <div className="content-container w-full max-w-[1080px]">
             <SectionLabel>Como contratar</SectionLabel>
             <h1 className="font-serif hero-heading !text-[clamp(40px,5vw,58px)] !leading-[1.06] mb-5">
-              Sem surpresa,<br />
+              Sem surpresa,{" "}<br />
               <span className="text-accent-light italic">do contrato à entrega</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">

@@ -1,3 +1,4 @@
+import { COMPANY } from "@/data/portfolio";
 import type { TeamArea, ProcessStep, EngagementModel, Guarantee } from "@/types";
 
 /* ════════════════════════════════════════════
@@ -162,3 +163,62 @@ export const GUARANTEES: Guarantee[] = [
 
 /** Recorte curto das garantias, exibido como linha de confiança no hero. */
 export const HERO_TRUST = ["Contrato e nota fiscal", "Código no seu nome", "Resposta em 24h úteis"];
+
+/**
+ * Especialidades declaradas no JSON-LD da Organization (`knowsAbout`) e no
+ * /llms.txt. É o que liga a firmino.dev a esses temas para buscadores e IAs,
+ * então só entra aqui o que a empresa de fato entrega.
+ */
+export const KNOWS_ABOUT = [
+  "Desenvolvimento de software sob medida",
+  "Desenvolvimento de sistemas web",
+  "Criação de sites institucionais",
+  "Desenvolvimento de aplicativos iOS e Android",
+  "Automação de processos com inteligência artificial",
+  "Chatbots e agentes de IA",
+  "Integração com WhatsApp, CRM e sistemas internos",
+  "Manutenção de sistemas web e aplicativos",
+  "Performance web e Core Web Vitals",
+  "Acessibilidade digital (WCAG)",
+  "React",
+  "Next.js",
+  "React Native",
+  "Micro-frontends",
+];
+
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+/** Perguntas da home. Alimentam a seção FAQ, o JSON-LD FAQPage e o /llms.txt. */
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    q: "Quanto custa um projeto?",
+    a: "Depende do tamanho. Um site institucional, um app e uma plataforma com integração têm escopos diferentes. Na primeira conversa a gente entende o que você precisa e devolve uma estimativa de investimento e prazo, sem custo e sem compromisso.",
+  },
+  {
+    q: "Em quanto tempo fica pronto?",
+    a: "Projetos menores saem em poucas semanas. Plataformas maiores avançam em entregas quinzenais, com algo já funcionando cedo pra você acompanhar de perto. O cronograma é definido junto com você antes de começar.",
+  },
+  {
+    q: "Vocês trabalham com contrato e nota fiscal?",
+    a: `Sim. Somos uma empresa registrada no Brasil (${COMPANY.legalName}, CNPJ ${COMPANY.cnpj}), com contrato e nota fiscal em todos os projetos, do pequeno negócio à grande operação.`,
+  },
+  {
+    q: "Atendem empresas fora de São Paulo?",
+    a: "Sim. O atendimento é 100% remoto, para clientes de todo o Brasil e do exterior. Workshops e imersões presenciais ficam disponíveis sob demanda na grande São Paulo.",
+  },
+  {
+    q: "Já tenho um sistema ou uma agência. Dá pra trabalhar junto?",
+    a: "Dá. A gente assume a evolução de um sistema que já existe ou entra como reforço técnico dentro do seu time ou da sua agência, no seu processo e nas suas ferramentas, sem fricção e, se você preferir, sem contato com o seu cliente final.",
+  },
+  {
+    q: "Quem vai trabalhar no meu projeto?",
+    a: "O fundador, João Firmino, conduz a parte técnica e é o seu ponto de contato do começo ao fim. Conforme o projeto pede, entram especialistas parceiros em desenvolvimento, design de produto e marketing digital. Você não paga por estrutura que o seu caso não precisa.",
+  },
+  {
+    q: "Como começa?",
+    a: "Você manda uma mensagem pelo formulário ou pelo WhatsApp contando o que precisa. Respondemos em até 24h úteis com os próximos passos, e só seguimos adiante se fizer sentido pra você.",
+  },
+];

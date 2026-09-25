@@ -80,6 +80,7 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 | **Resend** (e-mail) | `src/app/api/contact/route.ts` | Envia o lead para `CONTACT_TO_EMAIL`. Sem `RESEND_API_KEY` só loga no console (dev). |
 | **WhatsApp** (wa.me) | `whatsappLink()` em `src/data/portfolio.ts`, `WhatsAppButton`, `WhatsAppFab` | Link com mensagem pré-preenchida; clique dispara `generate_lead`. |
 | **Vercel** | hospedagem, `@vercel/speed-insights` no layout | |
+| **Busca por IA e agentes** | `src/lib/markdown.ts`, `src/app/llms.txt/`, `src/app/md/[[...path]]/`, `src/app/robots.txt/`, `next.config.ts` | Ver seção "IA e agentes" abaixo. |
 | **Atribuição de leads** | `src/lib/attribution.ts` | Script inline no `<head>` guarda a origem da visita (host do referrer + página de entrada com UTMs) em `sessionStorage` (`firmino-touch`) e `localStorage` (`firmino-first-touch`, 90 dias). O formulário envia e a API escreve "Origem do contato" no e-mail. |
 
 ### Convenção de eventos GA
@@ -92,8 +93,8 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 
 ```
 content/
-  blog/*.mdx            Posts (frontmatter: title, description, date, tags, author, cover)
-  servicos/*.mdx        Página de detalhe de cada serviço (slug = SERVICES[].slug)
+  blog/*.mdx            Posts (frontmatter: title, description, date, updated?, tags, author, cover)
+  servicos/*.mdx        Página de detalhe de cada serviço (slug = SERVICES[].slug; frontmatter updated? opcional)
 docs/superpowers/       Specs e planos de features (brainstorming/writing-plans)
 public/                 Imagens, fontes, PDF do CV, assets sociais exportados
 scripts/
@@ -109,32 +110,48 @@ src/
     como-trabalhamos/, sobre/, contato/, stack/, joao/, politica-de-privacidade/
     api/contact/route.ts          POST do formulário (zod + honeypot + tempo mínimo + rate limit + Resend)
     social/avatar|banner/         Geração de imagens para redes sociais
-    opengraph-image, twitter-image, icon, apple-icon, sitemap.ts, robots.ts
+    llms.txt/route.ts             Resumo do site em Markdown para IAs (gerado dos dados)
+    md/[[...path]]/route.ts       Versão Markdown das páginas (alvo dos rewrites por Accept)
+    robots.txt/route.ts           robots.txt com Content-Signal (route handler, não robots.ts)
+    opengraph-image, twitter-image, icon, apple-icon, sitemap.ts
     layout.tsx          Fontes, tema, GA, atribuição, JSON-LD Organization/WebSite, WhatsAppFab
     globals.css         Tokens Tailwind v4, tema claro (padrão) e escuro (data-theme="dark")
   components/
     home/ layout/ blog/ projects/ forms/ ui/   (cada pasta exporta via index.ts)
   data/                 Fonte da verdade do conteúdo estruturado
     portfolio.ts        NAV, SERVICES, PROJECTS (cases), STACK, CONTACT, COMPANY, whatsappLink()
-    empresa.ts          Time, processo, modelos de contratação, garantias, HERO_TRUST
+    empresa.ts          Time, processo, modelos de contratação, garantias, HERO_TRUST, KNOWS_ABOUT, FAQ_ITEMS
     curriculo.ts        Dados da página /joao e do PDF do CV
   lib/
     analytics.ts        trackEvent()
     attribution.ts      Origem dos leads (script inline + classificação de canal)
+    markdown.ts         llmsTxt(), pageMarkdown(), markdownPaths(): Markdown para IAs
     api.ts              jsonResponse / errorResponse (padrão { success, data | error })
     blog.ts, servicos.ts, mdx-options.ts   Leitura e renderização de MDX
-    seo.ts              SITE_URL, ORG_ID, OG images, breadcrumbJsonLd()
+    seo.ts              SITE_URL, ORG_ID, OG images, breadcrumbJsonLd(), itemListJsonLd()
   hooks/                useInView, useScrolled
   types/index.ts        Tipos compartilhados (Service, Project, etc.)
 ```
 
 Alias de import: `@/*` → `src/*`.
 
+## IA e agentes
+
+- **`/llms.txt`**: resumo do site (empresa, especialidades, garantias, serviços, cases, FAQ, artigos), gerado por `llmsTxt()`.
+- **Markdown por negociação de conteúdo**: requisição com `Accept: text/markdown` em `/`, `/como-trabalhamos`, `/servicos[/slug]`, `/projetos[/slug]` e `/blog[/slug]` é reescrita (`beforeFiles` em `next.config.ts`, sem middleware) para `/md/...`, que devolve Markdown com `Vary: Accept` e `Link rel="canonical"` para a página HTML. Página nova com conteúdo relevante: adicionar em `pageMarkdown()`, `markdownPaths()` **e** em `MD_PAGES` no `next.config.ts` (os três precisam bater).
+- **Link headers (RFC 8288)**: todas as páginas apontam para `/llms.txt` e `/sitemap.xml`; as que têm Markdown também têm `rel="alternate"; type="text/markdown"`.
+- **robots.txt**: `Content-Signal: search=yes, ai-input=yes, ai-train=yes` (decisão do João em 2026-09-25: liberar tudo). O `MetadataRoute.Robots` não suporta essa diretiva, por isso é route handler.
+- **JSON-LD**: Organization com `knowsAbout` (`KNOWS_ABOUT`) e `hasOfferCatalog`; `ItemList` em `/servicos` e `/projetos`; `Service.provider` aponta para `ORG_ID`.
+- **Não implementado de propósito**: OAuth/OIDC, API Catalog, MCP Server Card, auth.md, Agent Skills, WebMCP, ARD e DNS-AID. O site não expõe API nem ferramentas para agentes; só faz sentido se isso mudar.
+- Teste: `curl -H "Accept: text/markdown" localhost:3000/servicos` e https://isitagentready.com (Cloudflare).
+
 ## Convenções de código
 
 - Server Components por padrão; `"use client"` só onde há estado/eventos.
 - Conteúdo e dados ficam em `src/data/` e `content/`, não espalhados em componentes.
 - Cases: `draft: true` esconde; `kind: "cliente" | "carreira"`.
+- Ao revisar de verdade um post ou serviço, preencha `updated: AAAA-MM-DD` no frontmatter. O sitemap só usa datas reais (nunca a hora do build); páginas sem data ficam sem `lastmod`.
+- Títulos com quebra de linha: use `{" "}<br />`. Sem o espaço, robôs e IAs leem as palavras grudadas.
 - Contato: e-mail e telefone exibidos via `ObfuscatedContact` (fora do HTML estático). O e-mail só aparece em texto puro no JSON-LD.
 - Tema: claro é o padrão, escuro é opt-in pelo toggle (não segue o SO).
 - Storage do navegador (`localStorage`/`sessionStorage`) sempre em `try/catch`. Qualquer dado novo guardado no navegador exige atualizar a Política de Privacidade.

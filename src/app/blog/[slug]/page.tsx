@@ -81,7 +81,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.updated ?? post.date,
     inLanguage: "pt-BR",
     url,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },

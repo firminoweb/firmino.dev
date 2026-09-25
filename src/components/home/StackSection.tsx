@@ -15,7 +15,7 @@ export function StackSection() {
           <div className="text-center mb-12">
             <SectionLabel center>Nossa Stack</SectionLabel>
             <h2 className="font-serif section-heading">
-              Tecnologias que usamos para<br />
+              Tecnologias que usamos para{" "}<br />
               <span className="text-accent-light italic">entregar resultados</span>
             </h2>
           </div>

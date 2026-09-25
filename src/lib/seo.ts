@@ -46,3 +46,19 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
     })),
   };
 }
+
+/** ItemList para páginas de listagem (/servicos, /projetos): diz ao buscador e às IAs quais itens a página agrupa. */
+export function itemListJsonLd(name: string, items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      url: absoluteUrl(item.path),
+    })),
+  };
+}

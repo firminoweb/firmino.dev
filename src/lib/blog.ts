@@ -10,6 +10,8 @@ export interface BlogPostMeta {
   title: string;
   description: string;
   date: string;
+  /** Última revisão relevante (frontmatter `updated`). Alimenta dateModified e o sitemap. */
+  updated?: string;
   author?: string;
   tags?: string[];
   cover?: string;
@@ -29,17 +31,22 @@ function listFiles(): string[] {
   return fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".mdx"));
 }
 
+function toIsoDate(value: unknown): string {
+  return value instanceof Date ? value.toISOString().slice(0, 10) : String(value);
+}
+
 function parseFile(file: string): BlogPost {
   const raw = fs.readFileSync(path.join(BLOG_DIR, file), "utf8");
   const { data, content } = matter(raw);
   const slug = file.replace(/\.mdx$/, "");
-  const date = data.date instanceof Date ? data.date.toISOString().slice(0, 10) : String(data.date);
+  const date = toIsoDate(data.date);
 
   return {
     slug,
     title: String(data.title ?? slug),
     description: String(data.description ?? ""),
     date,
+    updated: data.updated ? toIsoDate(data.updated) : undefined,
     author: data.author ? String(data.author) : undefined,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : undefined,
     cover: data.cover ? String(data.cover) : undefined,

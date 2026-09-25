@@ -15,7 +15,7 @@ export function ComoFunciona() {
           <div className="text-center mb-12">
             <SectionLabel center>Como trabalhamos</SectionLabel>
             <h2 className="font-serif section-heading">
-              Do primeiro contato ao<br />
+              Do primeiro contato ao{" "}<br />
               <span className="text-accent-light italic">sistema rodando</span>
             </h2>
             <p className="text-[14px] sm:text-[15px] text-text-dim leading-[1.75] max-w-[560px] mx-auto mt-5">

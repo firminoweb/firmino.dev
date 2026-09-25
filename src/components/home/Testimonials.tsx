@@ -41,7 +41,7 @@ export function Testimonials() {
           <div className="text-center mb-12">
             <SectionLabel center>Depoimentos</SectionLabel>
             <h2 className="font-serif section-heading">
-              Quem contratou<br />
+              Quem contratou{" "}<br />
               <span className="text-accent-light italic">recomenda</span>
             </h2>
           </div>

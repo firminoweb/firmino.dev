@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { SectionLabel, JsonLd } from "@/components/ui";
 import { ProjectsExplorer } from "@/components/projects/ProjectsExplorer";
-import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
+import { breadcrumbJsonLd, itemListJsonLd, OG_IMAGES } from "@/lib/seo";
+import { CLIENT_PROJECTS } from "@/data/portfolio";
 
 const TITLE = "Cases · firmino.dev";
 const DESCRIPTION =
@@ -31,6 +32,12 @@ export default function ProjetosPage() {
           { name: "Cases", path: "/projetos" },
         ])}
       />
+      <JsonLd
+        data={itemListJsonLd(
+          "Cases de clientes da firmino.dev",
+          CLIENT_PROJECTS.map((p) => ({ name: p.title, path: `/projetos/${p.slug}` })),
+        )}
+      />
       <Background />
       <Navbar />
       <div className="relative z-[1]">
@@ -38,7 +45,7 @@ export default function ProjetosPage() {
           <div className="content-container w-full max-w-[920px]">
             <SectionLabel>Cases</SectionLabel>
             <h1 className="font-serif hero-heading !text-[clamp(40px,5vw,58px)] !leading-[1.06] mb-5">
-              O que entregamos<br />
+              O que entregamos{" "}<br />
               <span className="text-accent-light italic">pra quem nos contratou</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">

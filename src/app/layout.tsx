@@ -3,7 +3,8 @@ import { DM_Sans, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { WhatsAppFab } from "@/components/ui";
-import { CONTACT, COMPANY } from "@/data/portfolio";
+import { CONTACT, COMPANY, SERVICES } from "@/data/portfolio";
+import { KNOWS_ABOUT } from "@/data/empresa";
 import { PERSON_ID } from "@/data/curriculo";
 import { ORG_ID } from "@/lib/seo";
 import { ATTRIBUTION_INIT_SCRIPT } from "@/lib/attribution";
@@ -134,6 +135,20 @@ const ORG_JSON_LD = {
     addressCountry: "BR",
   },
   areaServed: { "@type": "Country", name: "Brasil" },
+  knowsAbout: KNOWS_ABOUT,
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Serviços da firmino.dev",
+    url: `${SITE_URL}/servicos`,
+    itemListElement: SERVICES.map((s) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.title,
+        url: `${SITE_URL}/servicos/${s.slug}`,
+      },
+    })),
+  },
   telephone: "+5511970836907",
   contactPoint: {
     "@type": "ContactPoint",

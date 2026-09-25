@@ -17,8 +17,52 @@ if (STRAPI_URL) {
   }
 }
 
+// Páginas com versão Markdown (src/lib/markdown.ts). Precisa bater com
+// pageMarkdown()/markdownPaths().
+const MD_SECTION = "servicos|projetos|blog";
+const MD_PAGES = [
+  { source: "/", md: "/md" },
+  { source: `/:section(${MD_SECTION}|como-trabalhamos)`, md: "/md/:section" },
+  { source: `/:section(${MD_SECTION})/:slug`, md: "/md/:section/:slug" },
+];
+
+const ACCEPTS_MARKDOWN = [
+  { type: "header" as const, key: "accept", value: "(.*)text/markdown(.*)" },
+];
+
+// RFC 8288: aponta agentes para o resumo do site e o sitemap
+const DISCOVERY_LINKS = '</llms.txt>; rel="describedby"; type="text/plain", </sitemap.xml>; rel="sitemap"';
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Negociação de conteúdo: agente que pede `Accept: text/markdown` recebe a
+  // versão Markdown na mesma URL; navegador segue recebendo HTML. É resolvido
+  // no roteamento (sem middleware), então não custa nada nas visitas normais.
+  // O Vary: Accept sai da rota /md (o Next sobrescreve Vary nas páginas HTML).
+  async rewrites() {
+    return {
+      beforeFiles: MD_PAGES.map(({ source, md }) => ({
+        source,
+        destination: md,
+        has: ACCEPTS_MARKDOWN,
+      })),
+      afterFiles: [],
+      fallback: [],
+    };
+  },
+  // Quando dois blocos casam a mesma URL, o último vence: o genérico vem
+  // primeiro e as páginas com Markdown sobrescrevem incluindo o alternate.
+  async headers() {
+    return [
+      { source: "/:path*", headers: [{ key: "Link", value: DISCOVERY_LINKS }] },
+      ...MD_PAGES.map(({ source, md }) => ({
+        source,
+        headers: [
+          { key: "Link", value: `${DISCOVERY_LINKS}, <${md}>; rel="alternate"; type="text/markdown"` },
+        ],
+      })),
+    ];
+  },
   reactStrictMode: true,
   images: {
     formats: ["image/avif", "image/webp"],
