@@ -1,0 +1,28 @@
+name: IndexNow
+
+# Avisa o Bing (e demais buscadores do IndexNow) depois de cada deploy de
+# produção da Vercel. Ver scripts/indexnow.mjs.
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Enviar o sitemap inteiro"
+        type: boolean
+        default: false
+
+jobs:
+  indexnow:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Enviar URLs ao IndexNow
+        run: node scripts/indexnow.mjs ${{ inputs.all && '--all' || '' }}

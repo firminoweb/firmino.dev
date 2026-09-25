@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { WhatsAppFab } from "@/components/ui";
+import { WhatsAppFab, WebMcpTools } from "@/components/ui";
 import { CONTACT, COMPANY, SERVICES } from "@/data/portfolio";
 import { KNOWS_ABOUT } from "@/data/empresa";
 import { PERSON_ID } from "@/data/curriculo";
@@ -188,6 +188,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className="bg-bg text-text-main min-h-screen font-sans overflow-x-hidden">
         {children}
         <WhatsAppFab />
+        <WebMcpTools />
         <SpeedInsights />
         <script
           type="application/ld+json"

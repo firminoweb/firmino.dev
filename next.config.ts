@@ -30,8 +30,9 @@ const ACCEPTS_MARKDOWN = [
   { type: "header" as const, key: "accept", value: "(.*)text/markdown(.*)" },
 ];
 
-// RFC 8288: aponta agentes para o resumo do site e o sitemap
-const DISCOVERY_LINKS = '</llms.txt>; rel="describedby"; type="text/plain", </sitemap.xml>; rel="sitemap"';
+// RFC 8288: aponta agentes para o resumo do site, o sitemap e o catálogo de APIs (RFC 9727)
+const DISCOVERY_LINKS =
+  '</llms.txt>; rel="describedby"; type="text/plain", </sitemap.xml>; rel="sitemap", </.well-known/api-catalog>; rel="api-catalog"';
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
