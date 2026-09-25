@@ -39,7 +39,7 @@ export const ContactSchema = z.object({
     .optional()
     .default(0)
     .describe(`Milissegundos entre abrir o formulário e enviar. Abaixo de ${MIN_FILL_TIME_MS} o envio é descartado como spam.`),
-  channel: z.enum(["form", "webmcp", "api"]).optional().default("api").describe("Canal de envio"),
+  channel: z.enum(["form", "webmcp", "mcp", "api"]).optional().default("api").describe("Canal de envio"),
   // Informativo: dado de origem malformado nunca pode barrar um lead
   attribution: z
     .object({ session: TouchSchema.optional(), first: TouchSchema.optional() })
