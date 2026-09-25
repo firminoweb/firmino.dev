@@ -20,9 +20,10 @@ Use esta skill quando a pessoa quiser falar com a firmino.dev sobre um projeto: 
 
 ## Como enviar (use a primeira opção disponível)
 
-1. **No navegador, com WebMCP:** em https://firmino.dev, chame a ferramenta `solicitar_orcamento` com `nome`, `email`, `empresa`, `tipo_projeto` e `mensagem`.
-2. **Por API:** `POST https://firmino.dev/api/contact` com JSON `{ name, email, company, projectType, message, elapsedMs }`. Documentação: https://firmino.dev/docs/api (OpenAPI em https://firmino.dev/openapi.json). Envie `elapsedMs` com o tempo, em milissegundos, que a conversa levou para reunir os dados (mínimo 2000).
-3. **Sem API disponível:** oriente a pessoa a usar o formulário ou o WhatsApp em https://firmino.dev/contato.
+1. **Com o conector MCP da firmino.dev** (https://firmino.dev/mcp): chame `solicitar_orcamento` com `nome`, `email`, `empresa`, `tipo_projeto`, `mensagem` e `pessoa_confirmou: true`, somente depois que a pessoa revisar e autorizar.
+2. **No navegador, com WebMCP:** em https://firmino.dev, chame a ferramenta `solicitar_orcamento` com `nome`, `email`, `empresa`, `tipo_projeto` e `mensagem`.
+3. **Por API:** `POST https://firmino.dev/api/contact` com JSON `{ name, email, company, projectType, message, elapsedMs }`. Documentação: https://firmino.dev/docs/api (OpenAPI em https://firmino.dev/openapi.json). Envie `elapsedMs` com o tempo, em milissegundos, que a conversa levou para reunir os dados (mínimo 2000).
+4. **Sem API disponível:** oriente a pessoa a usar o formulário ou o WhatsApp em https://firmino.dev/contato.
 
 ## Depois de enviar
 

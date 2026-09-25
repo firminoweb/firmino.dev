@@ -64,7 +64,8 @@ Site institucional da **firmino.dev** (J. H. FIRMINO & CIA LTDA, CNPJ 43.699.300
 | UI | **React 19**, TypeScript (strict), `clsx` |
 | Estilo | **Tailwind CSS v4** (tokens em `@theme` no `globals.css`, sem `tailwind.config`), `@tailwindcss/typography` |
 | Conteúdo | MDX em `content/` via `next-mdx-remote` + `gray-matter` + `reading-time`, código com `rehype-pretty-code` + `shiki` |
-| Validação | `zod` v4 (API de contato) |
+| Validação | `zod` v4 (API de contato, ferramentas MCP) |
+| MCP | `mcp-handler` 2.x + `@modelcontextprotocol/server` 2.x (servidor em `/mcp`, sem sessão, sem Redis) |
 | Imagens OG/sociais | `next/og` (`ImageResponse`) |
 | PDF do currículo | `pdfkit` (script `build:cv`) |
 | Qualidade | ESLint 9 (`eslint-config-next`), Lighthouse CI (`@lhci/cli`, performance mínima 0.9) |
@@ -86,7 +87,7 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 
 ### Convenção de eventos GA
 
-- `generate_lead` com `method: "form" | "whatsapp" | "webmcp"` e `source` (qual botão). É o evento de conversão (evento-chave no GA).
+- `generate_lead` com `method: "form" | "whatsapp" | "webmcp"` e `source` (qual botão). É o evento de conversão (evento-chave no GA). Leads via MCP não passam pelo navegador e não geram evento no GA; aparecem só no e-mail ("Enviado por: Assistente de IA via conector MCP").
 - `cta_click` para CTAs que não são lead (via `TrackedLink` / `TrackedExternalLink`).
 - Não crie nomes de evento novos sem necessidade; reutilize esses com parâmetros.
 
@@ -118,6 +119,9 @@ src/
     openapi.json/, docs/api/      OpenAPI e documentação (Markdown) da API pública
     .well-known/api-catalog/      Catálogo de APIs (RFC 9727)
     .well-known/agent-skills/     index.json + <name>/SKILL.md (Agent Skills Discovery v0.2.0)
+    .well-known/mcp/server-card.json/   MCP Server Card (SEP-1649)
+    .well-known/ai-catalog.json/, ard.json/   Catálogo ARD (mesmo conteúdo nos dois caminhos)
+    mcp/route.ts                  Servidor MCP (Streamable HTTP) com as 4 ferramentas
     social/avatar|banner/         Geração de imagens para redes sociais
     llms.txt/route.ts             Resumo do site em Markdown para IAs (gerado dos dados)
     md/[[...path]]/route.ts       Versão Markdown das páginas (alvo dos rewrites por Accept)
@@ -138,6 +142,10 @@ src/
     attribution.ts      Origem dos leads (script inline + classificação de canal)
     markdown.ts         llmsTxt(), pageMarkdown(), markdownPaths(): Markdown para IAs
     contact.ts          ContactSchema (zod) do POST /api/contact. Só servidor.
+    contact-service.ts  submitContact(): validação, antispam, rate limit e e-mail. Usado por /api/contact e /mcp.
+    agent-tools.ts      Nome, título e descrição das ferramentas + readablePath(). Sem zod (vai pro cliente).
+    mcp.ts              MCP_SERVER (nome, versão, endpoint, descrição)
+    ai-catalog.ts       mcpServerCard() e aiCatalog() (ARD)
     contact-options.ts  PROJECT_TYPES, MIN_FILL_TIME_MS, LEAD_CHANNELS. Sem zod: pode ir pro cliente.
     api-docs.ts         openApiSpec() (gerado do ContactSchema) e apiDocsMd()
     webmcp.ts           Ferramentas WebMCP (carregado sob demanda por components/ui/WebMcpTools)
@@ -178,7 +186,11 @@ Alias de import: `@/*` → `src/*`.
 - **API pública**: só o `POST /api/contact`. Publicada em `/.well-known/api-catalog` (RFC 9727, com `rel="api-catalog"` no Link header global), `/openapi.json` (gerado do `ContactSchema`, sem honeypot/atribuição/canal) e `/docs/api`. Campo novo no contato: atualizar `lib/contact.ts`; o OpenAPI acompanha sozinho, a tabela de `apiDocsMd()` não.
 - **Agent Skills**: `/.well-known/agent-skills/index.json` lista as skills de `content/agent-skills/` com digest sha256 calculado no build. Hoje: `conhecer-firmino-dev` e `solicitar-orcamento-firmino-dev`.
 - **Zod fora do cliente**: `lib/contact.ts` importa zod; código `"use client"` e `lib/webmcp.ts` importam só de `lib/contact-options.ts`.
-- **Não implementado de propósito**: OAuth/OIDC, OAuth Protected Resource, auth.md (a API não exige login), MCP Server Card, ARD e DNS-AID (não há servidor MCP/A2A para anunciar).
+- **Servidor MCP** (`/mcp`): as mesmas 4 ferramentas do WebMCP, com descrições compartilhadas via `lib/agent-tools.ts` (mudou uma, mudou nas duas). Leitura via `pageMarkdown()`. `solicitar_orcamento` chama `submitContact()` com `channel: "mcp"` e exige `pessoa_confirmou: true` (fora do navegador não existe clique de "enviar"). O rate limit usa um balde único `"mcp"`, porque o IP que chega é o do assistente (Anthropic, OpenAI), não o da pessoa. Sem login: qualquer um adiciona como conector.
+- **Descoberta do MCP**: Server Card em `/.well-known/mcp/server-card.json` e ARD em `/.well-known/ai-catalog.json` (caminho que o isitagentready usa) e `/.well-known/ard.json` (caminho da spec ARD). O ARD lista o servidor MCP, o OpenAPI, as skills e o `llms.txt`, com `representativeQueries` em PT-BR. Os dois catálogos saem com `Access-Control-Allow-Origin: *`.
+- **DNS-AID**: `_index._agents` e `_mcp._agents` (ver "Infraestrutura").
+- **Teste do MCP**: cliente oficial `@modelcontextprotocol/sdk` (StreamableHTTPClientTransport) contra `localhost:3000/mcp`. Validação externa: `POST https://isitagentready.com/api/scan` com `{"url":"https://firmino.dev"}`.
+- **Não implementado de propósito**: OAuth/OIDC, OAuth Protected Resource e auth.md. Pedir orçamento é público por natureza, e exigir login criaria atrito na conversão. Só faz sentido se existir uma área do cliente logada. Também não há `_a2a._agents` (não temos agente A2A).
 - Teste: `curl -H "Accept: text/markdown" localhost:3000/servicos`, `curl localhost:3000/.well-known/api-catalog` e https://isitagentready.com (Cloudflare). WebMCP: Chromium com `document.modelContext` simulado via `addInitScript` (Playwright).
 
 ## Convenções de código
@@ -221,19 +233,20 @@ Configurado fora do repositório. Mudou algo no painel? Atualize aqui.
 | Proxy Cloudflare | **Desligado (nuvem cinza) de propósito** | A Vercel já é o CDN. Com o proxy ligado, o bloqueio de robôs de IA e o robots.txt gerenciado da Cloudflare ("AI Crawl Control") podem sobrescrever o nosso `robots.txt` e bloquear ChatGPT/Perplexity. Não ligar sem revisar isso. |
 | DNSSEC | **Ativo desde 2026-09-25** | DS `2371 13 2` publicado no `.dev`. **Desative o DNSSEC antes de trocar de provedor DNS ou de nameservers**, senão o domínio para de resolver. |
 | Hospedagem | **Vercel** | Deploy automático a partir da `main`. |
+| Firewall Vercel (WAF) | Regra de rate limit em `POST /api/contact` por IP | Complementa o limite em memória do código, que vale por instância. No Hobby cabe 1 regra de rate limit. Não inclua `/mcp` (uma conversa faz várias leituras seguidas; o MCP tem o balde próprio no código). |
 | E-mail da empresa | **Proton Mail** | MX `mail`/`mailsec.protonmail.ch`, SPF `include:_spf.protonmail.ch`, DKIM `protonmail{,2,3}._domainkey`, DMARC `p=quarantine` (sem `rua`, ou seja, sem relatórios). |
 | E-mail transacional | **Resend** | DKIM `resend._domainkey`; subdomínio `send.firmino.dev` (MX + SPF da Amazon SES) para o envio do formulário. |
 | Google Search Console | TXT `google-site-verification` | Propriedade de domínio. |
-| DNS-AID (`_agents`) | **Não publicado** | Só faz sentido quando existir um serviço de agente (MCP/A2A) para anunciar. |
+| DNS-AID (`_agents`) | **`_index._agents` publicado desde 2026-09-25** | Registro `HTTPS 1 firmino.dev. alpn="h2" port="443"`, assinado pelo DNSSEC. É a porta de entrada da organização para agentes: aponta para o site, que publica api-catalog, Agent Skills, `llms.txt` e WebMCP. Só `h2`, porque a Vercel não anuncia HTTP/3 neste domínio. `_mcp._agents` aponta para o servidor `/mcp` (mesmo formato). **Não publique `_a2a._agents`** enquanto não existir um agente A2A de verdade. |
 
-Conferir pelo terminal: `dig +short DS firmino.dev`, `dig +short TXT firmino.dev`, `dig +dnssec firmino.dev A @1.1.1.1` (flag `ad` = DNSSEC validando).
+Conferir pelo terminal: `dig +short DS firmino.dev`, `dig +short TXT firmino.dev`, `dig +dnssec firmino.dev A @1.1.1.1` (flag `ad` = DNSSEC validando), `dig +dnssec HTTPS _index._agents.firmino.dev @1.1.1.1` (DNS-AID).
 
 ## Monitoramento de IA e SEO
 
 | Ferramenta | Situação | Para quê |
 |---|---|---|
 | GA4, Aquisição de tráfego | Ativo | Canal "AI Assistant" = visitas vindas de ChatGPT, Perplexity etc. `generate_lead` deve estar marcado como evento-chave. |
-| isitagentready.com (Cloudflare) | **40/100, nível 2 "Agent-Integrated"** em 2026-09-25 (era 20) | Prontidão para agentes. Faltam DNS-AID e os 8 itens de API/Auth/MCP (ver "IA e agentes"). |
+| isitagentready.com (Cloudflare) | **60/100, nível 4** em 2026-09-25 (era 20 de manhã, 40 depois do Markdown), antes do DNS-AID | Prontidão para agentes. Pendentes de propósito: OAuth/OIDC, OAuth Protected Resource, auth.md (API pública, sem login), MCP Server Card e ARD (sem servidor MCP). |
 | Google Search Console | Ativo | Indexação e desempenho (inclui AI Overviews). |
 | Bing Webmaster Tools | Ativo desde 2026-09-25 (importado do Search Console) | Índice que alimenta ChatGPT Search e Copilot. Relatório "AI Performance" (beta) mostra citações em IA. IndexNow aparece no menu IndexNow. |
 

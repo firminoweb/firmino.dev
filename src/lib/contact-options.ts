@@ -23,5 +23,6 @@ export const MIN_FILL_TIME_MS = 2_000;
 export const LEAD_CHANNELS = {
   form: "Formulário do site",
   webmcp: "Agente de IA no navegador (WebMCP)",
+  mcp: "Assistente de IA via conector MCP (Claude, ChatGPT...)",
   api: "API (agente ou integração)",
 } as const;
