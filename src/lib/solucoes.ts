@@ -7,8 +7,10 @@ import type { FaqItem } from "@/data/empresa";
    Soluções por segmento · firmino.dev
    content/solucoes/<slug>.mdx → /solucoes/<slug>
    Slug = termo que o cliente busca (ex.:
-   sistema-para-advocacia). Só entra segmento
-   com case de cliente real em `cases`.
+   sistema-para-advocacia). Todo segmento tem
+   case de cliente real em `cases`: do próprio
+   setor (prova "setor") ou que prova as peças
+   que o setor precisa (prova "capacidade").
    ════════════════════════════════════════════ */
 
 const SOLUCOES_DIR = path.join(process.cwd(), "content/solucoes");
@@ -26,6 +28,12 @@ export interface SolucaoContent {
   tags: string[];
   /** Slugs de PROJECTS que provam o segmento (precisam ser cases de cliente). */
   cases: string[];
+  /**
+   * "setor": os cases são do próprio segmento. "capacidade": os cases são de
+   * outros setores, mas provam as peças que este segmento usa; o texto nunca
+   * pode sugerir experiência no setor.
+   */
+  prova: "setor" | "capacidade";
   /** Slugs de SERVICES relacionados. */
   servicos: string[];
   /** Mensagem pré-preenchida do WhatsApp. */
@@ -60,6 +68,7 @@ function parseFile(file: string): SolucaoContent {
     icon: String(data.icon ?? "◆"),
     tags: list(data.tags),
     cases: list(data.cases),
+    prova: data.prova === "capacidade" ? "capacidade" : "setor",
     servicos: list(data.servicos),
     whatsapp: String(data.whatsapp),
     faq: Array.isArray(data.faq)
@@ -86,7 +95,11 @@ export function segmentInSentence(s: SolucaoContent): string {
   return s.segment.charAt(0).toLowerCase() + s.segment.slice(1);
 }
 
-/** Soluções que citam o case, para linkar a página do case de volta ao segmento. */
+/**
+ * Soluções do próprio setor do case, para linkar a página do case de volta ao
+ * segmento. Prova por capacidade fica de fora: o case da Velana não é "de
+ * academia", e o botão sugeriria isso.
+ */
 export function getSolucoesForCase(projectSlug: string): SolucaoContent[] {
-  return getAllSolucoes().filter((s) => s.cases.includes(projectSlug));
+  return getAllSolucoes().filter((s) => s.prova === "setor" && s.cases.includes(projectSlug));
 }

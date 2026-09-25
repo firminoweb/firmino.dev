@@ -67,7 +67,10 @@ export default function SolucoesPage() {
                     <p className="text-[14.5px] text-text-dim leading-[1.75] mb-5">{s.description}</p>
                     {cases.length > 0 && (
                       <p className="text-[13px] text-text-subtle mb-5">
-                        <span className="font-semibold">Case:</span> {cases.map((p) => p.client).join(", ")}
+                        <span className="font-semibold">
+                          {s.prova === "setor" ? "Case:" : "Tecnologia provada em:"}
+                        </span>{" "}
+                        {cases.map((p) => p.client).join(", ")}
                       </p>
                     )}
                     <div className="flex flex-wrap gap-1.5 mb-5">
