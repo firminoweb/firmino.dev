@@ -95,6 +95,7 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 ```
 content/
   agent-skills/*.md     Skills para agentes (frontmatter name = nome do arquivo, description)
+  solucoes/*.mdx        Páginas por segmento (/solucoes/<slug>; ver "Soluções por segmento")
   blog/*.mdx            Posts (frontmatter: title, description, date, updated?, tags, author, cover)
   servicos/*.mdx        Página de detalhe de cada serviço (slug = SERVICES[].slug; frontmatter updated? opcional)
 docs/superpowers/       Specs e planos de features (brainstorming/writing-plans)
@@ -108,6 +109,7 @@ src/
   app/                  Rotas (App Router)
     page.tsx            Home (seções em components/home)
     servicos/, servicos/[slug]/   Lista e detalhe (MDX de content/servicos)
+    solucoes/, solucoes/[slug]/   Soluções por segmento (MDX de content/solucoes)
     projetos/, projetos/[slug]/   Cases (dados em data/portfolio.ts)
     blog/, blog/[slug]/           Blog MDX
     como-trabalhamos/, sobre/, contato/, stack/, joao/, politica-de-privacidade/
@@ -125,6 +127,8 @@ src/
     globals.css         Tokens Tailwind v4, tema claro (padrão) e escuro (data-theme="dark")
   components/
     home/ layout/ blog/ projects/ forms/ ui/   (cada pasta exporta via index.ts)
+    projects/CaseCard.tsx   Card de case reutilizado na home e nas soluções
+    home/Faq.tsx            Aceita `items`/`title` (padrão = FAQ da home) e gera o FAQPage
   data/                 Fonte da verdade do conteúdo estruturado
     portfolio.ts        NAV, SERVICES, PROJECTS (cases), STACK, CONTACT, COMPANY, whatsappLink()
     empresa.ts          Time, processo, modelos de contratação, garantias, HERO_TRUST, KNOWS_ABOUT, FAQ_ITEMS
@@ -139,7 +143,7 @@ src/
     webmcp.ts           Ferramentas WebMCP (carregado sob demanda por components/ui/WebMcpTools)
     agent-skills.ts     Leitura das skills de content/agent-skills + digest sha256
     api.ts              jsonResponse / errorResponse (padrão { success, data | error })
-    blog.ts, servicos.ts, mdx-options.ts   Leitura e renderização de MDX
+    blog.ts, servicos.ts, solucoes.ts, mdx-options.ts   Leitura e renderização de MDX
     seo.ts              SITE_URL, ORG_ID, OG images, breadcrumbJsonLd(), itemListJsonLd()
   hooks/                useInView, useScrolled
   types/index.ts        Tipos compartilhados (Service, Project, etc.)
@@ -147,10 +151,21 @@ src/
 
 Alias de import: `@/*` → `src/*`.
 
+## Soluções por segmento
+
+- Arquivo `content/solucoes/<slug>.mdx`, com o slug igual ao termo que o cliente busca (ex.: `sistema-para-advocacia`). O frontmatter tem `segment`, `title`, `headline` (o H1 vira `title: headline`), `description`, `icon`, `tags`, `cases`, `servicos`, `whatsapp` (mensagem pré-preenchida), `faq` (lista de `q`/`a`) e `updated?`. O corpo MDX traz as dores e o que construímos.
+- **Regra: só crie segmento com case de cliente real.** Se `cases` apontar para algo que não é case de cliente publicado (inclusive case de carreira), o build falha.
+- Uma página nova entra sozinha em sitemap, `llms.txt`, Markdown (`/md/solucoes/...`), `/solucoes` (ItemList), JSON-LD `Service` com `audience` e FAQPage. As páginas dos cases citados ganham o botão "Soluções para <segmento>".
+- GA: os botões usam `source`/`location` = `solucao-<slug>` (e `solucao-<slug>-final` no bloco final), para comparar os segmentos no `generate_lead` e no `cta_click`.
+- No ar: advocacia (case StartPrev), agências de viagem (case Viaza/GoMilhas) e cobrança automática por Pix (cases Velana e Celcoin).
+- **Cobrança por Pix é para pequeno negócio e autônomo, não "software para fintech"** (decisão do João em 2026-09-25). Ofertas simples: mensalidade automática, "agendou, pagou", venda no WhatsApp com Pix e painel financeiro. A firmino.dev não cria meio de pagamento: integra provedores regulados pelo Banco Central (Asaas, Mercado Pago, Efí...), e o dinheiro nunca passa por nós. Sem preço publicado (estimativa na conversa).
+- `segment` aparece no meio de frases via `segmentInSentence()` (só a 1ª letra minúscula). Escreva-o com a capitalização de título ("Cobrança por Pix").
+- Candidatos futuros, quando houver case: óticas (OpticusPRO), clínicas, contabilidade.
+
 ## IA e agentes
 
 - **`/llms.txt`**: resumo do site (empresa, especialidades, garantias, serviços, cases, FAQ, artigos), gerado por `llmsTxt()`.
-- **Markdown por negociação de conteúdo**: requisição com `Accept: text/markdown` em `/`, `/como-trabalhamos`, `/servicos[/slug]`, `/projetos[/slug]` e `/blog[/slug]` é reescrita (`beforeFiles` em `next.config.ts`, sem middleware) para `/md/...`, que devolve Markdown com `Vary: Accept` e `Link rel="canonical"` para a página HTML. Página nova com conteúdo relevante: adicionar em `pageMarkdown()`, `markdownPaths()` **e** em `MD_PAGES` no `next.config.ts` (os três precisam bater).
+- **Markdown por negociação de conteúdo**: requisição com `Accept: text/markdown` em `/`, `/como-trabalhamos`, `/servicos[/slug]`, `/solucoes[/slug]`, `/projetos[/slug]` e `/blog[/slug]` é reescrita (`beforeFiles` em `next.config.ts`, sem middleware) para `/md/...`, que devolve Markdown com `Vary: Accept` e `Link rel="canonical"` para a página HTML. Página nova com conteúdo relevante: adicionar em `pageMarkdown()`, `markdownPaths()` **e** em `MD_PAGES` no `next.config.ts` (os três precisam bater).
 - **Link headers (RFC 8288)**: todas as páginas apontam para `/llms.txt` e `/sitemap.xml`; as que têm Markdown também têm `rel="alternate"; type="text/markdown"`.
 - **robots.txt**: `Content-Signal: search=yes, ai-input=yes, ai-train=yes` (decisão do João em 2026-09-25: liberar tudo). O `MetadataRoute.Robots` não suporta essa diretiva, por isso é route handler.
 - **JSON-LD**: Organization com `knowsAbout` (`KNOWS_ABOUT`) e `hasOfferCatalog`; `ItemList` em `/servicos` e `/projetos`; `Service.provider` aponta para `ORG_ID`.

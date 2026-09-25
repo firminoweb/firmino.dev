@@ -19,7 +19,7 @@ if (STRAPI_URL) {
 
 // Páginas com versão Markdown (src/lib/markdown.ts). Precisa bater com
 // pageMarkdown()/markdownPaths().
-const MD_SECTION = "servicos|projetos|blog";
+const MD_SECTION = "servicos|solucoes|projetos|blog";
 const MD_PAGES = [
   { source: "/", md: "/md" },
   { source: `/:section(${MD_SECTION}|como-trabalhamos)`, md: "/md/:section" },

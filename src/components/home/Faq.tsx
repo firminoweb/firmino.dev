@@ -1,32 +1,44 @@
 import { Reveal, SectionLabel, JsonLd } from "@/components/ui";
-import { FAQ_ITEMS } from "@/data/empresa";
+import type { ReactNode } from "react";
+import { FAQ_ITEMS, type FaqItem } from "@/data/empresa";
 
-const FAQ_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ_ITEMS.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
+interface FaqProps {
+  /** Perguntas; padrão = FAQ da home. Também geram o JSON-LD FAQPage. */
+  items?: FaqItem[];
+  title?: ReactNode;
+}
 
-export function Faq() {
+export function Faq({
+  items = FAQ_ITEMS,
+  title = (
+    <>
+      Antes de <span className="text-accent-light italic">conversar</span>
+    </>
+  ),
+}: FaqProps) {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   return (
     <section className="section-padding">
-      <JsonLd data={FAQ_JSON_LD} />
+      <JsonLd data={faqJsonLd} />
       <div className="content-container max-w-[820px]">
         <Reveal>
           <div className="text-center mb-12">
             <SectionLabel center>Perguntas frequentes</SectionLabel>
-            <h2 className="font-serif section-heading">
-              Antes de <span className="text-accent-light italic">conversar</span>
-            </h2>
+            <h2 className="font-serif section-heading">{title}</h2>
           </div>
         </Reveal>
 
         <div className="flex flex-col gap-3">
-          {FAQ_ITEMS.map((item, i) => (
+          {items.map((item, i) => (
             <Reveal key={item.q} delay={i * 0.05}>
               <details className="faq-item gc px-6 py-1 sm:px-7">
                 <summary className="flex items-center justify-between gap-4 py-5 text-left">

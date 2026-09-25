@@ -1,6 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Reveal, Button, Tag, SectionLabel } from "@/components/ui";
+import { Reveal, Button, SectionLabel } from "@/components/ui";
+import { CaseCard } from "@/components/projects/CaseCard";
 import { CLIENT_PROJECTS, COMPANY_STATS } from "@/data/portfolio";
 
 const TEASER_COUNT = 3;
@@ -39,54 +38,7 @@ export function Cases() {
           <div className="flex flex-col gap-[18px]">
             {teaser.map((p, i) => (
               <Reveal key={p.slug} delay={i * 0.08}>
-                <Link
-                  href={`/projetos/${p.slug}`}
-                  className="gc case-card p-0 cursor-pointer relative overflow-hidden block"
-                >
-                  <div className="case-glow-line" />
-                  <div className="px-5 sm:px-7 pt-6">
-                    <div className="flex justify-between items-start mb-1 gap-3">
-                      <div className="flex items-start gap-3 min-w-0">
-                        {p.logo && (
-                          <div className="project-brand">
-                            <Image src={p.logo} alt={p.client} width={44} height={44} />
-                          </div>
-                        )}
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 mb-1.5">
-                            <Tag accent className="!text-[10px]">
-                              {p.segment}
-                            </Tag>
-                            {p.year && (
-                              <span className="text-[11px] text-text-muted">{p.year}</span>
-                            )}
-                          </div>
-                          <h3 className="text-[17px] sm:text-[19px] font-bold text-brand mb-1 tracking-tight">
-                            {p.title}
-                          </h3>
-                          <p className="text-[13px] text-text-dim">
-                            {p.client} · {p.role}
-                          </p>
-                        </div>
-                      </div>
-                      <span className="case-arrow shrink-0">↗</span>
-                    </div>
-                    <p className="text-[13px] text-text-subtle leading-[1.6] mt-2 mb-3">
-                      {p.summary}
-                    </p>
-                  </div>
-
-                  <div className="px-5 sm:px-7 pb-6 flex flex-wrap gap-3">
-                    {p.metrics.map((m, j) => (
-                      <div key={j} className="metric-box flex-1 min-w-[100px]">
-                        <div className="font-serif text-[22px] sm:text-[26px] font-medium text-brand tracking-tight">
-                          {m.value}
-                        </div>
-                        <div className="text-[11px] text-text-dim mt-0.5">{m.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </Link>
+                <CaseCard project={p} />
               </Reveal>
             ))}
           </div>

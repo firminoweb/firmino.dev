@@ -38,7 +38,7 @@ const text = (t: string, isError = false): ToolResult => ({
 });
 
 // Mesmo roteamento do Accept: text/markdown (next.config.ts → /md)
-const READABLE_PATH = /^\/((servicos|projetos|blog)(\/[a-z0-9-]+)?|como-trabalhamos)?$/;
+const READABLE_PATH = /^\/((servicos|solucoes|projetos|blog)(\/[a-z0-9-]+)?|como-trabalhamos)?$/;
 
 async function fetchMarkdown(path: string): Promise<ToolResult> {
   const res = await fetch(path, { headers: { Accept: "text/markdown" } });
@@ -68,7 +68,7 @@ const TOOLS: WebMcpTool[] = [
     name: "ler_pagina",
     title: "Ler página",
     description:
-      "Lê em Markdown uma página do site: '/' (visão geral e FAQ), '/como-trabalhamos' (contratação e garantias), '/servicos/<slug>', '/projetos/<slug>' ou '/blog/<slug>'.",
+      "Lê em Markdown uma página do site: '/' (visão geral e FAQ), '/como-trabalhamos' (contratação e garantias), '/solucoes' (soluções por segmento, ex.: advocacia, agências de viagem), '/servicos/<slug>', '/solucoes/<slug>', '/projetos/<slug>' ou '/blog/<slug>'.",
     inputSchema: {
       type: "object",
       properties: {
