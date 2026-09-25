@@ -77,6 +77,7 @@ export function llmsTxt(): string {
     link("Como trabalhamos", "/como-trabalhamos", "modelos de contratação, etapas do projeto e garantias"),
     link("Sobre", "/sobre", "quem somos, estrutura do time e liderança técnica"),
     link("Contato", "/contato", "formulário e WhatsApp, resposta em até 24h úteis"),
+    link("Área do cliente", "/area-do-cliente", "o cliente acompanha cronograma, entregas, chamados, documentos e faturas; demonstração em /area-do-cliente/demo"),
     "",
     "## Para agentes de IA",
     "",

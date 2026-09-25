@@ -11,14 +11,19 @@
     "optimize:logos": "node scripts/optimize-logos.mjs",
     "export:social": "node scripts/export-social.mjs",
     "audit:lh": "lhci autorun --collect.startServerCommand='next start' --collect.startServerReadyPattern='ready'",
-    "indexnow": "node scripts/indexnow.mjs"
+    "indexnow": "node scripts/indexnow.mjs",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "^2.1.0",
+    "@neondatabase/serverless": "1.1.0",
     "@next/third-parties": "^16.2.6",
     "@tailwindcss/typography": "^0.5.19",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
+    "drizzle-orm": "0.45.3",
     "gray-matter": "^4.0.3",
     "mcp-handler": "^2.2.0",
     "next": "16.2.6",
@@ -32,18 +37,22 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
     "@lhci/cli": "^0.15.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/pdfkit": "0.17.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "0.31.11",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "pdfkit": "0.19.1",
     "tailwindcss": "^4",
     "tsx": "4.23.11",
     "typescript": "^5",
+    "vite": "8.3.1",
+    "vitest": "5.0.2",
     "wait-on": "^9.0.5"
   }
 }
