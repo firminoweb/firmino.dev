@@ -31,7 +31,7 @@ export function Hero() {
           <h1 className="hero-heading">
             <span className="font-serif">Construímos </span>
             <span className="font-serif text-accent-light italic">software</span>
-            <span className="font-serif">.</span><br />
+            <span className="font-serif">.</span>{" "}<br />
             <span className="font-serif">Reforçamos </span>
             <span className="font-serif text-accent-light italic">times</span>
             <span className="font-serif">.</span>

@@ -11,7 +11,7 @@ export function AiCta() {
             <div className="relative">
               <SectionLabel center>Inteligência artificial</SectionLabel>
               <h2 className="font-serif section-heading !text-[clamp(24px,3.5vw,44px)] !tracking-tight !leading-[1.2] mb-5">
-                Impulsione seu negócio com<br />
+                Impulsione seu negócio com{" "}<br />
                 <span className="text-accent-light italic">aplicações inteligentes</span>
               </h2>
               <p className="text-[14px] sm:text-[15px] text-text-dim leading-[1.75] max-w-[560px] mx-auto mb-9">

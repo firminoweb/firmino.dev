@@ -15,6 +15,8 @@ export interface ServicoContent {
   headline?: string;
   /** Short keywords for SEO. */
   tags?: string[];
+  /** Última revisão relevante (frontmatter `updated`, YYYY-MM-DD). Alimenta o sitemap. */
+  updated?: string;
   content: string;
   readingTime: string;
 }
@@ -37,6 +39,12 @@ function parseFile(file: string): ServicoContent {
     icon: String(data.icon ?? service?.icon ?? "◆"),
     headline: data.headline ? String(data.headline) : undefined,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : undefined,
+    updated:
+      data.updated instanceof Date
+        ? data.updated.toISOString().slice(0, 10)
+        : data.updated
+          ? String(data.updated)
+          : undefined,
     content,
     readingTime: readingTime(content).text,
   };

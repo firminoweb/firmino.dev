@@ -16,7 +16,7 @@ export function Cases() {
             <div className="lg:sticky lg:top-[120px]">
               <SectionLabel>Cases</SectionLabel>
               <h2 className="font-serif section-heading !leading-[1.12] mb-5">
-                Trabalhos que entregam<br />
+                Trabalhos que entregam{" "}<br />
                 <span className="text-accent-light italic">resultado</span>
               </h2>
               <p className="text-[15px] text-text-dim leading-[1.75] mb-6 max-w-[380px]">

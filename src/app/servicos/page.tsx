@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Reveal, SectionLabel, Button, Tag, JsonLd } from "@/components/ui";
 import { SERVICES } from "@/data/portfolio";
-import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
+import { breadcrumbJsonLd, itemListJsonLd, OG_IMAGES } from "@/lib/seo";
 import { hasServicoContent } from "@/lib/servicos";
 
 const TITLE = "Serviços · firmino.dev";
@@ -106,6 +106,15 @@ export default function ServicosPage() {
           { name: "Home", path: "/" },
           { name: "Serviços", path: "/servicos" },
         ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          "Serviços da firmino.dev",
+          SERVICES.filter((s) => hasServicoContent(s.slug)).map((s) => ({
+            name: s.title,
+            path: `/servicos/${s.slug}`,
+          })),
+        )}
       />
       <Background />
       <Navbar />

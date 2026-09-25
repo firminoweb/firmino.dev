@@ -102,7 +102,7 @@ export default function AboutPage() {
           <div className="content-container w-full max-w-[920px]">
             <SectionLabel>Sobre</SectionLabel>
             <h1 className="font-serif hero-heading !text-[clamp(40px,5vw,58px)] !leading-[1.06] mb-5">
-              Engenharia <span className="text-accent-light italic">com método</span>,<br />
+              Engenharia <span className="text-accent-light italic">com método</span>,{" "}<br />
               entrega <span className="text-accent-light italic">com critério</span>
             </h1>
             <p className="text-base text-text-muted leading-[1.8] max-w-[640px]">
