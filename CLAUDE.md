@@ -40,6 +40,7 @@ Ao adicionar um **módulo, lib, integração, variável de ambiente, script, rot
 ```bash
 npx tsc --noEmit -p .   # typecheck
 yarn lint
+yarn test               # testes da área do cliente
 yarn build              # build de produção
 ```
 
@@ -65,6 +66,8 @@ Site institucional da **firmino.dev** (J. H. FIRMINO & CIA LTDA, CNPJ 43.699.300
 | Estilo | **Tailwind CSS v4** (tokens em `@theme` no `globals.css`, sem `tailwind.config`), `@tailwindcss/typography` |
 | Conteúdo | MDX em `content/` via `next-mdx-remote` + `gray-matter` + `reading-time`, código com `rehype-pretty-code` + `shiki` |
 | Validação | `zod` v4 (API de contato, ferramentas MCP) |
+| Banco (área do cliente) | **Neon** Postgres + **Drizzle ORM** (`drizzle-orm/neon-http`); migrações `drizzle-kit` em `drizzle/`. Em dev sem `DATABASE_URL`: **PGlite** em `.pglite/` |
+| Testes | **Vitest** + PGlite em memória (`yarn test`, arquivos `src/**/*.test.ts`) |
 | MCP | `mcp-handler` 2.x + `@modelcontextprotocol/server` 2.x (servidor em `/mcp`, sem sessão, sem Redis) |
 | Imagens OG/sociais | `next/og` (`ImageResponse`) |
 | PDF do currículo | `pdfkit` (script `build:cv`) |
@@ -83,6 +86,7 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 | **WhatsApp** (wa.me) | `whatsappLink()` em `src/data/portfolio.ts`, `WhatsAppButton`, `WhatsAppFab` | Link com mensagem pré-preenchida; clique dispara `generate_lead`. |
 | **Vercel** | hospedagem, `@vercel/speed-insights` no layout | |
 | **Busca por IA e agentes** | `src/lib/markdown.ts`, `src/app/llms.txt/`, `src/app/md/[[...path]]/`, `src/app/robots.txt/`, `next.config.ts` | Ver seção "IA e agentes" abaixo. |
+| **Área do cliente** | `src/app/cliente/`, `src/lib/portal/`, `src/db/` | Portal logado (cliente e admin). Ver seção "Área do cliente". |
 | **Atribuição de leads** | `src/lib/attribution.ts` | Script inline no `<head>` guarda a origem da visita (host do referrer + página de entrada com UTMs) em `sessionStorage` (`firmino-touch`) e `localStorage` (`firmino-first-touch`, 90 dias). O formulário envia e a API escreve "Origem do contato" no e-mail. |
 
 ### Convenção de eventos GA
@@ -123,6 +127,8 @@ src/
     .well-known/ai-catalog.json/, ard.json/   Catálogo ARD (mesmo conteúdo nos dois caminhos)
     mcp/route.ts                  Servidor MCP (Streamable HTTP) com as 4 ferramentas
     social/avatar|banner/         Geração de imagens para redes sociais
+    cliente/                      Área logada (noindex, Disallow): entrar, projetos, chamados, documentos, admin/
+    area-do-cliente/, area-do-cliente/demo/   Página pública de venda e demo (estáticas)
     llms.txt/route.ts             Resumo do site em Markdown para IAs (gerado dos dados)
     md/[[...path]]/route.ts       Versão Markdown das páginas (alvo dos rewrites por Accept)
     robots.txt/route.ts           robots.txt com Content-Signal (route handler, não robots.ts)
@@ -132,6 +138,7 @@ src/
   components/
     home/ layout/ blog/ projects/ forms/ ui/   (cada pasta exporta via index.ts)
     projects/CaseCard.tsx   Card de case reutilizado na home e nas soluções
+    portal/                 ProjectDetailView (portal e demo), StatusBadge, form, SubmitButton, format
     home/Faq.tsx            Aceita `items`/`title` (padrão = FAQ da home) e gera o FAQPage
   data/                 Fonte da verdade do conteúdo estruturado
     portfolio.ts        NAV, SERVICES, PROJECTS (cases), STACK, CONTACT, COMPANY, whatsappLink()
@@ -146,6 +153,7 @@ src/
     agent-tools.ts      Nome, título e descrição das ferramentas + readablePath(). Sem zod (vai pro cliente).
     mcp.ts              MCP_SERVER (nome, versão, endpoint, descrição)
     ai-catalog.ts       mcpServerCard() e aiCatalog() (ARD)
+    portal/             Área do cliente: auth (link mágico), access (leitura com isolamento), admin (ações), session (cookies), notify (e-mails), types, tokens
     contact-options.ts  PROJECT_TYPES, MIN_FILL_TIME_MS, LEAD_CHANNELS. Sem zod: pode ir pro cliente.
     api-docs.ts         openApiSpec() (gerado do ContactSchema) e apiDocsMd()
     webmcp.ts           Ferramentas WebMCP (carregado sob demanda por components/ui/WebMcpTools)
@@ -153,6 +161,7 @@ src/
     api.ts              jsonResponse / errorResponse (padrão { success, data | error })
     blog.ts, servicos.ts, solucoes.ts, mdx-options.ts   Leitura e renderização de MDX
     seo.ts              SITE_URL, ORG_ID, OG images, breadcrumbJsonLd(), itemListJsonLd()
+  db/                   schema.ts (Drizzle), index.ts (getDb: Neon ou PGlite), pglite.ts
   hooks/                useInView, useScrolled
   types/index.ts        Tipos compartilhados (Service, Project, etc.)
 ```
@@ -174,6 +183,21 @@ Alias de import: `@/*` → `src/*`.
 - **Cobrança por Pix é para pequeno negócio e autônomo, não "software para fintech"** (decisão do João em 2026-09-25). Ofertas simples: mensalidade automática, "agendou, pagou", venda no WhatsApp com Pix e painel financeiro. A firmino.dev não cria meio de pagamento: integra provedores regulados pelo Banco Central (Asaas, Mercado Pago, Efí...), e o dinheiro nunca passa por nós. Sem preço publicado (estimativa na conversa).
 - `segment` aparece no meio de frases via `segmentInSentence()` (só a 1ª letra minúscula). Escreva-o com a capitalização de título ("Cobrança por Pix").
 - Candidatos futuros: óticas (prova de setor, OpticusPRO); por capacidade: salões e estética, delivery e restaurantes, condomínios e associações. Valide a busca no Keyword Research do Bing Webmaster antes.
+
+## Área do cliente
+
+Spec: `docs/superpowers/specs/2026-09-25-area-do-cliente-design.md`. **Status, próximos passos e como testar local: `docs/status/2026-09-25-area-do-cliente.md`** (ler ao retomar o assunto). Objetivo: **vender mais** (transparência como diferencial); a demo pública mostra o portal ao prospect.
+
+- **Rotas:** `/cliente/entrar` → e-mail → link (15 min, uso único) → `/cliente/entrar/confirmar` com botão **Entrar** (POST; o GET não consome o token porque scanners de e-mail abrem links sozinhos) → sessão de 30 dias no cookie `firmino_session` (`httpOnly`, `path=/cliente`). Cliente vê `/cliente/projetos/[id]` (cronograma, entregas, chamados, documentos e faturas). Admin em `/cliente/admin`.
+- **Admin** = `role: admin` no banco **e** e-mail em `ADMIN_EMAILS` (o usuário admin é criado no primeiro login). Tirar o e-mail da variável tira o acesso.
+- **Dados manuais:** o João atualiza tudo pelo admin. Não há integração com GitHub (descartada: [[feedback-simples-primeiro]] na memória).
+- **Isolamento:** toda leitura do cliente passa por `lib/portal/access.ts`, que filtra pelo `client_id` da sessão; item de outra empresa responde 404. Toda ação de admin passa por `assertAdmin` (lib) e `requireAdmin` (página/Action). **Coberto por testes**; não crie leitura de `projects`, `tickets` ou `documents` fora desses módulos.
+- **Arquivos:** PDF/PNG/JPG até 4 MB, guardados no Neon (`document_files`, `bytea`), baixados só por `/cliente/documentos/[id]` com `Cache-Control: private, no-store`. `serverActions.bodySizeLimit = 4.5mb` no `next.config.ts`.
+- **E-mails** (`lib/portal/notify.ts`, Resend): link de acesso; novo chamado ou mensagem → equipe (`CONTACT_TO_EMAIL`); resposta, entrega nova e documento novo → pessoas ativas do cliente (checkbox "Avisar o cliente"). Sem `RESEND_API_KEY`, vai para o log (dev).
+- **Performance:** a sessão só é lida dentro de `/cliente`; nada de middleware global. `/area-do-cliente` e a demo são estáticas.
+- **Banco:** schema em `src/db/schema.ts`. Mudou o schema? `yarn db:generate` (gera SQL em `drizzle/`, que vai para o git) e `yarn db:migrate` (aplica no Neon usando a `DATABASE_URL` do `.env.local`). Produção usa o banco `firminodev` do projeto **reserveia** no Neon.
+- **Rodar local sem credenciais:** sem `DATABASE_URL` o dev usa PGlite; para `yarn start` local use `PORTAL_PGLITE=1`. Links de acesso aparecem no terminal.
+- **Demo:** `src/data/portal-demo.ts` usa o mesmo tipo `ProjectDetail` e o mesmo componente `ProjectDetailView` (`demo`), então muda junto com o portal.
 
 ## IA e agentes
 
@@ -262,6 +286,9 @@ yarn export:social    # exporta imagens sociais (com yarn dev rodando)
 yarn optimize:logos   # normaliza logos de clientes
 yarn audit:lh         # Lighthouse CI (após yarn build)
 yarn indexnow         # avisa o IndexNow (--all = sitemap inteiro; ou passe URLs)
+yarn test             # testes (Vitest + PGlite)
+yarn db:generate      # gera migração a partir do schema
+yarn db:migrate       # aplica migrações no Neon (DATABASE_URL do .env.local)
 ```
 
 ## Variáveis de ambiente
@@ -275,5 +302,8 @@ Ver `.env.example`. Nunca commitar valores reais nele.
 | `CONTACT_FROM_EMAIL` | Remetente (domínio verificado na Resend) |
 | `NEXT_PUBLIC_GA_ID` | Measurement ID do GA4 (`G-...`) |
 | `NEXT_PUBLIC_SITE_URL` | URL canônica (padrão `https://firmino.dev`) |
+| `DATABASE_URL` | Neon da área do cliente (só servidor; nunca no repositório nem em print) |
+| `ADMIN_EMAILS` | E-mails com acesso ao `/cliente/admin`, separados por vírgula |
+| `PORTAL_PGLITE` | `1` força PGlite (teste local com `yarn start`) |
 | `STRAPI_URL` | Opcional, libera imagens remotas de `/uploads/**` (sem uso atual) |
 | `SOCIAL_BASE_URL` | Opcional, base do `export:social` |

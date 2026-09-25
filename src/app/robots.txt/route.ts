@@ -20,6 +20,7 @@ export function GET() {
     "Allow: /",
     "Allow: /api/health",
     "Disallow: /api/",
+    "Disallow: /cliente/",
     "Disallow: /cv-joao-firmino-full-stack.pdf",
     "",
     `Host: ${SITE_URL}`,

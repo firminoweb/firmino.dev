@@ -41,3 +41,6 @@ next-env.d.ts
 
 # lighthouse
 /.lighthouseci/
+
+# PGlite (banco local da área do cliente em dev)
+/.pglite

@@ -9,6 +9,7 @@ const COMPANY_LINKS: { label: string; href: string }[] = [
   { label: "Cases", href: "/projetos" },
   { label: "Blog", href: "/blog" },
   { label: "Contato", href: "/contato" },
+  { label: "Área do cliente", href: "/area-do-cliente" },
   { label: "Tecnologias", href: "/stack" },
 ];
 
