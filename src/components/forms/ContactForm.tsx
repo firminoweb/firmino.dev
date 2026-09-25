@@ -5,6 +5,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { Button } from "@/components/ui";
 import { trackEvent } from "@/lib/analytics";
+import { readAttribution } from "@/lib/attribution";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -52,6 +53,7 @@ export function ContactForm() {
       message: String(formData.get("message") ?? "").trim(),
       website: String(formData.get("website") ?? ""),
       elapsedMs: Date.now() - formOpenedAt.current,
+      attribution: readAttribution(),
     };
 
     setStatus("sending");
