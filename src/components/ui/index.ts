@@ -11,3 +11,4 @@ export { WhatsAppGlyph } from "./WhatsAppGlyph";
 export { WhatsAppFab } from "./WhatsAppFab";
 export { TrackedLink } from "./TrackedLink";
 export { TrackedExternalLink } from "./TrackedExternalLink";
+export { WebMcpTools } from "./WebMcpTools";

@@ -77,7 +77,8 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 | Integração | Onde | Observações |
 |---|---|---|
 | **Google Analytics 4** | `src/app/layout.tsx`, `src/lib/analytics.ts` | Stub síncrono do `gtag` no `<head>` + `gtag.js` em `lazyOnload`. Use sempre `trackEvent()`; ele não faz nada sem GA (dev/bloqueado). |
-| **Resend** (e-mail) | `src/app/api/contact/route.ts` | Envia o lead para `CONTACT_TO_EMAIL`. Sem `RESEND_API_KEY` só loga no console (dev). |
+| **Resend** (e-mail) | `src/app/api/contact/route.ts` | Envia o lead para `CONTACT_TO_EMAIL`. Sem `RESEND_API_KEY` só loga no console (dev). O e-mail mostra o canal (`channel`: form, webmcp ou api). |
+| **IndexNow** (Bing e outros) | `scripts/indexnow.mjs`, `public/41ad4af2a450aca654dd4c9c55d18607.txt`, `.github/workflows/indexnow.yml` | Após cada deploy de produção da Vercel (evento `deployment_status`), avisa os buscadores das páginas principais + as com `lastmod` dos últimos 3 dias. A chave é pública por definição. |
 | **WhatsApp** (wa.me) | `whatsappLink()` em `src/data/portfolio.ts`, `WhatsAppButton`, `WhatsAppFab` | Link com mensagem pré-preenchida; clique dispara `generate_lead`. |
 | **Vercel** | hospedagem, `@vercel/speed-insights` no layout | |
 | **Busca por IA e agentes** | `src/lib/markdown.ts`, `src/app/llms.txt/`, `src/app/md/[[...path]]/`, `src/app/robots.txt/`, `next.config.ts` | Ver seção "IA e agentes" abaixo. |
@@ -85,7 +86,7 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 
 ### Convenção de eventos GA
 
-- `generate_lead` com `method: "form" | "whatsapp"` e `source` (qual botão). É o evento de conversão (evento-chave no GA).
+- `generate_lead` com `method: "form" | "whatsapp" | "webmcp"` e `source` (qual botão). É o evento de conversão (evento-chave no GA).
 - `cta_click` para CTAs que não são lead (via `TrackedLink` / `TrackedExternalLink`).
 - Não crie nomes de evento novos sem necessidade; reutilize esses com parâmetros.
 
@@ -93,11 +94,13 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 
 ```
 content/
+  agent-skills/*.md     Skills para agentes (frontmatter name = nome do arquivo, description)
   blog/*.mdx            Posts (frontmatter: title, description, date, updated?, tags, author, cover)
   servicos/*.mdx        Página de detalhe de cada serviço (slug = SERVICES[].slug; frontmatter updated? opcional)
 docs/superpowers/       Specs e planos de features (brainstorming/writing-plans)
 public/                 Imagens, fontes, PDF do CV, assets sociais exportados
 scripts/
+  indexnow.mjs          Envia URLs ao IndexNow (roda no GitHub Actions após deploy)
   build-cv.ts           Gera o PDF do CV a partir de src/data/curriculo.ts
   export-social.mjs     Exporta PNGs de /social/* para public/social (precisa do app rodando)
   optimize-logos.mjs    Normaliza logos de clientes (96x96 WebP)
@@ -108,7 +111,11 @@ src/
     projetos/, projetos/[slug]/   Cases (dados em data/portfolio.ts)
     blog/, blog/[slug]/           Blog MDX
     como-trabalhamos/, sobre/, contato/, stack/, joao/, politica-de-privacidade/
-    api/contact/route.ts          POST do formulário (zod + honeypot + tempo mínimo + rate limit + Resend)
+    api/contact/route.ts          POST do formulário e da API pública (zod + honeypot + tempo mínimo + rate limit + Resend)
+    api/health/route.ts           Status da API (dinâmico)
+    openapi.json/, docs/api/      OpenAPI e documentação (Markdown) da API pública
+    .well-known/api-catalog/      Catálogo de APIs (RFC 9727)
+    .well-known/agent-skills/     index.json + <name>/SKILL.md (Agent Skills Discovery v0.2.0)
     social/avatar|banner/         Geração de imagens para redes sociais
     llms.txt/route.ts             Resumo do site em Markdown para IAs (gerado dos dados)
     md/[[...path]]/route.ts       Versão Markdown das páginas (alvo dos rewrites por Accept)
@@ -126,6 +133,11 @@ src/
     analytics.ts        trackEvent()
     attribution.ts      Origem dos leads (script inline + classificação de canal)
     markdown.ts         llmsTxt(), pageMarkdown(), markdownPaths(): Markdown para IAs
+    contact.ts          ContactSchema (zod) do POST /api/contact. Só servidor.
+    contact-options.ts  PROJECT_TYPES, MIN_FILL_TIME_MS, LEAD_CHANNELS. Sem zod: pode ir pro cliente.
+    api-docs.ts         openApiSpec() (gerado do ContactSchema) e apiDocsMd()
+    webmcp.ts           Ferramentas WebMCP (carregado sob demanda por components/ui/WebMcpTools)
+    agent-skills.ts     Leitura das skills de content/agent-skills + digest sha256
     api.ts              jsonResponse / errorResponse (padrão { success, data | error })
     blog.ts, servicos.ts, mdx-options.ts   Leitura e renderização de MDX
     seo.ts              SITE_URL, ORG_ID, OG images, breadcrumbJsonLd(), itemListJsonLd()
@@ -142,8 +154,12 @@ Alias de import: `@/*` → `src/*`.
 - **Link headers (RFC 8288)**: todas as páginas apontam para `/llms.txt` e `/sitemap.xml`; as que têm Markdown também têm `rel="alternate"; type="text/markdown"`.
 - **robots.txt**: `Content-Signal: search=yes, ai-input=yes, ai-train=yes` (decisão do João em 2026-09-25: liberar tudo). O `MetadataRoute.Robots` não suporta essa diretiva, por isso é route handler.
 - **JSON-LD**: Organization com `knowsAbout` (`KNOWS_ABOUT`) e `hasOfferCatalog`; `ItemList` em `/servicos` e `/projetos`; `Service.provider` aponta para `ORG_ID`.
-- **Não implementado de propósito**: OAuth/OIDC, API Catalog, MCP Server Card, auth.md, Agent Skills, WebMCP, ARD e DNS-AID. O site não expõe API nem ferramentas para agentes; só faz sentido se isso mudar.
-- Teste: `curl -H "Accept: text/markdown" localhost:3000/servicos` e https://isitagentready.com (Cloudflare).
+- **WebMCP**: `<WebMcpTools />` no layout detecta `document.modelContext` (spec atual) ou `navigator.modelContext` (implementações antigas) e só então importa `lib/webmcp.ts`. Ferramentas: `listar_servicos`, `listar_cases`, `ler_pagina` (só caminhos com versão Markdown) e `solicitar_orcamento` (POST /api/contact com `channel: "webmcp"`, dispara `generate_lead` com `method: "webmcp"`). Suporta `registerTool` e, como fallback, `provideContext`.
+- **API pública**: só o `POST /api/contact`. Publicada em `/.well-known/api-catalog` (RFC 9727, com `rel="api-catalog"` no Link header global), `/openapi.json` (gerado do `ContactSchema`, sem honeypot/atribuição/canal) e `/docs/api`. Campo novo no contato: atualizar `lib/contact.ts`; o OpenAPI acompanha sozinho, a tabela de `apiDocsMd()` não.
+- **Agent Skills**: `/.well-known/agent-skills/index.json` lista as skills de `content/agent-skills/` com digest sha256 calculado no build. Hoje: `conhecer-firmino-dev` e `solicitar-orcamento-firmino-dev`.
+- **Zod fora do cliente**: `lib/contact.ts` importa zod; código `"use client"` e `lib/webmcp.ts` importam só de `lib/contact-options.ts`.
+- **Não implementado de propósito**: OAuth/OIDC, OAuth Protected Resource, auth.md (a API não exige login), MCP Server Card, ARD e DNS-AID (não há servidor MCP/A2A para anunciar).
+- Teste: `curl -H "Accept: text/markdown" localhost:3000/servicos`, `curl localhost:3000/.well-known/api-catalog` e https://isitagentready.com (Cloudflare). WebMCP: Chromium com `document.modelContext` simulado via `addInitScript` (Playwright).
 
 ## Convenções de código
 
@@ -174,6 +190,33 @@ Alias de import: `@/*` → `src/*`.
 - Depoimentos são reais.
 - Ao mudar copy, mostrar opções antes de editar.
 
+## Infraestrutura (domínio, DNS e e-mail)
+
+Configurado fora do repositório. Mudou algo no painel? Atualize aqui.
+
+| Item | Onde | Detalhes |
+|---|---|---|
+| Domínio `firmino.dev` | **Cloudflare Registrar** | Renovação e DS do DNSSEC gerenciados pela própria Cloudflare. |
+| DNS | **Cloudflare** (`lakas`/`vita.ns.cloudflare.com`) | Raiz com registros A para a Vercel; `www` é CNAME para a Vercel. |
+| Proxy Cloudflare | **Desligado (nuvem cinza) de propósito** | A Vercel já é o CDN. Com o proxy ligado, o bloqueio de robôs de IA e o robots.txt gerenciado da Cloudflare ("AI Crawl Control") podem sobrescrever o nosso `robots.txt` e bloquear ChatGPT/Perplexity. Não ligar sem revisar isso. |
+| DNSSEC | **Ativo desde 2026-09-25** | DS `2371 13 2` publicado no `.dev`. **Desative o DNSSEC antes de trocar de provedor DNS ou de nameservers**, senão o domínio para de resolver. |
+| Hospedagem | **Vercel** | Deploy automático a partir da `main`. |
+| E-mail da empresa | **Proton Mail** | MX `mail`/`mailsec.protonmail.ch`, SPF `include:_spf.protonmail.ch`, DKIM `protonmail{,2,3}._domainkey`, DMARC `p=quarantine` (sem `rua`, ou seja, sem relatórios). |
+| E-mail transacional | **Resend** | DKIM `resend._domainkey`; subdomínio `send.firmino.dev` (MX + SPF da Amazon SES) para o envio do formulário. |
+| Google Search Console | TXT `google-site-verification` | Propriedade de domínio. |
+| DNS-AID (`_agents`) | **Não publicado** | Só faz sentido quando existir um serviço de agente (MCP/A2A) para anunciar. |
+
+Conferir pelo terminal: `dig +short DS firmino.dev`, `dig +short TXT firmino.dev`, `dig +dnssec firmino.dev A @1.1.1.1` (flag `ad` = DNSSEC validando).
+
+## Monitoramento de IA e SEO
+
+| Ferramenta | Situação | Para quê |
+|---|---|---|
+| GA4, Aquisição de tráfego | Ativo | Canal "AI Assistant" = visitas vindas de ChatGPT, Perplexity etc. `generate_lead` deve estar marcado como evento-chave. |
+| isitagentready.com (Cloudflare) | **40/100, nível 2 "Agent-Integrated"** em 2026-09-25 (era 20) | Prontidão para agentes. Faltam DNS-AID e os 8 itens de API/Auth/MCP (ver "IA e agentes"). |
+| Google Search Console | Ativo | Indexação e desempenho (inclui AI Overviews). |
+| Bing Webmaster Tools | Ativo desde 2026-09-25 (importado do Search Console) | Índice que alimenta ChatGPT Search e Copilot. Relatório "AI Performance" (beta) mostra citações em IA. IndexNow aparece no menu IndexNow. |
+
 ## Comandos
 
 ```bash
@@ -185,6 +228,7 @@ yarn build:cv         # regenera public/cv-joao-firmino-full-stack.pdf
 yarn export:social    # exporta imagens sociais (com yarn dev rodando)
 yarn optimize:logos   # normaliza logos de clientes
 yarn audit:lh         # Lighthouse CI (após yarn build)
+yarn indexnow         # avisa o IndexNow (--all = sitemap inteiro; ou passe URLs)
 ```
 
 ## Variáveis de ambiente

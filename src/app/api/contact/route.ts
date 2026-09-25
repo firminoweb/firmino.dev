@@ -1,7 +1,7 @@
-import { z } from "zod";
 import { Resend } from "resend";
 import { jsonResponse, errorResponse } from "@/lib/api";
 import { describeTouch, landingPath, type Attribution } from "@/lib/attribution";
+import { ContactSchema, LEAD_CHANNELS, MIN_FILL_TIME_MS } from "@/lib/contact";
 
 const PROJECT_TYPE_LABELS: Record<string, string> = {
   web: "Site ou sistema web",
@@ -11,30 +11,6 @@ const PROJECT_TYPE_LABELS: Record<string, string> = {
   outro: "Outro / ainda não sei",
 };
 
-const TouchSchema = z.object({
-  l: z.string().max(300),
-  r: z.string().max(253),
-  t: z.number().int().nonnegative(),
-});
-
-const ContactSchema = z.object({
-  name: z.string().min(2, "Nome muito curto").max(120, "Nome muito longo"),
-  email: z.email("E-mail inválido").max(180),
-  company: z.string().max(160).optional().default(""),
-  projectType: z.enum(["web", "mobile", "ia", "reforco", "outro"], {
-    message: "Selecione uma opção",
-  }),
-  message: z.string().min(10, "Mensagem muito curta (mín. 10 caracteres)").max(4000, "Mensagem muito longa"),
-  website: z.string().max(0).optional().default(""), // honeypot — must be empty
-  elapsedMs: z.number().int().nonnegative().optional().default(0),
-  // Informativo: dado de origem malformado nunca pode barrar um lead
-  attribution: z
-    .object({ session: TouchSchema.optional(), first: TouchSchema.optional() })
-    .optional()
-    .catch(undefined),
-});
-
-const MIN_FILL_TIME_MS = 2_000;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 3;
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "falecom@firmino.dev";
@@ -132,7 +108,7 @@ export async function POST(request: Request) {
   const resend = new Resend(apiKey);
   const projectTypeLabel = PROJECT_TYPE_LABELS[data.projectType] ?? data.projectType;
   const subject = `[firmino.dev] Novo contato: ${data.name} · ${projectTypeLabel}`;
-  const origin = originLines(data.attribution);
+  const origin = [`Enviado por: ${LEAD_CHANNELS[data.channel]}`, ...originLines(data.attribution)];
   const html = `
     <div style="font-family: -apple-system, system-ui, sans-serif; line-height: 1.6; color: #111;">
       <h2 style="margin: 0 0 16px; font-size: 18px;">Novo contato pelo site</h2>

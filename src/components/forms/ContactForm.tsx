@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { Button } from "@/components/ui";
 import { trackEvent } from "@/lib/analytics";
 import { readAttribution } from "@/lib/attribution";
+import { PROJECT_TYPES } from "@/lib/contact-options";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -15,15 +16,6 @@ interface FieldErrors {
   projectType?: string;
   message?: string;
 }
-
-// Valores precisam bater com o enum validado em /api/contact
-const PROJECT_TYPES = [
-  { value: "web", label: "Site ou sistema web" },
-  { value: "mobile", label: "App mobile (iOS/Android)" },
-  { value: "ia", label: "IA e automação" },
-  { value: "reforco", label: "Reforço para meu time ou agência" },
-  { value: "outro", label: "Outro / ainda não sei" },
-];
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -53,6 +45,7 @@ export function ContactForm() {
       message: String(formData.get("message") ?? "").trim(),
       website: String(formData.get("website") ?? ""),
       elapsedMs: Date.now() - formOpenedAt.current,
+      channel: "form",
       attribution: readAttribution(),
     };
 
@@ -117,7 +110,7 @@ export function ContactForm() {
         <Field
           label="O que você precisa"
           name="projectType"
-          options={PROJECT_TYPES}
+          options={[...PROJECT_TYPES]}
           required
           error={errors.projectType}
           disabled={sending}

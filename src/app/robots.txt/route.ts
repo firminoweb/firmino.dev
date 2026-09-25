@@ -18,6 +18,7 @@ export function GET() {
     "User-Agent: *",
     "Content-Signal: search=yes, ai-input=yes, ai-train=yes",
     "Allow: /",
+    "Allow: /api/health",
     "Disallow: /api/",
     "Disallow: /cv-joao-firmino-full-stack.pdf",
     "",
