@@ -186,7 +186,7 @@ Alias de import: `@/*` → `src/*`.
 
 ## Área do cliente
 
-Spec: `docs/superpowers/specs/2026-09-25-area-do-cliente-design.md`. Objetivo: **vender mais** (transparência como diferencial); a demo pública mostra o portal ao prospect.
+Spec: `docs/superpowers/specs/2026-09-25-area-do-cliente-design.md`. **Status, próximos passos e como testar local: `docs/status/2026-09-25-area-do-cliente.md`** (ler ao retomar o assunto). Objetivo: **vender mais** (transparência como diferencial); a demo pública mostra o portal ao prospect.
 
 - **Rotas:** `/cliente/entrar` → e-mail → link (15 min, uso único) → `/cliente/entrar/confirmar` com botão **Entrar** (POST; o GET não consome o token porque scanners de e-mail abrem links sozinhos) → sessão de 30 dias no cookie `firmino_session` (`httpOnly`, `path=/cliente`). Cliente vê `/cliente/projetos/[id]` (cronograma, entregas, chamados, documentos e faturas). Admin em `/cliente/admin`.
 - **Admin** = `role: admin` no banco **e** e-mail em `ADMIN_EMAILS` (o usuário admin é criado no primeiro login). Tirar o e-mail da variável tira o acesso.
