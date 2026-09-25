@@ -8,6 +8,7 @@ import {
 } from "@/data/empresa";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { getServicoBySlug, hasServicoContent } from "@/lib/servicos";
+import { getAllSolucoes, getSolucaoBySlug } from "@/lib/solucoes";
 import { absoluteUrl } from "@/lib/seo";
 import type { Project } from "@/types";
 
@@ -53,6 +54,10 @@ export function llmsTxt(): string {
     "## Serviços",
     "",
     ...publishedServices().map((s) => link(s.title, `/servicos/${s.slug}`, s.desc)),
+    "",
+    "## Soluções por segmento",
+    "",
+    ...getAllSolucoes().map((s) => link(s.title, `/solucoes/${s.slug}`, s.description)),
     "",
     "## Cases de clientes",
     "",
@@ -111,6 +116,35 @@ function serviceMd(slug: string): string | null {
     "",
     servico.content.trim(),
     "",
+    ...CONTACT_FOOTER,
+  ].join("\n");
+}
+
+function solucoesMd(): string {
+  return [
+    "# Soluções por segmento da firmino.dev",
+    "",
+    ...getAllSolucoes().map((s) => link(s.title, `/solucoes/${s.slug}`, s.description)),
+    "",
+    ...CONTACT_FOOTER,
+  ].join("\n");
+}
+
+function solucaoMd(slug: string): string | null {
+  const s = getSolucaoBySlug(slug);
+  if (!s) return null;
+  const cases = CLIENT_PROJECTS.filter((p) => s.cases.includes(p.slug));
+  return [
+    `# ${s.title}: ${s.headline}`,
+    "",
+    `> ${s.description}`,
+    "",
+    s.content.trim(),
+    "",
+    ...(cases.length
+      ? ["## Cases", "", ...cases.map((p) => link(p.title, `/projetos/${p.slug}`, `${p.client}. ${p.summary}`)), ""]
+      : []),
+    ...(s.faq.length ? ["## Perguntas frequentes", "", ...s.faq.flatMap((f) => [`### ${f.q}`, "", f.a, ""])] : []),
     ...CONTACT_FOOTER,
   ].join("\n");
 }
@@ -217,6 +251,7 @@ export function pageMarkdown(path: string[]): string | null {
   if (!section) return llmsTxt();
   if (section === "como-trabalhamos") return slug ? null : howWeWorkMd();
   if (section === "servicos") return slug ? serviceMd(slug) : servicesMd();
+  if (section === "solucoes") return slug ? solucaoMd(slug) : solucoesMd();
   if (section === "projetos") return slug ? projectMd(slug) : projectsMd();
   if (section === "blog") return slug ? postMd(slug) : blogMd();
   return null;
@@ -229,6 +264,8 @@ export function markdownPaths(): string[][] {
     ["como-trabalhamos"],
     ["servicos"],
     ...publishedServices().map((s) => ["servicos", s.slug]),
+    ["solucoes"],
+    ...getAllSolucoes().map((s) => ["solucoes", s.slug]),
     ["projetos"],
     ...PUBLISHED_PROJECTS.map((p) => ["projetos", p.slug]),
     ["blog"],

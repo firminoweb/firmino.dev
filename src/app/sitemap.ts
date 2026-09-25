@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { PUBLISHED_PROJECTS } from "@/data/portfolio";
 import { getAllPosts } from "@/lib/blog";
 import { getAllServicoSlugs, getServicoBySlug } from "@/lib/servicos";
+import { getAllSolucoes } from "@/lib/solucoes";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://firmino.dev";
 
@@ -20,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE_URL}/servicos`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/solucoes`, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/como-trabalhamos`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/projetos`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE_URL}/stack`, changeFrequency: "monthly", priority: 0.7 },
@@ -58,5 +60,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticRoutes, ...projectRoutes, ...blogRoutes, ...servicoRoutes];
+  const solucaoRoutes: MetadataRoute.Sitemap = getAllSolucoes().map((s) => ({
+    url: `${SITE_URL}/solucoes/${s.slug}`,
+    ...(s.updated && { lastModified: new Date(s.updated) }),
+    changeFrequency: "monthly",
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes, ...servicoRoutes, ...solucaoRoutes];
 }

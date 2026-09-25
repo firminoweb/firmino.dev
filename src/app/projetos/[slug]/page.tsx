@@ -8,6 +8,7 @@ import { ProjectCover } from "@/components/projects/ProjectCover";
 import { PUBLISHED_PROJECTS, getProjectBySlug } from "@/data/portfolio";
 import { PERSON_ID } from "@/data/curriculo";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL, ORG_ID } from "@/lib/seo";
+import { getSolucoesForCase, segmentInSentence } from "@/lib/solucoes";
 
 interface CaseDetailProps {
   params: Promise<{ slug: string }>;
@@ -70,6 +71,7 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
   ).slice(0, 2);
 
   const isCareer = project.kind === "carreira";
+  const solucoes = isCareer ? [] : getSolucoesForCase(project.slug);
 
   const projectUrl = absoluteUrl(`/projetos/${project.slug}`);
   const projectJsonLd = {
@@ -283,9 +285,16 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                   <p className="text-[14px] text-text-dim leading-[1.7] max-w-[480px] mx-auto mb-7">
                     Conte para gente o que você está construindo. Respondemos em até 24h úteis.
                   </p>
-                  <Link href="/contato">
-                    <Button>Quero uma proposta →</Button>
-                  </Link>
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    <Link href="/contato">
+                      <Button>Quero uma proposta →</Button>
+                    </Link>
+                    {solucoes.map((s) => (
+                      <Button key={s.slug} href={`/solucoes/${s.slug}`} variant="ghost">
+                        Soluções para {segmentInSentence(s)}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
