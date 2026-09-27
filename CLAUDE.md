@@ -185,6 +185,7 @@ Alias de import: `@/*` → `src/*`.
 - `segment` aparece no meio de frases via `segmentInSentence()` (só a 1ª letra minúscula). Escreva-o com a capitalização de título ("Cobrança por Pix").
 - Candidatos futuros, por capacidade: salões e estética, delivery e restaurantes, condomínios e associações. Valide a busca no Keyword Research do Bing Webmaster antes.
 
+
 ## Área do cliente
 
 Spec: `docs/superpowers/specs/2026-09-25-area-do-cliente-design.md`. **Status, próximos passos e como testar local: `docs/status/2026-09-25-area-do-cliente.md`** (ler ao retomar o assunto). Objetivo: **vender mais** (transparência como diferencial); a demo pública mostra o portal ao prospect.
