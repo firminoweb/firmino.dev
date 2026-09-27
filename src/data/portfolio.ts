@@ -32,69 +32,6 @@ export const SERVICES: Service[] = [
 
 export const PROJECTS: Project[] = [
   {
-    slug: "viaza-gomilhas-passagens-milhas",
-    title: "Lançar a próxima marca sem refazer nada: Viaza e GoMilhas em um código só",
-    client: "Viaza / GoMilhas",
-    kind: "cliente",
-    segment: "Viagens",
-    role: "Plataforma de venda de passagens para duas marcas",
-    duration: "Em andamento",
-    location: "Remoto, Brasil",
-    summary:
-      "Plataforma whitelabel completa para venda de passagens com milhas: busca, checkout PIX e pós-venda. Viaza e GoMilhas rodam no mesmo repositório, com tema, conteúdo e regras de marca trocando em tempo real. A próxima marca entra adicionando um arquivo de configuração, sem time novo e sem retrabalho.",
-    logo: "/images/logos/viaza.webp",
-    accent: "#1f7aff",
-    context: [
-      "A operação roda duas marcas comerciais (Viaza e GoMilhas) atendendo públicos distintos com a mesma stack de busca, motor de tarifas e integração de gateway. O desafio era manter um único código capaz de comutar branding, rotas, conteúdo de CMS e tema em runtime conforme o domínio acessado.",
-    ],
-    challenge: [
-      "Construir uma arquitetura whitelabel real: tema, logos, OG images, splash screens, rotas habilitadas e até copy de CMS variando por marca, sem hardcode espalhado pelo código. Tudo isso em cima de um stack moderno (Next 15 + React 19 + MUI 7) e mantendo PWA, SEO e conformidade com fluxos sensíveis de pagamento e autenticação.",
-      "No fluxo de auth coexistem três abordagens (keycloak-js no client, NextAuth e BFF custom com cookie httpOnly), exigindo cuidado redobrado para não quebrar nenhum caminho de usuário em cada deploy.",
-    ],
-    solution: [
-      "Implementamos resolução de marca em duas camadas: server-side via NEXT_PUBLIC_BRAND alimentando getServerBranding(), e client-side via atributo data-brand no <html> + ThemeProvider Emotion. Tudo o que muda entre marcas (logos, cores, assets, rotas desabilitadas) vive em src/styles/branding.ts como fonte única da verdade.",
-      "Estruturamos o frontend com App Router, React Query para data fetching, Zustand para estado de sessão/checkout e React Hook Form + Zod para os formulários críticos. A camada api/ separa contratos (interfaces) de implementação concreta (axios + Keycloak), inspirada em Clean Architecture, facilitando testes e troca futura de backend.",
-      "Pagamento via PIX integrado com Tuna (com criptografia de campos sensíveis), checkout reativo a status em tempo real via polling, fluxo completo testado em Vitest (unit) e Playwright (E2E). PWA com next-pwa para reengajamento e atribuição customizada para tracking de conversão.",
-    ],
-    outcome: [
-      "Plataforma em produção sob duas marcas, com pipelines independentes de deploy, integração com CMS proprietário (cms.viaza.com.br) e checkout PIX/cartão funcional. Time consegue lançar uma nova marca whitelabel adicionando apenas um objeto de branding e os assets correspondentes, sem tocar em rota, componente ou serviço.",
-    ],
-    highlights: [
-      "Arquitetura whitelabel multi-marca (Viaza + GoMilhas) num único repositório",
-      "Tema MUI 7 dinâmico por marca via Emotion + data-brand no <html>",
-      "Middleware reescrevendo rotas desabilitadas por marca + UTMs em cookie",
-      "Auth Keycloak com 3 fluxos coexistindo (keycloak-js, NextAuth, BFF httpOnly)",
-      "Checkout PIX (Tuna) com criptografia de campos e polling de status em tempo real",
-      "Camada api/ inspirada em Clean Architecture com DI e interfaces tipadas",
-      "PWA com next-pwa, Service Worker e atribuição custom",
-      "Testes em Vitest (unit) e Playwright (E2E)",
-    ],
-    metrics: [
-      { value: "2", label: "Marcas em produção" },
-      { value: "1", label: "Codebase compartilhado" },
-    ],
-    stack: [
-      "Next.js 15",
-      "React 19",
-      "TypeScript",
-      "MUI 7",
-      "Emotion",
-      "React Query",
-      "Zustand",
-      "React Hook Form",
-      "Zod",
-      "NextAuth",
-      "Keycloak",
-      "Vitest",
-      "Playwright",
-    ],
-    links: [
-      { href: "https://viaza.com.br", label: "Viaza" },
-      { href: "https://gomilhas.com.br", label: "GoMilhas" },
-    ],
-    featured: true,
-  },
-  {
     slug: "celcoin-mybenk-banking-app",
     title: "MyBenk: banking white-label da Celcoin em 3 frentes (app, backoffice e BaaS)",
     client: "Celcoin",
@@ -162,50 +99,6 @@ export const PROJECTS: Project[] = [
      Escopo, período e autorização de citar o nome confirmados pelo João.
      O detalhe técnico vem dos repos locais e dos sites públicos.
      ──────────────────────────────────────────────────────────────────────── */
-  {
-    slug: "opticuspro-frontend-medicao-otica",
-    title: "Base do produto de pé em dois meses: estrutura e componentes do OpticusPRO em Next.js",
-    client: "OpticusPRO",
-    kind: "cliente",
-    segment: "Óptica",
-    role: "Base do produto web: estrutura e componentes",
-    duration: "2 meses",
-    location: "Remoto, Brasil",
-    logo: "/images/logos/opticuspro.webp",
-    summary:
-      "O OpticusPRO calcula DP, DNP e altura de montagem a partir de uma foto, com IA, para a ótica vender lente multifocal sem o cliente ir à loja. Entregamos a fundação do front-end em Next.js: o template, a estrutura do projeto e a biblioteca de componentes que o produto passou a usar como base para crescer.",
-    accent: "#0ea5e9",
-    context: [
-      "Vender multifocal a distância sempre esbarrou na medição: DP, DNP e altura de montagem exigiam o cliente presente e equipamento na loja. O OpticusPRO resolve isso processando com IA uma foto tirada pelo próprio cliente, o que abre para a ótica um canal de venda que antes não existia.",
-      "O produto precisava sair do zero com uma base de front-end que aguentasse crescer, em vez de acumular decisão improvisada nas primeiras semanas, que é quando o custo de errar a fundação é mais barato de evitar e mais caro de corrigir depois.",
-    ],
-    challenge: [
-      "Definir estrutura de projeto, padrão de componente e template em Next.js sabendo que outras pessoas continuariam a construção em cima, o que exige convenção explícita em vez de escolha implícita.",
-      "Entregar essa fundação em uma janela curta, de dois meses, sem transformar a base em abstração excessiva que atrapalharia quem viesse depois.",
-    ],
-    solution: [
-      "Versão kickstart do front-end em Next.js: estrutura de pastas, configuração base e as convenções que o resto do produto passou a seguir.",
-      "Biblioteca de componentes inicial, cobrindo os elementos que o produto repete, para que a evolução seguinte fosse composição em vez de recriação.",
-      "Template e camada visual do produto, ligando a interface ao fluxo de medição por foto que é o núcleo do OpticusPRO.",
-    ],
-    outcome: [
-      "Fundação do front-end entregue em dois meses: template, estrutura de projeto e componentes iniciais em Next.js, deixando o produto pronto para ser evoluído em cima de uma base definida em vez de improvisada.",
-    ],
-    highlights: [
-      "Versão kickstart do front-end em Next.js, do zero",
-      "Estrutura de projeto e convenções para quem continuaria a construção",
-      "Biblioteca de componentes inicial do produto",
-      "Template e camada visual ligados ao fluxo de medição por foto",
-      "Entrega da fundação em 2 meses",
-    ],
-    metrics: [
-      { value: "2 meses", label: "Do zero à base pronta" },
-      { value: "Next.js", label: "Estrutura e componentes" },
-    ],
-    stack: ["React", "Next.js"],
-    links: [{ href: "https://www.opticuspro.com", label: "opticuspro.com" }],
-    featured: false,
-  },
   {
     slug: "startprev-app-acompanhamento-processos",
     title: "App nas duas lojas em 4 meses: cliente acompanhando o plano sem passar pelo atendimento",

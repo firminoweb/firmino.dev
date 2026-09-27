@@ -1108,9 +1108,7 @@ e no JSX `<JsonLd data={PERSON_JSON_LD} />` → `<JsonLd data={ABOUT_JSON_LD} />
 
 | slug | role novo |
 |---|---|
-| viaza-gomilhas-passagens-milhas | `Plataforma de venda de passagens para duas marcas` |
 | celcoin-mybenk-banking-app | `App de banco digital, painel de gestão e integração bancária` |
-| opticuspro-frontend-medicao-otica | `Base do produto web: estrutura e componentes` |
 | startprev-app-acompanhamento-processos | `App iOS e Android com chat e notificações` |
 | velana-plataforma-pagamentos | `Plataforma de pagamentos Pix, painel e saque automático` |
 | portal-pmerj-sustentacao-features | `Sustentação do portal e atualização em tempo real` |
