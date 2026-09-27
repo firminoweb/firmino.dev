@@ -11,7 +11,7 @@ import { HERO_TRUST } from "@/data/empresa";
 
 // Só clientes da firmino.dev. As marcas da carreira do fundador ficam na /joao.
 // Os logos de cliente são ícones quadrados, então o nome vai ao lado: sem ele,
-// um ícone de 24px não diz de quem é. "Viaza / GoMilhas" vira "Viaza" pra caber.
+// um ícone de 24px não diz de quem é. "Marca A / Marca B" vira "Marca A" pra caber.
 const PROOF_LOGOS = CLIENT_PROJECTS.filter((p) => p.logo)
   .slice(0, 6)
   .map((p) => ({ name: p.client.split(" / ")[0], logo: p.logo as string }));

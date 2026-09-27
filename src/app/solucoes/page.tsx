@@ -8,7 +8,7 @@ import { getAllSolucoes, segmentInSentence } from "@/lib/solucoes";
 
 const TITLE = "Soluções por segmento · firmino.dev";
 const DESCRIPTION =
-  "Sistemas, apps e sites sob medida para o seu tipo de negócio, com case real de cada segmento. Veja o que construímos para escritórios de advocacia, agências de viagem, cobrança automática por Pix e mais.";
+  "Sistemas, apps e sites sob medida para o seu tipo de negócio, com case real de cada segmento. Veja o que construímos para escritórios de advocacia, cobrança automática por Pix, clínicas, academias, escolas e mais.";
 
 export const metadata: Metadata = {
   title: "Soluções por segmento",

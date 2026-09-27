@@ -54,7 +54,7 @@ export const CAREER: CareerRole[] = [
   {
     company: "firmino.dev",
     role: "Fundador e Senior Full Stack Developer",
-    // 2024 e não 2026: os primeiros clientes (Viaza, PMERJ) começaram aí,
+    // 2024 e não 2026: os primeiros clientes (ex.: PMERJ) começaram aí,
     // em paralelo ao Itaú. Datar em 2026 criava cliente atendido antes da
     // empresa existir, visível ao cruzar /projetos com esta página.
     period: "2024 até hoje",
