@@ -178,11 +178,12 @@ Alias de import: `@/*` → `src/*`.
 - **YAML do frontmatter:** texto sem aspas não pode ter "dois-pontos + espaço" (`gestão: matrícula`), senão o build quebra em `/md`. Reescreva a frase ou use aspas.
 - Uma página nova entra sozinha em sitemap, `llms.txt`, Markdown (`/md/solucoes/...`), `/solucoes` (ItemList), JSON-LD `Service` com `audience` e FAQPage. As páginas dos cases citados ganham o botão "Soluções para <segmento>".
 - GA: os botões usam `source`/`location` = `solucao-<slug>` (e `solucao-<slug>-final` no bloco final), para comparar os segmentos no `generate_lead` e no `cta_click`.
-- No ar, prova por setor: advocacia (StartPrev), agências de viagem (Viaza/GoMilhas) e cobrança automática por Pix (Velana, Celcoin).
+- No ar, prova por setor: advocacia (StartPrev) e cobrança automática por Pix (Velana, Celcoin).
+- A página de agências de viagem e o case que a sustentava, e o case de óptica, saíram em 2026-09-27 a pedido dos clientes. Pode citar de forma genérica o trabalho feito (ex.: "plataforma whitelabel de viagens", segmento "viagens"), mas nunca o nome, o domínio, o logo, case, post ou link desse cliente, em código, comentário ou docs, sem autorização por escrito dele.
 - No ar, prova por capacidade: clínicas e consultórios, academias e estúdios, escolas e cursos. As três linkam para a página de cobrança por Pix.
 - **Cobrança por Pix é para pequeno negócio e autônomo, não "software para fintech"** (decisão do João em 2026-09-25). Ofertas simples: mensalidade automática, "agendou, pagou", venda no WhatsApp com Pix e painel financeiro. A firmino.dev não cria meio de pagamento: integra provedores regulados pelo Banco Central (Asaas, Mercado Pago, Efí...), e o dinheiro nunca passa por nós. Sem preço publicado (estimativa na conversa).
 - `segment` aparece no meio de frases via `segmentInSentence()` (só a 1ª letra minúscula). Escreva-o com a capitalização de título ("Cobrança por Pix").
-- Candidatos futuros: óticas (prova de setor, OpticusPRO); por capacidade: salões e estética, delivery e restaurantes, condomínios e associações. Valide a busca no Keyword Research do Bing Webmaster antes.
+- Candidatos futuros, por capacidade: salões e estética, delivery e restaurantes, condomínios e associações. Valide a busca no Keyword Research do Bing Webmaster antes.
 
 ## Área do cliente
 

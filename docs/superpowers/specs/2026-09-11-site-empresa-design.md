@@ -79,7 +79,7 @@ Nova ordem: Hero → Serviços → Como trabalhamos → Cases → Depoimentos �
   - Botão secundário "Ver casos" vira "Ver cases".
   - Card de prova:
     - rótulo "Quem já confia na gente" vira **"Clientes atendidos"**;
-    - logos derivados de `CLIENT_PROJECTS` (os que têm `logo`, até 6, na ordem de `PROJECTS`), em grade 3×2: hoje Viaza, Celcoin, OpticusPRO, StartPrev, Velana, PMERJ;
+    - logos derivados de `CLIENT_PROJECTS` (os que têm `logo`, até 6, na ordem de `PROJECTS`), em grade 3×2: hoje Celcoin, StartPrev, Velana, PMERJ;
     - 2 métricas de clientes reais no lugar das de carreira (candidatas: "4 meses do início às duas lojas", StartPrev; "18 meses de portal no ar", PMERJ; escolha final no roteiro de copy);
     - selo "● Disponível" vira **"Desde 2024"**;
     - botão de WhatsApp mantido (`source="hero"`).
