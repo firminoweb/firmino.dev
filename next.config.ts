@@ -69,7 +69,12 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     remotePatterns,
   },
+  // PGlite (banco local da área do cliente em dev) não deve ser empacotado
+  serverExternalPackages: ["@electric-sql/pglite"],
   experimental: {
+    // Upload de documentos da área do cliente: arquivo de até 4 MB + campos.
+    // 4.5mb é também o teto de corpo de requisição da Vercel.
+    serverActions: { bodySizeLimit: "4.5mb" },
     // Inline route CSS into <style> tags instead of a render-blocking
     // <link>. Removes the HTML→CSS critical-chain hop that was delaying LCP.
     inlineCss: true,

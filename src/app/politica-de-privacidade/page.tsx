@@ -76,6 +76,12 @@ export default function PrivacidadePage() {
                 nos fornece os dados de contato correspondentes.
               </p>
               <p>
+                <strong>Área do cliente.</strong> Para quem é cliente, guardamos o nome e o
+                e-mail de cada pessoa com acesso, as mensagens dos chamados e os documentos
+                do projeto (contrato, propostas, notas fiscais e boletos), além do
+                registro das sessões de acesso.
+              </p>
+              <p>
                 <strong>Dados coletados automaticamente.</strong> Usamos o Google
                 Analytics para entender como o site é usado (páginas visitadas, origem do
                 acesso, tipo de dispositivo, eventos de navegação), por meio de cookies e
@@ -108,6 +114,11 @@ export default function PrivacidadePage() {
                   <strong>Prevenir spam e abuso</strong> no formulário de contato (base
                   legal: legítimo interesse).
                 </li>
+                <li>
+                  <strong>Operar a área do cliente</strong>: dar acesso ao acompanhamento
+                  do projeto, aos chamados e aos documentos, e enviar os avisos por e-mail
+                  ligados a eles (base legal: execução de contrato, art. 7º, V da LGPD).
+                </li>
               </ul>
               <p>
                 Não usamos os seus dados para enviar marketing não solicitado e não
@@ -122,11 +133,14 @@ export default function PrivacidadePage() {
               <ul>
                 <li>
                   <strong>Resend</strong>: entrega por e-mail das mensagens enviadas pelo
-                  formulário de contato;
+                  formulário de contato e dos links de acesso e avisos da área do cliente;
                 </li>
                 <li>
                   <strong>Vercel</strong>: hospedagem do site e métricas técnicas de
                   desempenho;
+                </li>
+                <li>
+                  <strong>Neon</strong>: banco de dados da área do cliente;
                 </li>
                 <li>
                   <strong>Google (Analytics)</strong>: estatísticas de uso do site;
@@ -150,15 +164,19 @@ export default function PrivacidadePage() {
                 audiência. Você pode bloquear ou apagar cookies nas configurações do seu
                 navegador, e o site continua funcionando normalmente sem eles. O
                 armazenamento local do navegador guarda apenas a sua preferência de tema
-                e a origem do acesso (por até 90 dias), sem qualquer dado pessoal.
+                e a origem do acesso (por até 90 dias), sem qualquer dado pessoal. Na área
+                do cliente, um cookie de sessão mantém você conectado por até 30 dias; ele
+                é essencial para o acesso e é apagado quando você sai.
               </p>
 
               <h2>6. Por quanto tempo guardamos</h2>
               <p>
                 As mensagens do formulário chegam até nós por e-mail e são mantidas pelo
                 tempo necessário para conduzir a conversa comercial e cumprir obrigações
-                legais. O site não mantém banco de dados próprio com os seus dados de
-                contato. Os dados de navegação seguem os prazos de retenção configurados
+                legais. Os dados da área do cliente ficam guardados enquanto durar a
+                relação comercial e pelo prazo exigido por obrigações legais e fiscais;
+                o acesso de uma pessoa pode ser removido a qualquer momento, a pedido do
+                cliente. Os dados de navegação seguem os prazos de retenção configurados
                 no Google Analytics.
               </p>
 
