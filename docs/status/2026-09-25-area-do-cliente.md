@@ -44,7 +44,8 @@ PORTAL_PGLITE=1 yarn dev
 - Abrir `http://localhost:3000/cliente/entrar` e usar o e-mail do `ADMIN_EMAILS`. Sem `RESEND_API_KEY` local, **o link aparece no terminal** do `yarn dev`: copiar, abrir e clicar em "Entrar".
 - Cliente de teste: cadastrar uma pessoa com e-mail qualquer e entrar com ele numa janela anônima (link também no terminal).
 - Zerar os dados de teste: parar o `yarn dev` e `rm -rf .pglite`.
-- Erro de banco depois de salvar arquivo (hot reload abrindo o PGlite duas vezes): Ctrl+C e subir de novo.
+- A conexão fica no `globalThis` (`src/db/index.ts`), então páginas, route handlers e hot reload usam o mesmo PGlite. Antes (até 2026-09-29) cada um abria o seu, o download dava 401 e a pasta `.pglite/` podia corromper. Se o PGlite não abrir (`Failed query: CREATE SCHEMA ... Aborted()`), a pasta está corrompida: pare o `yarn dev` e rode `rm -rf .pglite`.
+- Teste de ponta a ponta no navegador feito em 2026-09-29 (Playwright, 2 rodadas seguidas, tudo passando): login admin e cliente, cadastros, etapa, cronograma, entrega, upload e download, chamado nos dois sentidos, isolamento (404), cliente sem acesso ao admin e remoção de acesso derrubando a sessão.
 - **Atenção:** sem `PORTAL_PGLITE=1`, o `yarn dev` usa o **banco de produção**.
 
 ## Cuidados

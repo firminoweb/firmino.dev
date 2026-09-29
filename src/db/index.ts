@@ -9,11 +9,20 @@ import * as schema from "./schema";
  */
 export type Db = PgDatabase<PgQueryResultHKT, typeof schema>;
 
-let dbPromise: Promise<Db> | undefined;
+/*
+ * Guardado no globalThis, não numa variável do módulo: o Next carrega este
+ * arquivo uma vez para páginas/Actions e outra para route handlers (e de novo
+ * a cada hot reload). Com PGlite, cada cópia abriria o mesmo .pglite/ e uma
+ * não enxergaria as gravações da outra (ex.: download dando 401 logo após o login).
+ */
+const globalForDb = globalThis as typeof globalThis & { __firminoDb?: Promise<Db> };
 
 export function getDb(): Promise<Db> {
-  dbPromise ??= createDb();
-  return dbPromise;
+  globalForDb.__firminoDb ??= createDb().catch((err) => {
+    globalForDb.__firminoDb = undefined; // falhou ao abrir: tenta de novo na próxima requisição
+    throw err;
+  });
+  return globalForDb.__firminoDb;
 }
 
 async function createDb(): Promise<Db> {
