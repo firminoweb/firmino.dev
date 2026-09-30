@@ -114,7 +114,7 @@ export default function ContatoPage() {
                   Conte sobre o seu projeto
                 </h2>
                 <p className="text-[13.5px] text-text-dim leading-[1.7] mb-6 max-w-[560px]">
-                  Quanto mais detalhes (escopo, prazo, stack atual), mais útil será nossa primeira resposta.
+                  Quanto mais detalhes (o que você precisa, para quando e o que já usa hoje), mais útil será nossa primeira resposta.
                 </p>
                 <ContactForm />
               </div>

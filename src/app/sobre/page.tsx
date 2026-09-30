@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
+import { Reveal, SectionLabel, Button, JsonLd, TrackedLink } from "@/components/ui";
 import { COMPANY_STATS } from "@/data/portfolio";
 import { TEAM_AREAS } from "@/data/empresa";
 import { PERSON } from "@/data/curriculo";
 import { breadcrumbJsonLd, SITE_URL, ORG_ID, OG_IMAGES } from "@/lib/seo";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "Sobre · firmino.dev";
 const DESCRIPTION =
@@ -281,12 +282,15 @@ export default function AboutPage() {
                     Conte para a gente o que você está construindo. Respondemos em até 24h úteis.
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <Link href="/contato">
-                      <Button>Fale com a gente →</Button>
-                    </Link>
-                    <Link href="/projetos">
-                      <Button variant="ghost">Ver cases</Button>
-                    </Link>
+                    <TrackedLink
+                      href={contactHref("sobre")}
+                      event="cta_click"
+                      eventParams={{ location: "sobre", label: "proposta" }}
+                      className="btn-primary inline-flex items-center justify-center"
+                    >
+                      Fale com a gente →
+                    </TrackedLink>
+                    <Button href="/projetos" variant="ghost">Ver cases</Button>
                   </div>
                 </div>
               </div>

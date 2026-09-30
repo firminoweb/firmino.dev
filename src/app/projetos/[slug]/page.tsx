@@ -3,12 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Tag, SectionLabel, Button, JsonLd } from "@/components/ui";
+import { Tag, SectionLabel, Button, JsonLd, TrackedLink, WhatsAppButton, WhatsAppGlyph } from "@/components/ui";
 import { ProjectCover } from "@/components/projects/ProjectCover";
 import { PUBLISHED_PROJECTS, getProjectBySlug } from "@/data/portfolio";
 import { PERSON_ID } from "@/data/curriculo";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL, ORG_ID } from "@/lib/seo";
 import { getSolucoesForCase, segmentInSentence } from "@/lib/solucoes";
+import { contactHref } from "@/lib/contact-options";
 
 interface CaseDetailProps {
   params: Promise<{ slug: string }>;
@@ -286,9 +287,22 @@ export default async function CaseDetailPage({ params }: CaseDetailProps) {
                     Conte para gente o que você está construindo. Respondemos em até 24h úteis.
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <Link href="/contato">
-                      <Button>Quero uma proposta →</Button>
-                    </Link>
+                    <TrackedLink
+                      href={contactHref(`case-${project.slug}`)}
+                      event="cta_click"
+                      eventParams={{ location: `case-${project.slug}`, label: "proposta" }}
+                      className="btn-primary inline-flex items-center justify-center"
+                    >
+                      Quero uma proposta →
+                    </TrackedLink>
+                    <WhatsAppButton
+                      source={`case-${project.slug}`}
+                      message={`Olá! Vi o case ${project.client} no site da firmino.dev e quero conversar sobre um projeto parecido.`}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[10px] bg-[#15803d] text-white font-semibold text-[14px] hover:bg-[#166534] transition-colors"
+                    >
+                      <WhatsAppGlyph className="w-[18px] h-[18px]" />
+                      Falar no WhatsApp
+                    </WhatsAppButton>
                     {solucoes.map((s) => (
                       <Button key={s.slug} href={`/solucoes/${s.slug}`} variant="ghost">
                         Soluções para {segmentInSentence(s)}

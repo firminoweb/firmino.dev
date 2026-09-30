@@ -3,31 +3,67 @@
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import Link from "next/link";
 import clsx from "clsx";
-import { Button } from "@/components/ui";
+import { Button, TrackedExternalLink, WhatsAppGlyph } from "@/components/ui";
+import { whatsappLink } from "@/data/portfolio";
 import { trackEvent } from "@/lib/analytics";
 import { readAttribution } from "@/lib/attribution";
-import { PROJECT_TYPES } from "@/lib/contact-options";
+import {
+  BUDGET_RANGES,
+  PROJECT_TYPES,
+  PROJECT_TYPE_VALUES,
+  SOURCE_PATTERN,
+  type COMPANY_SIZE_VALUES,
+  type TIMELINE_VALUES,
+} from "@/lib/contact-options";
 
 type Status = "idle" | "sending" | "sent" | "error";
+type ProjectType = (typeof PROJECT_TYPE_VALUES)[number];
 
 interface FieldErrors {
   name?: string;
   email?: string;
+  phone?: string;
   projectType?: string;
   message?: string;
 }
 
-export function ContactForm() {
+interface ContactFormProps {
+  /** Botão de origem. O `?origem=` da URL (links de contactHref) tem prioridade. */
+  source?: string;
+  /** Tipo já escolhido (pedido guiado). Sem ele, vale o `?tipo=` da URL. */
+  projectType?: ProjectType;
+  /** Respostas do pedido guiado, enviadas junto com o lead. */
+  size?: (typeof COMPANY_SIZE_VALUES)[number];
+  timeline?: (typeof TIMELINE_VALUES)[number];
+  /** Versão curta (pedido guiado): sem empresa e com mensagem menor. */
+  compact?: boolean;
+}
+
+export function ContactForm({ source, projectType, size, timeline, compact }: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const formOpenedAt = useRef<number>(0);
+  const urlSource = useRef<string | undefined>(undefined);
 
   // Stamp the open time after mount — keeps render pure (no Date.now in render)
   // and still feeds the server-side "filled too fast" bot trap.
   useEffect(() => {
     formOpenedAt.current = Date.now();
   }, []);
+
+  // ?origem= e ?tipo= lidos no navegador: /contato continua estático
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const origem = params.get("origem");
+    if (origem && SOURCE_PATTERN.test(origem)) urlSource.current = origem;
+    const tipo = params.get("tipo");
+    const select = formRef.current?.elements.namedItem("projectType");
+    if (!projectType && select instanceof HTMLSelectElement && PROJECT_TYPE_VALUES.some((v) => v === tipo)) {
+      select.value = tipo as string;
+    }
+  }, [projectType]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,16 +72,23 @@ export function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const leadSource = urlSource.current ?? source;
+    const budget = String(formData.get("budget") ?? "");
 
     const payload = {
       name: String(formData.get("name") ?? "").trim(),
       email: String(formData.get("email") ?? "").trim(),
+      phone: String(formData.get("phone") ?? "").trim(),
       company: String(formData.get("company") ?? "").trim(),
-      projectType: String(formData.get("projectType") ?? ""),
+      projectType: projectType ?? String(formData.get("projectType") ?? ""),
+      budget: budget || undefined,
+      size,
+      timeline,
       message: String(formData.get("message") ?? "").trim(),
       website: String(formData.get("website") ?? ""),
       elapsedMs: Date.now() - formOpenedAt.current,
       channel: "form",
+      source: leadSource,
       attribution: readAttribution(),
     };
 
@@ -72,7 +115,12 @@ export function ContactForm() {
       }
 
       setStatus("sent");
-      trackEvent("generate_lead", { method: "form", project_type: payload.projectType });
+      trackEvent("generate_lead", {
+        method: "form",
+        project_type: payload.projectType,
+        source: leadSource ?? "contato",
+        budget: payload.budget,
+      });
       form.reset();
       formOpenedAt.current = Date.now();
     } catch {
@@ -84,7 +132,7 @@ export function ContactForm() {
   const sending = status === "sending";
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+    <form ref={formRef} onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
       {/* Honeypot — invisible to humans, attractive to bots */}
       <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] opacity-0 pointer-events-none">
         <label>
@@ -106,21 +154,44 @@ export function ContactForm() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="Empresa (opcional)" name="company" disabled={sending} />
         <Field
-          label="O que você precisa"
-          name="projectType"
-          options={[...PROJECT_TYPES]}
-          required
-          error={errors.projectType}
+          label="WhatsApp (opcional)"
+          name="phone"
+          type="tel"
+          placeholder="(11) 91234-5678"
+          hint="Para responder mais rápido"
+          error={errors.phone}
           disabled={sending}
         />
+        {compact ? (
+          <BudgetField disabled={sending} />
+        ) : (
+          <Field label="Empresa (opcional)" name="company" disabled={sending} />
+        )}
       </div>
+
+      {!compact && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {!projectType && (
+            <Field
+              label="O que você precisa"
+              name="projectType"
+              options={[...PROJECT_TYPES]}
+              required
+              error={errors.projectType}
+              disabled={sending}
+            />
+          )}
+          <BudgetField disabled={sending} />
+        </div>
+      )}
 
       <Field
         label="Mensagem"
         name="message"
         textarea
+        rows={compact ? 4 : 6}
+        placeholder="Ex.: quero um sistema para agendar os alunos e cobrar a mensalidade por Pix."
         required
         error={errors.message}
         disabled={sending}
@@ -145,7 +216,17 @@ export function ContactForm() {
 
       {status === "sent" && (
         <FormFeedback variant="success">
-          Mensagem enviada. Em breve entraremos em contato.
+          <p>Mensagem enviada. Em breve entraremos em contato.</p>
+          {/* cta_click, não generate_lead: o lead já foi contado no envio */}
+          <TrackedExternalLink
+            href={whatsappLink("Olá! Acabei de enviar o formulário do site da firmino.dev e quero adiantar a conversa.")}
+            event="cta_click"
+            eventParams={{ location: "form_sucesso", label: "whatsapp" }}
+            className="inline-flex items-center gap-2 mt-2 font-semibold underline underline-offset-2"
+          >
+            <WhatsAppGlyph className="w-4 h-4" />
+            Quer adiantar? Chame no WhatsApp
+          </TrackedExternalLink>
         </FormFeedback>
       )}
 
@@ -156,18 +237,44 @@ export function ContactForm() {
   );
 }
 
+function BudgetField({ disabled }: { disabled?: boolean }) {
+  return (
+    <Field
+      label="Quanto você pensa em investir? (opcional)"
+      name="budget"
+      options={[...BUDGET_RANGES]}
+      disabled={disabled}
+    />
+  );
+}
+
 interface FieldProps {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
   textarea?: boolean;
+  rows?: number;
   options?: { value: string; label: string }[];
+  placeholder?: string;
+  hint?: string;
   error?: string;
   disabled?: boolean;
 }
 
-function Field({ label, name, type = "text", required, textarea, options, error, disabled }: FieldProps) {
+function Field({
+  label,
+  name,
+  type = "text",
+  required,
+  textarea,
+  rows = 6,
+  options,
+  placeholder,
+  hint,
+  error,
+  disabled,
+}: FieldProps) {
   const baseClass = clsx(
     "w-full rounded-[10px] bg-surface-dim border border-border-input px-4 py-3",
     "text-[14px] text-text-light placeholder:text-text-darker",
@@ -191,7 +298,8 @@ function Field({ label, name, type = "text", required, textarea, options, error,
           defaultValue=""
           className={clsx(baseClass, "form-select appearance-none cursor-pointer")}
         >
-          <option value="" disabled>
+          {/* Campo opcional pode voltar para "Selecione..." */}
+          <option value="" disabled={required}>
             Selecione...
           </option>
           {options.map((o) => (
@@ -204,21 +312,28 @@ function Field({ label, name, type = "text", required, textarea, options, error,
         <textarea
           name={name}
           required={required}
-          rows={6}
+          rows={rows}
+          placeholder={placeholder}
           disabled={disabled}
-          className={clsx(baseClass, "resize-y min-h-[140px] leading-[1.65]")}
+          className={clsx(baseClass, "resize-y min-h-[110px] leading-[1.65]")}
         />
       ) : (
         <input
           name={name}
           type={type}
           required={required}
+          placeholder={placeholder}
+          inputMode={type === "tel" ? "tel" : undefined}
           disabled={disabled}
           autoComplete={autoCompleteFor(name)}
           className={baseClass}
         />
       )}
-      {error && <span className="text-[12px] text-red-400">{error}</span>}
+      {error ? (
+        <span className="text-[12px] text-red-400">{error}</span>
+      ) : (
+        hint && <span className="text-[11.5px] text-text-darker">{hint}</span>
+      )}
     </label>
   );
 }
@@ -251,6 +366,8 @@ function autoCompleteFor(name: string): string {
       return "name";
     case "email":
       return "email";
+    case "phone":
+      return "tel";
     case "company":
       return "organization";
     default:

@@ -8,6 +8,7 @@ import {
   QuemFaz,
   Faq,
   AiCta,
+  PedidoGuiado,
 } from "@/components/home";
 
 export default function HomePage() {
@@ -24,6 +25,7 @@ export default function HomePage() {
           <Testimonials />
           <QuemFaz />
           <Faq />
+          <PedidoGuiado />
           <AiCta />
         </main>
         <Footer />

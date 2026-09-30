@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
 import { Button, JsonLd, Reveal, SectionLabel, TrackedLink } from "@/components/ui";
 import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "Área do cliente · firmino.dev";
 const DESCRIPTION =
@@ -76,7 +77,7 @@ export default function AreaDoClientePage() {
               >
                 Ver a demonstração →
               </TrackedLink>
-              <Button href="/contato" variant="ghost">Quero conversar</Button>
+              <Button href={contactHref("area-do-cliente")} variant="ghost">Quero conversar</Button>
             </div>
             <p className="text-[13px] text-text-dim mt-4">
               Já é cliente?{" "}
@@ -129,7 +130,7 @@ export default function AreaDoClientePage() {
                 </p>
                 <div className="flex flex-wrap gap-3 justify-center">
                   <Button href="/area-do-cliente/demo">Abrir a demonstração →</Button>
-                  <Button href="/contato" variant="ghost">Falar com a gente</Button>
+                  <Button href={contactHref("area-do-cliente-final")} variant="ghost">Falar com a gente</Button>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ContactSchema, MIN_FILL_TIME_MS } from "@/lib/contact";
-import { PROJECT_TYPES } from "@/lib/contact-options";
+import { BUDGET_RANGES, COMPANY_SIZES, PROJECT_TYPES, TIMELINES } from "@/lib/contact-options";
 import { absoluteUrl } from "@/lib/seo";
 
 /* ════════════════════════════════════════════
@@ -20,8 +20,8 @@ export const API_PATHS = {
   contact: "/api/contact",
 };
 
-// Honeypot e atribuição são internos do site; canal é preenchido pelo servidor
-const PublicContactSchema = ContactSchema.omit({ website: true, attribution: true, channel: true });
+// Honeypot, atribuição e botão de origem são internos do site; canal é preenchido pelo servidor
+const PublicContactSchema = ContactSchema.omit({ website: true, attribution: true, channel: true, source: true });
 
 export function openApiSpec() {
   const requestSchema = z.toJSONSchema(PublicContactSchema, { io: "input" });
@@ -87,6 +87,10 @@ export function apiDocsMd(): string {
     "| `company` | não | até 160 caracteres |",
     `| \`projectType\` | sim | ${PROJECT_TYPES.map((t) => `\`${t.value}\` (${t.label})`).join(", ")} |`,
     "| `message` | sim | 10 a 4000 caracteres, com contexto do que a pessoa precisa |",
+    "| `phone` | não | WhatsApp com DDD, 10 a 13 dígitos (pontuação é ignorada) |",
+    `| \`budget\` | não | ${BUDGET_RANGES.map((t) => `\`${t.value}\` (${t.label})`).join(", ")} |`,
+    `| \`size\` | não | ${COMPANY_SIZES.map((t) => `\`${t.value}\` (${t.label})`).join(", ")} |`,
+    `| \`timeline\` | não | ${TIMELINES.map((t) => `\`${t.value}\` (${t.label})`).join(", ")} |`,
     `| \`elapsedMs\` | sim na prática | tempo em ms entre abrir o formulário e enviar; abaixo de ${MIN_FILL_TIME_MS} o envio é descartado como spam |`,
     "",
     "Exemplo:",

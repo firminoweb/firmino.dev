@@ -4,6 +4,19 @@ description: Plataformas corporativas com Module Federation, Design Systems comp
 headline: Seu produto cresceu. A engenharia parou de acompanhar. A gente conserta.
 icon: ⬢
 tags: [Module Federation, Design Systems, Lighthouse, WCAG, Clean Architecture]
+cases: [velana-plataforma-pagamentos]
+faq:
+  - q: "Vocês refazem do zero?"
+    a: "Quase nunca. Refazer do zero parece atalho, mas costuma ser caminho mais longo, com risco maior e perda de conhecimento embutido no código. A gente prefere entrar no que existe, refatorar com método, e migrar parte por parte."
+  - q: "Em quanto tempo a gente vê resultado?"
+    a: "As primeiras melhorias mensuráveis costumam aparecer em 4 a 8 semanas: Lighthouse subindo, bundle menor, tempo de build caindo. Mudança estrutural (Module Federation, Design System completo) leva mais tempo (3 a 6 meses) mas a empresa sente em produção antes de tudo estar pronto."
+  - q: "Funciona em Angular? React? Vue?"
+    a: "Stack mais forte: Angular e React (incluindo Next.js). Em React Native também. Vue a gente atende mas não é foco principal, se for esse o caso, conversamos pra ver se faz sentido."
+  - q: "Como vocês medem o resultado?"
+    a: "Métricas concretas, públicas dentro do time: Lighthouse score, INP / LCP / CLS de Web Vitals, bundle size, cobertura de teste, tempo de build, tempo de release, número de bugs em produção. A gente coloca um dashboard no início e acompanha junto."
+  - q: "Vocês treinam o time interno enquanto trabalham?"
+    a: "Sim, faz parte. Se a gente sair e o time não souber manter, o trabalho perde valor em 6 meses. Pair programming, code review didático, workshops curtos sobre cada decisão. O time absorve o método."
+updated: 2026-09-30
 ---
 
 Empresa que já tem produto rodando, com time, com cliente pagando, em algum ponto bate num teto que não é mais de feature, é de engenharia. Releases que travam dois dias porque três times pisaram no pé um do outro. Frontend lento o suficiente pra afetar conversão. Bug recorrente que ninguém localiza. Time novo entrando e levando seis semanas pra fazer o primeiro PR útil.
@@ -18,11 +31,13 @@ Esse serviço é pra essa empresa. Não é refazer do zero, é entrar em código
 - **Múltiplos times pisando no pé** uns dos outros, Design System inexistente ou desatualizado, padrão de código divergindo, PR review demorando.
 - **Não-conformidade com acessibilidade** (WCAG) virando risco regulatório, especialmente em setor financeiro, governo ou grande varejo.
 
-## Pra quem NÃO é
+## Qual o melhor caminho pra você
 
-- Quem **ainda não lançou v1**. Otimizar antes de ter usuário é desperdício caro, primeiro valida.
-- Quem precisa de **redesign de UI/UX**. Esse é serviço de produto/design, não de engenharia. A gente foca no que está por trás da tela.
-- Quem busca **consultoria de slide**: relatório bonito, lista de recomendação, e a empresa que toque sozinha. A gente entrega plano **e** implementação.
+Cada caso tem um caminho que cabe no seu momento. Estes são os mais comuns:
+
+- **Ainda não lançou a primeira versão?** Nessa fase, o melhor investimento é colocar o produto na mão do cliente. A gente constrói com base sólida desde o início pela página de [Aplicações web](/servicos/aplicacoes-web-sob-medida), sem otimizar cedo demais.
+- **O problema é a cara do produto (visual e experiência)?** Este serviço cuida do que está por trás da tela. Se o redesign vier junto, a gente combina como trabalhar ao lado do seu time de design.
+- **Quer só um relatório com recomendações?** A gente entrega o diagnóstico e também coloca a mão no código pra implementar. É assim que a melhoria chega de verdade em produção.
 
 ## O que você recebe
 
@@ -43,20 +58,3 @@ Esse serviço é pra essa empresa. Não é refazer do zero, é entrar em código
 **4. Mentoria do time interno.** Pair programming, revisão de PR do time, workshops curtos pra explicar decisões. O time aprende o método, não só o resultado.
 
 **5. Handoff.** Saímos quando o time consegue manter e evoluir sem a gente. Pode ser em 4 meses, pode ser em 12, depende do tamanho do produto e do time.
-
-## Perguntas comuns
-
-**Vocês refazem do zero?**
-Quase nunca. Refazer do zero parece atalho, mas costuma ser caminho mais longo, com risco maior e perda de conhecimento embutido no código. A gente prefere entrar no que existe, refatorar com método, e migrar parte por parte.
-
-**Em quanto tempo a gente vê resultado?**
-As primeiras melhorias mensuráveis costumam aparecer em 4 a 8 semanas: Lighthouse subindo, bundle menor, tempo de build caindo. Mudança estrutural (Module Federation, Design System completo) leva mais tempo (3 a 6 meses) mas a empresa sente em produção antes de tudo estar pronto.
-
-**Funciona em Angular? React? Vue?**
-Stack mais forte: Angular e React (incluindo Next.js). Em React Native também. Vue a gente atende mas não é foco principal, se for esse o caso, conversamos pra ver se faz sentido.
-
-**Como vocês medem o resultado?**
-Métricas concretas, públicas dentro do time: Lighthouse score, INP / LCP / CLS de Web Vitals, bundle size, cobertura de teste, tempo de build, tempo de release, número de bugs em produção. A gente coloca um dashboard no início e acompanha junto.
-
-**Vocês treinam o time interno enquanto trabalham?**
-Sim, faz parte. Se a gente sair e o time não souber manter, o trabalho perde valor em 6 meses. Pair programming, code review didático, workshops curtos sobre cada decisão. O time absorve o método.

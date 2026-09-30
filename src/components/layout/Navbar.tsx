@@ -5,8 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useScrolled } from "@/hooks/useScrolled";
-import { Button, ThemeToggle } from "@/components/ui";
+import { ThemeToggle, TrackedLink } from "@/components/ui";
 import { NAV_ITEMS, CONTACT } from "@/data/portfolio";
+import { contactHref } from "@/lib/contact-options";
 
 export function Navbar() {
   const scrolled = useScrolled();
@@ -62,7 +63,14 @@ export function Navbar() {
               </Link>
             ))}
             <ThemeToggle />
-            <Button href="/contato" className="!py-2.5 !px-[22px]">Fale Conosco</Button>
+            <TrackedLink
+              href={contactHref("navbar")}
+              event="cta_click"
+              eventParams={{ location: "navbar", label: "fale_conosco" }}
+              className="btn-primary inline-flex items-center justify-center !py-2.5 !px-[22px]"
+            >
+              Fale Conosco
+            </TrackedLink>
           </div>
 
           {/* Mobile actions */}
@@ -184,13 +192,15 @@ export function Navbar() {
                 : undefined,
             }}
           >
-            <Button
-              href="/contato"
+            <TrackedLink
+              href={contactHref("navbar_mobile")}
+              event="cta_click"
+              eventParams={{ location: "navbar_mobile", label: "fale_conosco" }}
               onClick={() => setMenuOpen(false)}
-              className="w-full !py-3.5 !text-[14px]"
+              className="btn-primary inline-flex items-center justify-center w-full !py-3.5 !text-[14px]"
             >
               Fale Conosco →
-            </Button>
+            </TrackedLink>
           </div>
 
           {/* Spacer + footer */}

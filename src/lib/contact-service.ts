@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { describeTouch, landingPath, type Attribution } from "@/lib/attribution";
 import { ContactSchema, LEAD_CHANNELS, MIN_FILL_TIME_MS } from "@/lib/contact";
+import { BUDGET_RANGES, COMPANY_SIZES, optionLabel, TIMELINES } from "@/lib/contact-options";
 
 /* ════════════════════════════════════════════
    Envio de contato · firmino.dev
@@ -84,6 +85,26 @@ function originLines(attribution: Attribution | undefined): string[] {
   return lines;
 }
 
+/** Número digitado sem DDI (10 ou 11 dígitos) é brasileiro. */
+function whatsappUrl(phone: string): string {
+  return `https://wa.me/${phone.length <= 11 ? `55${phone}` : phone}`;
+}
+
+function formatPhone(phone: string): string {
+  const m = phone.match(/^(\d{2})(\d{4,5})(\d{4})$/);
+  return m ? `(${m[1]}) ${m[2]}-${m[3]}` : `+${phone}`;
+}
+
+/** Qualificação opcional (verba, porte, prazo): só entra o que veio preenchido. */
+function qualificationLines(data: { budget?: string; size?: string; timeline?: string }): [string, string][] {
+  const lines: [string, string | undefined][] = [
+    ["Verba estimada", optionLabel(BUDGET_RANGES, data.budget)],
+    ["Porte", optionLabel(COMPANY_SIZES, data.size)],
+    ["Prazo", optionLabel(TIMELINES, data.timeline)],
+  ];
+  return lines.filter((l): l is [string, string] => Boolean(l[1]));
+}
+
 /**
  * Valida e envia um pedido de contato. `clientKey` identifica o remetente para
  * o rate limit (IP no HTTP; um balde único para o MCP).
@@ -119,15 +140,24 @@ export async function submitContact(raw: unknown, clientKey: string): Promise<Co
 
   const resend = new Resend(apiKey);
   const projectTypeLabel = PROJECT_TYPE_LABELS[data.projectType] ?? data.projectType;
-  const subject = `[firmino.dev] Novo contato: ${data.name} · ${projectTypeLabel}`;
-  const origin = [`Enviado por: ${LEAD_CHANNELS[data.channel]}`, ...originLines(data.attribution)];
+  // Verba no assunto ajuda a priorizar direto da caixa de entrada
+  const budgetLabel = data.budget && data.budget !== "nao-sei" ? optionLabel(BUDGET_RANGES, data.budget) : undefined;
+  const subject = `[firmino.dev] Novo contato: ${data.name} · ${projectTypeLabel}${budgetLabel ? ` · ${budgetLabel}` : ""}`;
+  const origin = [
+    `Enviado por: ${LEAD_CHANNELS[data.channel]}`,
+    ...(data.source ? [`Botão de origem: ${data.source}`] : []),
+    ...originLines(data.attribution),
+  ];
+  const qualification = qualificationLines(data);
   const html = `
     <div style="font-family: -apple-system, system-ui, sans-serif; line-height: 1.6; color: #111;">
       <h2 style="margin: 0 0 16px; font-size: 18px;">Novo contato pelo site</h2>
       <p><strong>Nome:</strong> ${escapeHtml(data.name)}</p>
       <p><strong>E-mail:</strong> <a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></p>
+      ${data.phone ? `<p><strong>WhatsApp:</strong> <a href="${whatsappUrl(data.phone)}">${formatPhone(data.phone)}</a></p>` : ""}
       ${data.company ? `<p><strong>Empresa:</strong> ${escapeHtml(data.company)}</p>` : ""}
       <p><strong>Tipo de projeto:</strong> ${escapeHtml(projectTypeLabel)}</p>
+      ${qualification.map(([k, v]) => `<p><strong>${k}:</strong> ${escapeHtml(v)}</p>`).join("")}
       <p style="margin-top: 16px;"><strong>Mensagem:</strong></p>
       <p style="white-space: pre-wrap; background: #f6f7fb; padding: 12px 14px; border-radius: 8px; border: 1px solid #e5e7eb;">${escapeHtml(data.message)}</p>
       ${
@@ -140,8 +170,10 @@ export async function submitContact(raw: unknown, clientKey: string): Promise<Co
   const text = [
     `Nome: ${data.name}`,
     `E-mail: ${data.email}`,
+    data.phone ? `WhatsApp: ${formatPhone(data.phone)} (${whatsappUrl(data.phone)})` : null,
     data.company ? `Empresa: ${data.company}` : null,
     `Tipo de projeto: ${projectTypeLabel}`,
+    ...qualification.map(([k, v]) => `${k}: ${v}`),
     "",
     "Mensagem:",
     data.message,

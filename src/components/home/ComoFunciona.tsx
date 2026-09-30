@@ -6,6 +6,7 @@ import {
   WhatsAppGlyph,
 } from "@/components/ui";
 import { PROCESS_STEPS, ENGAGEMENT_MODELS } from "@/data/empresa";
+import { contactHref } from "@/lib/contact-options";
 
 export function ComoFunciona() {
   return (
@@ -72,7 +73,7 @@ export function ComoFunciona() {
             </p>
             <div className="flex flex-wrap gap-3.5 justify-center">
               <TrackedLink
-                href="/contato"
+                href={contactHref("como_funciona")}
                 event="cta_click"
                 eventParams={{ location: "como_funciona", label: "proposta" }}
                 className="btn-primary inline-flex items-center justify-center"

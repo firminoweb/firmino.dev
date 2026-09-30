@@ -1,5 +1,12 @@
 import { z } from "zod";
-import { MIN_FILL_TIME_MS, PROJECT_TYPE_VALUES } from "@/lib/contact-options";
+import {
+  BUDGET_VALUES,
+  COMPANY_SIZE_VALUES,
+  MIN_FILL_TIME_MS,
+  PROJECT_TYPE_VALUES,
+  SOURCE_PATTERN,
+  TIMELINE_VALUES,
+} from "@/lib/contact-options";
 
 export { LEAD_CHANNELS, MIN_FILL_TIME_MS } from "@/lib/contact-options";
 
@@ -31,6 +38,30 @@ export const ContactSchema = z.object({
     .min(10, "Mensagem muito curta (mín. 10 caracteres)")
     .max(4000, "Mensagem muito longa")
     .describe("O que a pessoa precisa, com o máximo de contexto (negócio, prazo, o que já existe)"),
+  phone: z
+    .string()
+    .max(30)
+    .optional()
+    .default("")
+    .transform((s) => s.replace(/\D/g, ""))
+    .refine((s) => s === "" || (s.length >= 10 && s.length <= 13), "WhatsApp inválido (use DDD + número)")
+    .describe("WhatsApp com DDD (opcional), para uma resposta mais rápida"),
+  // Qualificação opcional: valor fora da lista vira "não informado", nunca barra o lead
+  budget: z
+    .enum(BUDGET_VALUES)
+    .optional()
+    .catch(undefined)
+    .describe("Quanto a pessoa pensa em investir (opcional). nao-sei = quer uma estimativa"),
+  size: z
+    .enum(COMPANY_SIZE_VALUES)
+    .optional()
+    .catch(undefined)
+    .describe("Porte (opcional): autonomo, pequena (até 20 pessoas), media-grande ou agencia"),
+  timeline: z
+    .enum(TIMELINE_VALUES)
+    .optional()
+    .catch(undefined)
+    .describe("Prazo (opcional): urgente, 3-meses ou pesquisando"),
   website: z.string().max(0).optional().default(""), // honeypot: precisa vir vazio
   elapsedMs: z
     .number()
@@ -40,6 +71,8 @@ export const ContactSchema = z.object({
     .default(0)
     .describe(`Milissegundos entre abrir o formulário e enviar. Abaixo de ${MIN_FILL_TIME_MS} o envio é descartado como spam.`),
   channel: z.enum(["form", "webmcp", "mcp", "api"]).optional().default("api").describe("Canal de envio"),
+  // Botão que levou ao formulário (?origem=). Informativo, como a atribuição
+  source: z.string().regex(SOURCE_PATTERN).optional().catch(undefined),
   // Informativo: dado de origem malformado nunca pode barrar um lead
   attribution: z
     .object({ session: TouchSchema.optional(), first: TouchSchema.optional() })
