@@ -25,6 +25,7 @@ import {
 } from "@/data/curriculo";
 import { CAREER_PROJECTS } from "@/data/portfolio";
 import { breadcrumbJsonLd, absoluteUrl, SITE_URL, ORG_ID, OG_IMAGES } from "@/lib/seo";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "João Firmino · Fundador da firmino.dev";
 const DESCRIPTION =
@@ -131,7 +132,7 @@ export default function JoaoPage() {
                 </p>
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-3 mt-6">
                   <TrackedLink
-                    href="/contato"
+                    href={contactHref("joao_hero")}
                     event="cta_click"
                     eventParams={{ location: "joao_hero", label: "contato" }}
                     className="btn-primary inline-flex items-center justify-center"
@@ -445,7 +446,7 @@ export default function JoaoPage() {
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
                     <TrackedLink
-                      href="/contato"
+                      href={contactHref("joao_cta")}
                       event="cta_click"
                       eventParams={{ location: "joao_cta", label: "contato" }}
                       className="btn-primary inline-flex items-center justify-center"

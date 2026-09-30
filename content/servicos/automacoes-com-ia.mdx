@@ -4,6 +4,18 @@ description: Chatbot que atende cliente, agente que processa documento, automaç
 headline: IA aplicada onde sua empresa perde tempo todo dia.
 icon: ⏣
 tags: [IA Generativa, Chatbot, Agentes, Automação, Integrações]
+faq:
+  - q: "Que IA vocês usam? OpenAI, Anthropic, outra?"
+    a: "Depende do caso. OpenAI (ChatGPT) e Anthropic (Claude) são os dois principais. Quando faz sentido por custo ou privacidade, a gente usa modelo aberto rodando em servidor próprio. A escolha é feita na conversa inicial, não vendida antes."
+  - q: "Meus dados ficam seguros?"
+    a: "Sim. Quando o caso pede confidencialidade real, a gente arquiteta pra que os dados não saiam da infra controlada, ou pra que sejam anonimizados antes de chegar no modelo. Isso é decidido no início, e fica documentado."
+  - q: "Quanto custa rodar a IA em si?"
+    a: "Tem dois custos: o desenvolvimento (uma vez, no início) e o uso recorrente do modelo (mensal, conforme volume). O custo recorrente costuma ser uma fração pequena do custo do trabalho manual que a IA substitui, mas a gente faz a estimativa concreta antes de você fechar nada."
+  - q: "Vai substituir meu time?"
+    a: "Não. Vai tirar tarefa repetitiva do time pra que o mesmo time atenda mais ou faça melhor. Quando a IA cobre 80% dos casos simples, os 20% complexos chegam pro humano com contexto pronto, e ele resolve mais rápido."
+  - q: "E quando o modelo erra? Porque modelo erra."
+    a: "Erra mesmo. A gente desenha o sistema pra que casos de baixa confiança caiam pro humano em vez de tentar adivinhar. E pra que erro grave (resposta inapropriada, dado errado) seja capturado pelo monitoramento, não pelo cliente."
+updated: 2026-09-30
 ---
 
 Tem muito barulho em volta de IA, e a maior parte dele é genérico. O que importa pra sua empresa é mais concreto: existe alguma tarefa manual, repetitiva, que toma horas do time toda semana? Existe atendimento que poderia ser resolvido em segundos sem precisar de uma pessoa? Existe documento que chega e alguém digita parte dele em outra ferramenta?
@@ -17,11 +29,13 @@ Esses três cenários (atendimento, processamento e digitação) são onde IA ap
 - **Geração de conteúdo recorrente** (descrição de produto, resposta de e-mail padrão, resumo de reunião).
 - **Triagem** de pedido, lead ou ticket, decidir pra onde manda antes de gente envolver.
 
-## Pra quem NÃO é
+## Qual o melhor caminho pra você
 
-- Quem quer **"plugar GPT no site"** só pelo selo. Sem volume e sem tarefa concreta, isso queima dinheiro.
-- Quem espera que a IA **substitua o time inteiro**. Ela não substitui, ela tira a parte chata pra que o time atenda mais e melhor.
-- Quem **não tem volume** que justifique. Se o problema acontece duas vezes por mês, faz à mão. IA paga conta com escala.
+Cada caso tem um caminho que cabe no seu momento. Estes são os mais comuns:
+
+- **Quer IA no negócio, mas ainda não sabe onde?** A gente começa conversando com quem faz a tarefa hoje e mostra onde a IA realmente economiza tempo. Se não houver ganho claro, a gente diz isso antes de você investir.
+- **Espera que a IA faça o trabalho do time inteiro?** Ela rende mais tirando a parte repetitiva, pra que o mesmo time atenda mais e melhor. É assim que a gente desenha.
+- **A tarefa acontece poucas vezes por mês?** Uma automação simples, sem IA, pode resolver por bem menos. A gente indica o caminho mais barato que funciona.
 
 ## O que você recebe
 
@@ -42,20 +56,3 @@ Esses três cenários (atendimento, processamento e digitação) são onde IA ap
 **4. Piloto com volume controlado.** Começa atendendo, digamos, 20% dos casos. A gente acompanha junto, ajusta, e só amplia quando a qualidade está consistente.
 
 **5. Escala e monitoramento.** Depois do piloto validado, a IA atende a maior parte do volume. Time humano fica pros casos complexos, e o dashboard mostra exatamente o que está acontecendo.
-
-## Perguntas comuns
-
-**Que IA vocês usam? OpenAI, Anthropic, outra?**
-Depende do caso. OpenAI (ChatGPT) e Anthropic (Claude) são os dois principais. Quando faz sentido por custo ou privacidade, a gente usa modelo aberto rodando em servidor próprio. A escolha é feita na conversa inicial, não vendida antes.
-
-**Meus dados ficam seguros?**
-Sim. Quando o caso pede confidencialidade real, a gente arquiteta pra que os dados não saiam da infra controlada, ou pra que sejam anonimizados antes de chegar no modelo. Isso é decidido no início, e fica documentado.
-
-**Quanto custa rodar a IA em si?**
-Tem dois custos: o desenvolvimento (uma vez, no início) e o uso recorrente do modelo (mensal, conforme volume). O custo recorrente costuma ser uma fração pequena do custo do trabalho manual que a IA substitui, mas a gente faz a estimativa concreta antes de você fechar nada.
-
-**Vai substituir meu time?**
-Não. Vai tirar tarefa repetitiva do time pra que o mesmo time atenda mais ou faça melhor. Quando a IA cobre 80% dos casos simples, os 20% complexos chegam pro humano com contexto pronto, e ele resolve mais rápido.
-
-**E quando o modelo erra? Porque modelo erra.**
-Erra mesmo. A gente desenha o sistema pra que casos de baixa confiança caiam pro humano em vez de tentar adivinhar. E pra que erro grave (resposta inapropriada, dado errado) seja capturado pelo monitoramento, não pelo cliente.

@@ -77,6 +77,7 @@ export function llmsTxt(): string {
     link("Como trabalhamos", "/como-trabalhamos", "modelos de contratação, etapas do projeto e garantias"),
     link("Sobre", "/sobre", "quem somos, estrutura do time e liderança técnica"),
     link("Contato", "/contato", "formulário e WhatsApp, resposta em até 24h úteis"),
+    link("Pedir orçamento", "/orcamento", "três perguntas rápidas (o que precisa, porte e prazo) e o contato; estimativa em até 24h úteis, sem custo"),
     link("Área do cliente", "/area-do-cliente", "o cliente acompanha cronograma, entregas, chamados, documentos e faturas; demonstração em /area-do-cliente/demo"),
     "",
     "## Para agentes de IA",
@@ -119,6 +120,9 @@ function serviceMd(slug: string): string | null {
     "",
     servico.content.trim(),
     "",
+    ...(servico.faq.length
+      ? ["## Perguntas frequentes", "", ...servico.faq.flatMap((f) => [`### ${f.q}`, "", f.a, ""])]
+      : []),
     ...CONTACT_FOOTER,
   ].join("\n");
 }

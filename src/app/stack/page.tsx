@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, Button, JsonLd } from "@/components/ui";
+import { Reveal, SectionLabel, JsonLd, TrackedLink } from "@/components/ui";
 import { STACK } from "@/data/portfolio";
 import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "Tecnologias · firmino.dev";
 const DESCRIPTION =
@@ -86,9 +86,14 @@ export default function StackPage() {
                   <p className="text-[14px] text-text-dim leading-[1.7] max-w-[480px] mx-auto mb-7">
                     Trabalhamos com o que faz sentido para o problema. Conta pra gente o seu desafio.
                   </p>
-                  <Link href="/contato">
-                    <Button>Fale com a gente →</Button>
-                  </Link>
+                  <TrackedLink
+                    href={contactHref("stack")}
+                    event="cta_click"
+                    eventParams={{ location: "stack", label: "proposta" }}
+                    className="btn-primary inline-flex items-center justify-center"
+                  >
+                    Fale com a gente →
+                  </TrackedLink>
                 </div>
               </div>
             </Reveal>

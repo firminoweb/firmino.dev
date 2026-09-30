@@ -6,6 +6,7 @@ import { Navbar, Footer, Background } from "@/components/layout";
 import { JsonLd, SectionLabel } from "@/components/ui";
 import { mdxComponents } from "@/components/blog/MdxComponents";
 import { PostNav } from "@/components/blog/PostNav";
+import { PostCta } from "@/components/blog/PostCta";
 import { mdxOptions } from "@/lib/mdx-options";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 import { getAdjacentPosts, getAllSlugs, getPostBySlug } from "@/lib/blog";
@@ -150,6 +151,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   options={mdxOptions}
                 />
               </div>
+              <PostCta slug={post.slug} title={post.title} />
               <PostNav prev={prev} next={next} />
             </div>
           </section>

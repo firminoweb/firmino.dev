@@ -14,6 +14,7 @@ import { ENGAGEMENT_MODELS, PROCESS_STEPS, TEAM_AREAS, GUARANTEES } from "@/data
 import { COMPANY } from "@/data/portfolio";
 import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
 import type { TeamAreaId } from "@/types";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "Como trabalhamos · firmino.dev";
 const DESCRIPTION =
@@ -220,7 +221,7 @@ export default function ComoTrabalhamosPage() {
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
                     <TrackedLink
-                      href="/contato"
+                      href={contactHref("como_trabalhamos")}
                       event="cta_click"
                       eventParams={{ location: "como_trabalhamos", label: "proposta" }}
                       className="btn-primary inline-flex items-center justify-center"

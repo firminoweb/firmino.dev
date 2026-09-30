@@ -5,6 +5,7 @@ import { Reveal, SectionLabel, Button, Tag, JsonLd } from "@/components/ui";
 import { CLIENT_PROJECTS } from "@/data/portfolio";
 import { breadcrumbJsonLd, itemListJsonLd, OG_IMAGES } from "@/lib/seo";
 import { getAllSolucoes, segmentInSentence } from "@/lib/solucoes";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "Soluções por segmento · firmino.dev";
 const DESCRIPTION =
@@ -105,7 +106,7 @@ export default function SolucoesPage() {
                     A gente atende empresas de todo tipo, do pequeno negócio à grande operação. Conta o que você precisa.
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <Button href="/contato">Quero uma proposta →</Button>
+                    <Button href={contactHref("solucoes")}>Quero uma proposta →</Button>
                     <Button href="/servicos" variant="ghost">Ver todos os serviços</Button>
                   </div>
                 </div>

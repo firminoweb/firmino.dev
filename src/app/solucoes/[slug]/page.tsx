@@ -13,6 +13,7 @@ import { mdxOptions } from "@/lib/mdx-options";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL, ORG_ID, OG_IMAGES } from "@/lib/seo";
 import { getAllSolucoes, getSolucaoBySlug, segmentInSentence } from "@/lib/solucoes";
 import "../../blog/[slug]/prose.css";
+import { contactHref } from "@/lib/contact-options";
 
 interface SolucaoPageProps {
   params: Promise<{ slug: string }>;
@@ -112,7 +113,7 @@ export default async function SolucaoPage({ params }: SolucaoPageProps) {
               </ul>
               <div className="flex flex-wrap gap-3">
                 <TrackedLink
-                  href="/contato"
+                  href={contactHref(source)}
                   event="cta_click"
                   eventParams={{ location: source, label: "proposta" }}
                   className="btn-primary inline-flex items-center justify-center"
@@ -219,7 +220,7 @@ export default async function SolucaoPage({ params }: SolucaoPageProps) {
                     >
                       Falar no WhatsApp
                     </WhatsAppButton>
-                    <Button href="/contato" variant="ghost">Prefiro o formulário</Button>
+                    <Button href={contactHref(`${source}-final`)} variant="ghost">Prefiro o formulário</Button>
                   </div>
                 </div>
               </div>

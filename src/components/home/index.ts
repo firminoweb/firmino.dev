@@ -7,3 +7,4 @@ export { Testimonials } from "./Testimonials";
 export { StackSection } from "./StackSection";
 export { Faq } from "./Faq";
 export { AiCta } from "./AiCta";
+export { PedidoGuiado } from "./PedidoGuiado";

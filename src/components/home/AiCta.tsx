@@ -1,4 +1,5 @@
 import { Reveal, SectionLabel, TrackedLink } from "@/components/ui";
+import { contactHref } from "@/lib/contact-options";
 
 export function AiCta() {
   return (
@@ -18,7 +19,7 @@ export function AiCta() {
                 Coloque a inteligência artificial pra trabalhar no seu dia a dia: chatbot que atende cliente, agente que lê documento e automação que tira a tarefa repetitiva do time. Conectado ao que você já usa (WhatsApp, planilha, CRM) e entregue funcionando, sem precisar virar uma empresa de tecnologia.
               </p>
               <TrackedLink
-                href="/contato"
+                href={contactHref("ai_cta", "ia")}
                 event="cta_click"
                 eventParams={{ location: "ai_cta" }}
                 className="btn-primary inline-flex items-center justify-center"

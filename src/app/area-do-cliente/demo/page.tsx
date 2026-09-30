@@ -5,6 +5,7 @@ import { JsonLd, TrackedLink } from "@/components/ui";
 import { ProjectDetailView } from "@/components/portal/ProjectDetailView";
 import { PORTAL_DEMO } from "@/data/portal-demo";
 import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "Demonstração da área do cliente · firmino.dev";
 const DESCRIPTION =
@@ -37,7 +38,7 @@ export default function DemoPage() {
               <strong className="text-accent-light">Demonstração com dados fictícios.</strong> É assim que o cliente vê o próprio projeto.
             </p>
             <TrackedLink
-              href="/contato"
+              href={contactHref("area-do-cliente-demo")}
               event="cta_click"
               eventParams={{ location: "area-do-cliente-demo", label: "proposta" }}
               className="btn-primary !py-2 !px-4 text-[13px] inline-flex items-center"

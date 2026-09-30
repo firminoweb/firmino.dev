@@ -3,6 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 import { SERVICES } from "@/data/portfolio";
+import type { FaqItem } from "@/data/empresa";
 
 const SERVICOS_DIR = path.join(process.cwd(), "content/servicos");
 
@@ -15,6 +16,12 @@ export interface ServicoContent {
   headline?: string;
   /** Short keywords for SEO. */
   tags?: string[];
+  /** Slugs de cases de cliente que provam o serviço (opcional; slug errado quebra o build). */
+  cases: string[];
+  /** Mensagem pré-preenchida do WhatsApp (opcional). */
+  whatsapp?: string;
+  /** Perguntas frequentes do serviço (opcional); também geram o FAQPage. */
+  faq: FaqItem[];
   /** Última revisão relevante (frontmatter `updated`, YYYY-MM-DD). Alimenta o sitemap. */
   updated?: string;
   content: string;
@@ -39,6 +46,11 @@ function parseFile(file: string): ServicoContent {
     icon: String(data.icon ?? service?.icon ?? "◆"),
     headline: data.headline ? String(data.headline) : undefined,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : undefined,
+    cases: Array.isArray(data.cases) ? data.cases.map(String) : [],
+    whatsapp: data.whatsapp ? String(data.whatsapp) : undefined,
+    faq: Array.isArray(data.faq)
+      ? data.faq.map((f: { q: unknown; a: unknown }) => ({ q: String(f.q), a: String(f.a) }))
+      : [],
     updated:
       data.updated instanceof Date
         ? data.updated.toISOString().slice(0, 10)

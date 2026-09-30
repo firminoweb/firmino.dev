@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Reveal, SectionLabel, Button, Tag, JsonLd } from "@/components/ui";
+import { Reveal, SectionLabel, Button, Tag, JsonLd, TrackedLink } from "@/components/ui";
 import { SERVICES } from "@/data/portfolio";
 import { breadcrumbJsonLd, itemListJsonLd, OG_IMAGES } from "@/lib/seo";
 import { hasServicoContent } from "@/lib/servicos";
+import { contactHref } from "@/lib/contact-options";
 
 const TITLE = "Serviços · firmino.dev";
 const DESCRIPTION =
@@ -209,12 +210,15 @@ export default function ServicosPage() {
                     Conte para gente o que você está construindo. Respondemos em até 24h úteis.
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <Link href="/contato">
-                      <Button>Quero uma proposta →</Button>
-                    </Link>
-                    <Link href="/projetos">
-                      <Button variant="ghost">Ver cases</Button>
-                    </Link>
+                    <TrackedLink
+                      href={contactHref("servicos")}
+                      event="cta_click"
+                      eventParams={{ location: "servicos", label: "proposta" }}
+                      className="btn-primary inline-flex items-center justify-center"
+                    >
+                      Quero uma proposta →
+                    </TrackedLink>
+                    <Button href="/projetos" variant="ghost">Ver cases</Button>
                   </div>
                 </div>
               </div>

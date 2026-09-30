@@ -8,7 +8,7 @@ import { breadcrumbJsonLd, OG_IMAGES } from "@/lib/seo";
 const TITLE = "Política de Privacidade · firmino.dev";
 const DESCRIPTION =
   "Como a firmino.dev coleta, usa e protege os seus dados pessoais, em conformidade com a LGPD (Lei nº 13.709/2018).";
-const LAST_UPDATE = "25 de setembro de 2026";
+const LAST_UPDATE = "30 de setembro de 2026";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
@@ -71,8 +71,10 @@ export default function PrivacidadePage() {
               <h2>2. Quais dados coletamos</h2>
               <p>
                 <strong>Dados que você nos envia.</strong> Ao preencher o formulário de
-                contato, você informa nome, e-mail, empresa (opcional), o tipo de projeto
-                e a sua mensagem. Ao falar conosco por WhatsApp, telefone ou e-mail, você
+                contato ou o pedido de orçamento, você informa nome, e-mail, o tipo de
+                projeto e a sua mensagem e, se quiser, também empresa, WhatsApp, quanto
+                pensa em investir, o porte da empresa e o prazo. Junto vai o nome do botão
+                do site que levou você ao formulário. Ao falar conosco por WhatsApp, telefone ou e-mail, você
                 nos fornece os dados de contato correspondentes.
               </p>
               <p>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui";
 import { CLIENT_PROJECTS } from "@/data/portfolio";
 import { HERO_TRUST } from "@/data/empresa";
+import { contactHref } from "@/lib/contact-options";
 
 // Só clientes da firmino.dev. As marcas da carreira do fundador ficam na /joao.
 // Os logos de cliente são ícones quadrados, então o nome vai ao lado: sem ele,
@@ -50,7 +51,7 @@ export function Hero() {
           <div>
             <div className="flex flex-wrap gap-3.5">
               <TrackedLink
-                href="/contato"
+                href={contactHref("hero")}
                 event="cta_click"
                 eventParams={{ location: "hero", label: "proposta" }}
                 className="btn-primary inline-flex items-center justify-center"

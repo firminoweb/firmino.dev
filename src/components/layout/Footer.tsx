@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal, ObfuscatedContact } from "@/components/ui";
 import { CONTACT, COMPANY } from "@/data/portfolio";
+import { contactHref } from "@/lib/contact-options";
 
 const COMPANY_LINKS: { label: string; href: string }[] = [
   { label: "Sobre", href: "/sobre" },
@@ -8,7 +9,8 @@ const COMPANY_LINKS: { label: string; href: string }[] = [
   { label: "Soluções por segmento", href: "/solucoes" },
   { label: "Cases", href: "/projetos" },
   { label: "Blog", href: "/blog" },
-  { label: "Contato", href: "/contato" },
+  { label: "Pedir orçamento", href: "/orcamento" },
+  { label: "Contato", href: contactHref("footer") },
   { label: "Área do cliente", href: "/area-do-cliente" },
   { label: "Tecnologias", href: "/stack" },
 ];

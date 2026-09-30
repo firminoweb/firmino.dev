@@ -40,7 +40,7 @@ Ao adicionar um **módulo, lib, integração, variável de ambiente, script, rot
 ```bash
 npx tsc --noEmit -p .   # typecheck
 yarn lint
-yarn test               # testes da área do cliente
+yarn test               # testes (área do cliente e contrato do contato)
 yarn build              # build de produção
 ```
 
@@ -67,7 +67,7 @@ Site institucional da **firmino.dev** (J. H. FIRMINO & CIA LTDA, CNPJ 43.699.300
 | Conteúdo | MDX em `content/` via `next-mdx-remote` + `gray-matter` + `reading-time`, código com `rehype-pretty-code` + `shiki` |
 | Validação | `zod` v4 (API de contato, ferramentas MCP) |
 | Banco (área do cliente) | **Neon** Postgres + **Drizzle ORM** (`drizzle-orm/neon-http`); migrações `drizzle-kit` em `drizzle/`. Em dev sem `DATABASE_URL`: **PGlite** em `.pglite/` |
-| Testes | **Vitest** + PGlite em memória (`yarn test`, arquivos `src/**/*.test.ts`) |
+| Testes | **Vitest** + PGlite em memória (`yarn test`, arquivos `src/**/*.test.ts`): área do cliente, contrato e e-mail do contato (`lib/contact.test.ts`, `lib/contact-service.test.ts`, com a Resend simulada) |
 | MCP | `mcp-handler` 2.x + `@modelcontextprotocol/server` 2.x (servidor em `/mcp`, sem sessão, sem Redis) |
 | Imagens OG/sociais | `next/og` (`ImageResponse`) |
 | PDF do currículo | `pdfkit` (script `build:cv`) |
@@ -81,7 +81,7 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 | Integração | Onde | Observações |
 |---|---|---|
 | **Google Analytics 4** | `src/app/layout.tsx`, `src/lib/analytics.ts` | Stub síncrono do `gtag` no `<head>` + `gtag.js` em `lazyOnload`. Use sempre `trackEvent()`; ele não faz nada sem GA (dev/bloqueado). |
-| **Resend** (e-mail) | `src/app/api/contact/route.ts` | Envia o lead para `CONTACT_TO_EMAIL`. Sem `RESEND_API_KEY` só loga no console (dev). O e-mail mostra o canal (`channel`: form, webmcp ou api). |
+| **Resend** (e-mail) | `src/app/api/contact/route.ts` | Envia o lead para `CONTACT_TO_EMAIL`. Sem `RESEND_API_KEY` só loga no console (dev). O e-mail mostra o canal (`channel`: form, webmcp ou api), o botão de origem e, quando preenchidos, WhatsApp (link `wa.me`), verba estimada (também no assunto), porte e prazo. |
 | **IndexNow** (Bing e outros) | `scripts/indexnow.mjs`, `public/41ad4af2a450aca654dd4c9c55d18607.txt`, `.github/workflows/indexnow.yml` | Após cada deploy de produção da Vercel (evento `deployment_status`), avisa os buscadores das páginas principais + as com `lastmod` dos últimos 3 dias. A chave é pública por definição. |
 | **WhatsApp** (wa.me) | `whatsappLink()` em `src/data/portfolio.ts`, `WhatsAppButton`, `WhatsAppFab` | Link com mensagem pré-preenchida; clique dispara `generate_lead`. |
 | **Vercel** | hospedagem, `@vercel/speed-insights` no layout | |
@@ -91,8 +91,9 @@ Instaladas mas **sem uso no código hoje**: `@next/third-parties` e `STRAPI_URL`
 
 ### Convenção de eventos GA
 
-- `generate_lead` com `method: "form" | "whatsapp" | "webmcp"` e `source` (qual botão). É o evento de conversão (evento-chave no GA). Leads via MCP não passam pelo navegador e não geram evento no GA; aparecem só no e-mail ("Enviado por: Assistente de IA via conector MCP").
-- `cta_click` para CTAs que não são lead (via `TrackedLink` / `TrackedExternalLink`).
+- `generate_lead` com `method: "form" | "whatsapp" | "webmcp"` e `source` (qual botão; no formulário também `budget`). É o evento de conversão (evento-chave no GA). Leads via MCP não passam pelo navegador e não geram evento no GA; aparecem só no e-mail ("Enviado por: Assistente de IA via conector MCP").
+- `cta_click` para CTAs que não são lead (via `TrackedLink` / `TrackedExternalLink`). Início do pedido guiado = `cta_click` com `label: "pedido_guiado"`. O WhatsApp da tela de sucesso do formulário usa `cta_click` (o lead já foi contado no envio).
+- **Link para o formulário sempre com origem:** `contactHref(source, tipo?)` → `/contato?origem=...&tipo=...` e `orcamentoHref(source)` → `/orcamento?origem=...` (em `lib/contact-options.ts`). O formulário lê `?origem`/`?tipo` no navegador (as páginas seguem estáticas), pré-seleciona o tipo e manda `source` no GA e no e-mail ("Botão de origem"). O `?origem` da URL tem prioridade sobre o `source` fixo do componente. Nunca use `href="/contato"` puro em CTA novo.
 - Não crie nomes de evento novos sem necessidade; reutilize esses com parâmetros.
 
 ## Mapa do projeto
@@ -102,7 +103,7 @@ content/
   agent-skills/*.md     Skills para agentes (frontmatter name = nome do arquivo, description)
   solucoes/*.mdx        Páginas por segmento (/solucoes/<slug>; ver "Soluções por segmento")
   blog/*.mdx            Posts (frontmatter: title, description, date, updated?, tags, author, cover)
-  servicos/*.mdx        Página de detalhe de cada serviço (slug = SERVICES[].slug; frontmatter updated? opcional)
+  servicos/*.mdx        Página de detalhe de cada serviço (slug = SERVICES[].slug; frontmatter opcional: updated, cases (só case de cliente, senão o build falha), whatsapp, faq). A FAQ fica no frontmatter, não no corpo: vira acordeão, FAQPage e entra no /md. No lugar de "Pra quem NÃO é", a seção é "Qual o melhor caminho pra você" (cada caso vira uma saída, nunca uma recusa)
 docs/superpowers/       Specs e planos de features (brainstorming/writing-plans)
 public/                 Imagens, fontes, PDF do CV, assets sociais exportados
 scripts/
@@ -118,6 +119,7 @@ src/
     projetos/, projetos/[slug]/   Cases (dados em data/portfolio.ts)
     blog/, blog/[slug]/           Blog MDX
     como-trabalhamos/, sobre/, contato/, stack/, joao/, politica-de-privacidade/
+    orcamento/                    Pedido guiado (LeadWizard) + FAQ de orçamento; estática
     api/contact/route.ts          POST do formulário e da API pública (zod + honeypot + tempo mínimo + rate limit + Resend)
     api/health/route.ts           Status da API (dinâmico)
     openapi.json/, docs/api/      OpenAPI e documentação (Markdown) da API pública
@@ -137,6 +139,10 @@ src/
     globals.css         Tokens Tailwind v4, tema claro (padrão) e escuro (data-theme="dark")
   components/
     home/ layout/ blog/ projects/ forms/ ui/   (cada pasta exporta via index.ts)
+    forms/ContactForm.tsx   Formulário do lead (WhatsApp e verba opcionais; prop `compact` para o pedido guiado)
+    forms/LeadWizard.tsx    Pedido guiado: 3 perguntas de clique (tipo, porte, prazo) + ContactForm compacto. Sem preço de propósito
+    home/PedidoGuiado.tsx   LeadWizard na home (`source: home-orcamento`)
+    blog/PostCta.tsx        CTA no fim de todo post (`source: blog-<slug>`, WhatsApp cita o título do artigo)
     projects/CaseCard.tsx   Card de case reutilizado na home e nas soluções
     portal/                 ProjectDetailView (portal e demo), StatusBadge, form, SubmitButton, format
     home/Faq.tsx            Aceita `items`/`title` (padrão = FAQ da home) e gera o FAQPage
@@ -154,7 +160,7 @@ src/
     mcp.ts              MCP_SERVER (nome, versão, endpoint, descrição)
     ai-catalog.ts       mcpServerCard() e aiCatalog() (ARD)
     portal/             Área do cliente: auth (link mágico), access (leitura com isolamento), admin (ações), session (cookies), notify (e-mails), types, tokens
-    contact-options.ts  PROJECT_TYPES, MIN_FILL_TIME_MS, LEAD_CHANNELS. Sem zod: pode ir pro cliente.
+    contact-options.ts  PROJECT_TYPES, BUDGET_RANGES, COMPANY_SIZES, TIMELINES, MIN_FILL_TIME_MS, LEAD_CHANNELS, contactHref(), orcamentoHref(). Sem zod: pode ir pro cliente.
     api-docs.ts         openApiSpec() (gerado do ContactSchema) e apiDocsMd()
     webmcp.ts           Ferramentas WebMCP (carregado sob demanda por components/ui/WebMcpTools)
     agent-skills.ts     Leitura das skills de content/agent-skills + digest sha256
@@ -209,7 +215,7 @@ Spec: `docs/superpowers/specs/2026-09-25-area-do-cliente-design.md`. **Status, p
 - **robots.txt**: `Content-Signal: search=yes, ai-input=yes, ai-train=yes` (decisão do João em 2026-09-25: liberar tudo). O `MetadataRoute.Robots` não suporta essa diretiva, por isso é route handler.
 - **JSON-LD**: Organization com `knowsAbout` (`KNOWS_ABOUT`) e `hasOfferCatalog`; `ItemList` em `/servicos` e `/projetos`; `Service.provider` aponta para `ORG_ID`.
 - **WebMCP**: `<WebMcpTools />` no layout detecta `document.modelContext` (spec atual) ou `navigator.modelContext` (implementações antigas) e só então importa `lib/webmcp.ts`. Ferramentas: `listar_servicos`, `listar_cases`, `ler_pagina` (só caminhos com versão Markdown) e `solicitar_orcamento` (POST /api/contact com `channel: "webmcp"`, dispara `generate_lead` com `method: "webmcp"`). Suporta `registerTool` e, como fallback, `provideContext`.
-- **API pública**: só o `POST /api/contact`. Publicada em `/.well-known/api-catalog` (RFC 9727, com `rel="api-catalog"` no Link header global), `/openapi.json` (gerado do `ContactSchema`, sem honeypot/atribuição/canal) e `/docs/api`. Campo novo no contato: atualizar `lib/contact.ts`; o OpenAPI acompanha sozinho, a tabela de `apiDocsMd()` não.
+- **API pública**: só o `POST /api/contact`. Publicada em `/.well-known/api-catalog` (RFC 9727, com `rel="api-catalog"` no Link header global), `/openapi.json` (gerado do `ContactSchema`, sem honeypot/atribuição/canal/botão de origem) e `/docs/api`. Campo novo no contato: atualizar `lib/contact.ts`; o OpenAPI acompanha sozinho, a tabela de `apiDocsMd()` não.
 - **Agent Skills**: `/.well-known/agent-skills/index.json` lista as skills de `content/agent-skills/` com digest sha256 calculado no build. Hoje: `conhecer-firmino-dev` e `solicitar-orcamento-firmino-dev`.
 - **Zod fora do cliente**: `lib/contact.ts` importa zod; código `"use client"` e `lib/webmcp.ts` importam só de `lib/contact-options.ts`.
 - **Servidor MCP** (`/mcp`): as mesmas 4 ferramentas do WebMCP, com descrições compartilhadas via `lib/agent-tools.ts` (mudou uma, mudou nas duas). Leitura via `pageMarkdown()`. `solicitar_orcamento` chama `submitContact()` com `channel: "mcp"` e exige `pessoa_confirmou: true` (fora do navegador não existe clique de "enviar"). O rate limit usa um balde único `"mcp"`, porque o IP que chega é o do assistente (Anthropic, OpenAI), não o da pessoa. Sem login: qualquer um adiciona como conector.

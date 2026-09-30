@@ -3,12 +3,36 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Navbar, Footer, Background } from "@/components/layout";
-import { Button, JsonLd, SectionLabel, Tag } from "@/components/ui";
+import {
+  Button,
+  JsonLd,
+  Reveal,
+  SectionLabel,
+  Tag,
+  TrackedLink,
+  WhatsAppButton,
+  WhatsAppGlyph,
+} from "@/components/ui";
+import { Faq } from "@/components/home";
+import { CaseCard } from "@/components/projects/CaseCard";
 import { mdxComponents } from "@/components/blog/MdxComponents";
+import { CLIENT_PROJECTS } from "@/data/portfolio";
+import { contactHref, type PROJECT_TYPE_VALUES } from "@/lib/contact-options";
 import { mdxOptions } from "@/lib/mdx-options";
 import { absoluteUrl, breadcrumbJsonLd, SITE_URL, ORG_ID, OG_IMAGES } from "@/lib/seo";
 import { getAllServicoSlugs, getServicoBySlug } from "@/lib/servicos";
 import "../../blog/[slug]/prose.css";
+
+// Serviço que tem tipo equivalente no formulário já chega com ele selecionado
+const PROJECT_TYPE_BY_SERVICO: Record<string, (typeof PROJECT_TYPE_VALUES)[number]> = {
+  "aplicacoes-web-sob-medida": "web",
+  "app-mobile-sob-medida": "mobile",
+  "automacoes-com-ia": "ia",
+  "reforco-tecnico-agencia": "reforco",
+};
+
+const WHATSAPP_BUTTON_CLASS =
+  "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[10px] bg-[#15803d] text-white font-semibold text-[14px] hover:bg-[#166534] transition-colors";
 
 interface ServicoPageProps {
   params: Promise<{ slug: string }>;
@@ -57,6 +81,18 @@ export default async function ServicoDetailPage({ params }: ServicoPageProps) {
   const servico = getServicoBySlug(slug);
 
   if (!servico) notFound();
+
+  // Mesmo critério das soluções: só case de cliente publicado; slug errado quebra o build
+  const cases = servico.cases.map((caseSlug) => {
+    const project = CLIENT_PROJECTS.find((p) => p.slug === caseSlug);
+    if (!project) throw new Error(`[servicos/${slug}] "${caseSlug}" não é um case de cliente publicado`);
+    return project;
+  });
+  const source = `servico-${servico.slug}`;
+  const formHref = contactHref(source, PROJECT_TYPE_BY_SERVICO[servico.slug]);
+  const whatsappMessage =
+    servico.whatsapp ??
+    `Olá! Vim pela página "${servico.title}" no site da firmino.dev e quero conversar sobre um projeto.`;
 
   const url = absoluteUrl(`/servicos/${servico.slug}`);
   const serviceJsonLd = {
@@ -122,12 +158,26 @@ export default async function ServicoDetailPage({ params }: ServicoPageProps) {
                 </p>
               )}
               {servico.tags && servico.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5 mb-8">
                   {servico.tags.map((t) => (
                     <Tag key={t}>{t}</Tag>
                   ))}
                 </div>
               )}
+              <div className="flex flex-wrap gap-3">
+                <TrackedLink
+                  href={formHref}
+                  event="cta_click"
+                  eventParams={{ location: source, label: "proposta" }}
+                  className="btn-primary inline-flex items-center justify-center"
+                >
+                  Quero uma proposta →
+                </TrackedLink>
+                <WhatsAppButton message={whatsappMessage} source={source} className={WHATSAPP_BUTTON_CLASS}>
+                  <WhatsAppGlyph className="w-[18px] h-[18px]" />
+                  Falar no WhatsApp
+                </WhatsAppButton>
+              </div>
             </div>
           </section>
 
@@ -143,6 +193,29 @@ export default async function ServicoDetailPage({ params }: ServicoPageProps) {
             </div>
           </section>
 
+          {cases.length > 0 && (
+            <section className="section-padding !pt-4">
+              <div className="content-container max-w-[760px]">
+                <Reveal>
+                  <SectionLabel>{cases.length > 1 ? "Cases" : "Case"}</SectionLabel>
+                  <h2 className="font-serif section-heading !text-[clamp(24px,3vw,34px)] mb-8">
+                    Já está funcionando{" "}
+                    <span className="text-accent-light italic">em produção</span>
+                  </h2>
+                </Reveal>
+                <div className="flex flex-col gap-[18px]">
+                  {cases.map((p) => (
+                    <Reveal key={p.slug}>
+                      <CaseCard project={p} />
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {servico.faq.length > 0 && <Faq items={servico.faq} />}
+
           <section className="section-padding !pt-4">
             <div className="content-container max-w-[760px]">
               <div className="gc py-10 px-6 sm:py-14 sm:px-12 text-center relative overflow-hidden">
@@ -156,12 +229,23 @@ export default async function ServicoDetailPage({ params }: ServicoPageProps) {
                     Conta o que você precisa. A gente responde em até 24h úteis com um plano e estimativa.
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <Link href="/contato">
-                      <Button>Quero conversar →</Button>
-                    </Link>
-                    <Link href="/servicos">
-                      <Button variant="ghost">Ver outros serviços</Button>
-                    </Link>
+                    <TrackedLink
+                      href={contactHref(`${source}-final`, PROJECT_TYPE_BY_SERVICO[servico.slug])}
+                      event="cta_click"
+                      eventParams={{ location: `${source}-final`, label: "proposta" }}
+                      className="btn-primary inline-flex items-center justify-center"
+                    >
+                      Quero conversar →
+                    </TrackedLink>
+                    <WhatsAppButton
+                      message={whatsappMessage}
+                      source={`${source}-final`}
+                      className={WHATSAPP_BUTTON_CLASS}
+                    >
+                      <WhatsAppGlyph className="w-[18px] h-[18px]" />
+                      Falar no WhatsApp
+                    </WhatsAppButton>
+                    <Button href="/servicos" variant="ghost">Ver outros serviços</Button>
                   </div>
                 </div>
               </div>
